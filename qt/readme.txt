@@ -1,0 +1,1 @@
+This directory includes code for Qt version of the client. Possible targets are N9, Symbian^3, N900.
