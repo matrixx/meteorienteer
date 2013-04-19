@@ -5,6 +5,7 @@
 #include <QNetworkAccessManager>
 #include <QDomElement>
 #include <QVector>
+#include <QMap>
 
 class TaivaanvahtiField;
 
@@ -21,15 +22,20 @@ class Taivaanvahti : public QObject
 {
     Q_OBJECT
 public:
+    typedef QMap<TaivaanvahtiField*, QString> FormData;
+
     explicit Taivaanvahti(QObject *parent = 0);
     void getForm(int category);
-
+    void submitForm(FormData form, int category);
 signals:
+    // fields is valid only during call and will be deleted after.
     void formReceived(QVector<TaivaanvahtiField*> &fields);
 
 private slots:
-    void replyFinished(QNetworkReply* reply);
+    void getFormFinished();
+    void submitFormFinished();
 private:
+    QString readFile(QString filename);
     void handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields);
     QNetworkAccessManager nam;
 };

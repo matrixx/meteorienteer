@@ -1,6 +1,6 @@
 #include <QApplication>
 #include "qmlapplicationviewer.h"
-#include "taivaanvahti.h"
+#include "taivaanvahtitest.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -10,7 +10,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/Meteorienteer/main.qml"));
     viewer.showExpanded();
-    Taivaanvahti tv;
-    tv.getForm(1);
+    TaivaanvahtiTest tvt;
+    tvt.runTest();
     return app->exec();
 }

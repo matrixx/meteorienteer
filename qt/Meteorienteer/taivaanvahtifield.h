@@ -5,7 +5,9 @@
 #include <QDomElement>
 #include <QUrl>
 #include <QMap>
+#include <QString>
 
+// Value id, name
 typedef QMap<QString, QString> ValueList;
 
 class TaivaanvahtiField : public QObject
@@ -28,8 +30,11 @@ public:
         TYPE_COORDINATE,
         TYPE_TIME
     };
+
     explicit TaivaanvahtiField(QObject *parent = 0);
-    void parseFieldElement(QDomElement elem);
+    void parseFieldElement(QDomElement elem); // Parse field from XML element
+    void createFieldElement(QDomElement elem, QString value, QDomDocument &doc);
+    static void createFieldElement(QDomElement elem, QString name, QString value, QDomDocument &doc);
     QString id() {return fieldId;};
     QString label() {return fieldLabel;};
     QString info() {return fieldInfo;};

@@ -34,7 +34,8 @@ CONFIG += qdeclarative-boostable mobility
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     taivaanvahti.cpp \
-    taivaanvahtifield.cpp
+    taivaanvahtifield.cpp \
+    taivaanvahtitest.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -47,11 +48,15 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/copyright \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
-    qtc_packaging/debian_harmattan/changelog
+    qtc_packaging/debian_harmattan/changelog \
+    testi.xml
+
+OTHER_FILES += testi.xml
 
 RESOURCES += \
     resources.qrc
 
 HEADERS += \
     taivaanvahti.h \
-    taivaanvahtifield.h
+    taivaanvahtifield.h \
+    taivaanvahtitest.h
