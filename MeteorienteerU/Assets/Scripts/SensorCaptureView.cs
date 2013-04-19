@@ -3,13 +3,20 @@ using System.Collections;
 
 public class SensorCaptureView : MonoBehaviour
 {
-	
+	public CamViewer deviceCamera;
 	private MainMenu mainMenu;
 	private DirectionView directionView;
 	
-	void Awake(){
+	void Awake()
+	{
 		mainMenu = GetComponent<MainMenu>();
 		directionView = GetComponent<DirectionView>();
+		
+	}
+	
+	void OnEnable()
+	{
+		if (deviceCamera) deviceCamera.gameObject.SetActiveRecursively(true);
 	}
 	
 	void OnGUI()
@@ -27,7 +34,8 @@ public class SensorCaptureView : MonoBehaviour
 			mainMenu.enabled = true;
 		}
 		GUILayout.FlexibleSpace();
-		if(GUILayout.Button(Loc.Str("sensorcapture_capture"))){
+		if(GUILayout.Button(Loc.Str("sensorcapture_capture")))
+		{
 			this.enabled = false;
 			directionView.enabled = true;
 		}
@@ -37,5 +45,10 @@ public class SensorCaptureView : MonoBehaviour
 		GUILayout.Label("");
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
+	}
+	
+	void OnDisable()
+	{
+		if (deviceCamera) deviceCamera.gameObject.SetActiveRecursively(false);
 	}
 }
