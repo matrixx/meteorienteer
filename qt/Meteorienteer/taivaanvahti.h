@@ -29,7 +29,8 @@ public:
     Q_INVOKABLE void getForm(int category);
     void submitForm(FormData form, int category);
 signals:
-    Q_INVOKABLE void formReceived(TaivaanvahtiForm* form);
+    void formReceived(TaivaanvahtiForm* form);
+    void formSubmitted(bool success, int observationId, QString key);
 
 private slots:
     void getFormFinished();
