@@ -35,7 +35,8 @@ CONFIG += qdeclarative-boostable mobility
 SOURCES += main.cpp \
     taivaanvahti.cpp \
     taivaanvahtifield.cpp \
-    taivaanvahtitest.cpp
+    taivaanvahtitest.cpp \
+    starview.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -48,10 +49,7 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/copyright \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
-    qtc_packaging/debian_harmattan/changelog \
-    testi.xml
-
-OTHER_FILES += testi.xml
+    qtc_packaging/debian_harmattan/changelog
 
 RESOURCES += \
     resources.qrc
@@ -59,4 +57,5 @@ RESOURCES += \
 HEADERS += \
     taivaanvahti.h \
     taivaanvahtifield.h \
-    taivaanvahtitest.h
+    taivaanvahtitest.h \
+    starview.h

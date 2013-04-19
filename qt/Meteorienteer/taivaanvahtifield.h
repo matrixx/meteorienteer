@@ -19,7 +19,7 @@ class TaivaanvahtiField : public QObject
     Q_PROPERTY(QUrl infoUrl READ infoUrl)
     Q_PROPERTY(bool isMandatory READ isMandatory)
     Q_PROPERTY(FieldType type READ type)
-    Q_PROPERTY(ValueList values READ values);
+    Q_PROPERTY(ValueList values READ values)
 public:
     enum FieldType {
         TYPE_NOT_SET=0,
