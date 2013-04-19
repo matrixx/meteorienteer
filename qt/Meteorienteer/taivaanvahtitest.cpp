@@ -47,21 +47,21 @@ void TaivaanvahtiTest::formReceived(TaivaanvahtiForm* form)
         case TaivaanvahtiField::TYPE_NOT_SET:
             qDebug() << Q_FUNC_INFO << "Warning: Type not set for a field!";
         }
-        if(field->id()=="user_email") value = "testi@spaceship.fi";
-        if(field->id()=="observation_location") value = "tampere";
-        if(field->id()=="user_phone") value = "0407572533";
-        if(field->id()=="user_team") value = "Tampereen Ursa";
+        bool add = true;
+        if(field->id()=="user_email") value = "antti.kantola@mediasignal.fi";
         if(field->id()=="observation_showiness") value = "1";
+/*        if(field->id()=="observation_location") value = "tampere";
+        if(field->id()=="user_phone") value = "0405886215";
+        if(field->id()=="user_team") value = "Tampereen Ursa";
         if(field->id()=="observation_end_hours") value= "13:30";
         if(field->id()=="specific_lentokulma") value="100";
-        bool add = true;
         if(field->id().contains("minutes")) add=false;
         if(field->id()=="specific_tulipallon_kirkkaus") add = false;
         if(field->id()=="observation_demo_picture") add=false;
         if(field->id()=="observation_public") add=false;
         if(field->id()=="observation_user_pictures") add=false;
         if(field->id()=="observation_equipment") add=false;
-        if(field->id()=="specific_havaintoajan_tarkkuus") add=false;
+        if(field->id()=="specific_havaintoajan_tarkkuus") add=false;*/
         if(add) {
             qDebug() << field->id() << field->type() << value;
             formData.insert(field, value);

@@ -66,7 +66,6 @@ void Taivaanvahti::submitForm(QMap<TaivaanvahtiField *, QString> form, int categ
     TaivaanvahtiField::createFieldElement(categoryElement, "specific_havaintokategoria", "Tulipallo", doc);
     // end category
     outString = doc.toString();
-//    QNetworkReply *reply = nam.post(request, doc.toString().toUtf8());
 #else
     outString = readFile("testi.xml");
 #endif
@@ -130,7 +129,7 @@ void Taivaanvahti::submitFormFinished()
         QDomElement observationIdElem = docElem.firstChildElement("observation_id");
         id = observationIdElem.text().toInt();
         QDomElement observationKeyElem = docElem.firstChildElement("observation_modification_key");
-        key = observationKeyElem.text().toInt();
+        key = observationKeyElem.text();
     }
     qDebug() << Q_FUNC_INFO << "success: " << success << " id: " << id << "key:" << key;
     emit formSubmitted(success, id, key);
