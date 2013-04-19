@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(SensorCaptureView))]
 public class MainMenu : MonoBehaviour
 {
-	//public GUIStyle buttonStyle;
+	public Texture bgImage;
 	private SensorCaptureView sensorCaptureView;
 	private InfoView infoView;
 	
@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
 	void OnGUI()
 	{
 		GUI.skin = GUIOptions.Singleton.appStyle;
+		GUILayout.Box(new GUIContent(bgImage));
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();
