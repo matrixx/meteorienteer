@@ -3,7 +3,8 @@
 
 #include <QObject>
 #include "taivaanvahti.h"
-#include "taivaanvahtifield.h"
+
+class TaivaanvahtiForm;
 
 class TaivaanvahtiTest : public QObject
 {
@@ -15,7 +16,7 @@ signals:
     
 public slots:
 private slots:
-    void formReceived(QVector<TaivaanvahtiField*> &fields);
+    void formReceived(TaivaanvahtiForm* form);
 private:
     Taivaanvahti tv;
 };
