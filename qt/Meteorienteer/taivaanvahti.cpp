@@ -116,6 +116,22 @@ void Taivaanvahti::submitFormFinished()
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
     QString replyString = QString::fromUtf8(reply->readAll());
     qDebug() << Q_FUNC_INFO << replyString;
+    bool success = false;
+    int id = 0;
+    QString key;
+    QDomDocument doc;
+    if(doc.setContent(replyString)) {
+        QDomElement docElem = doc.documentElement();
+        qDebug() << Q_FUNC_INFO << docElem.tagName();
+        QDomElement responseTypeElem = docElem.firstChildElement("response_type");
+        success = responseTypeElem.text()=="Success";
+        QDomElement observationIdElem = docElem.firstChildElement("observation_id");
+        id = observationIdElem.text().toInt();
+        QDomElement observationKeyElem = docElem.firstChildElement("observation_modification_key");
+        key = observationKeyElem.text().toInt();
+    }
+    qDebug() << Q_FUNC_INFO << success << id << key;
+    emit formSubmitted(success, id, key);
 }
 
 void Taivaanvahti::handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields)

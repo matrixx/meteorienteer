@@ -30,6 +30,7 @@ public:
     void submitForm(FormData form, int category);
 signals:
     Q_INVOKABLE void formReceived(QVector<TaivaanvahtiField*> &fields);
+    void formSubmitted(bool success, int observationId, QString key);
 
 private slots:
     void getFormFinished();
