@@ -5,7 +5,14 @@ public class CamViewer : MonoBehaviour
 {
 	public float distanceFromCamera = 10f;
 	
-	private WebCamTexture webCamTex;
+	public WebCamTexture webCamTex;
+	
+	public static CamViewer Current {get; private set;}
+	
+	void Awake()
+	{
+		Current = this;
+	}
 	
 	void OnEnable()
 	{
@@ -30,5 +37,10 @@ public class CamViewer : MonoBehaviour
 	void OnDisable()
 	{
 		webCamTex.Stop();
+	}
+	
+	void OnDestro()
+	{
+		Current = null;
 	}
 }

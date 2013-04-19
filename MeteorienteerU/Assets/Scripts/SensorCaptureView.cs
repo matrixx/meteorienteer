@@ -16,7 +16,14 @@ public class SensorCaptureView : MonoBehaviour
 	
 	void OnEnable()
 	{
-		if (deviceCamera) deviceCamera.gameObject.SetActiveRecursively(true);
+		if (deviceCamera)
+		{
+			deviceCamera.gameObject.SetActiveRecursively(true);
+			if (!deviceCamera.webCamTex.isPlaying)
+			{
+				deviceCamera.webCamTex.Play();
+			}
+		}
 	}
 	
 	void OnGUI()
@@ -32,10 +39,15 @@ public class SensorCaptureView : MonoBehaviour
 		{
 			this.enabled = false;
 			mainMenu.enabled = true;
+			if (deviceCamera)
+			{
+				deviceCamera.gameObject.SetActiveRecursively(false);
+			}
 		}
 		GUILayout.FlexibleSpace();
 		if(GUILayout.Button(Loc.Str("sensorcapture_capture")))
 		{
+			SensorData.CaptureNow();
 			this.enabled = false;
 			directionView.enabled = true;
 		}
@@ -49,6 +61,6 @@ public class SensorCaptureView : MonoBehaviour
 	
 	void OnDisable()
 	{
-		if (deviceCamera) deviceCamera.gameObject.SetActiveRecursively(false);
+		if (deviceCamera) deviceCamera.webCamTex.Pause();
 	}
 }
