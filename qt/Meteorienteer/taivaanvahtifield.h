@@ -30,13 +30,14 @@ public:
     };
     explicit TaivaanvahtiField(QObject *parent = 0);
     void parseFieldElement(QDomElement elem);
-    QString id() {return fieldId;}
-    QString label() {return fieldLabel;}
-    QString info() {return fieldInfo;}
-    QUrl infoUrl() {return fieldInfoUrl;}
-    bool isMandatory() {return mandatory;}
-    FieldType type() {return fieldType;}
-    ValueList values() {return fieldValues;}
+    Q_INVOKABLE QString id() {return fieldId;};
+    Q_INVOKABLE QString label() {return fieldLabel;};
+    Q_INVOKABLE QString info() {return fieldInfo;};
+    Q_INVOKABLE QUrl infoUrl() {return fieldInfoUrl;};
+    Q_INVOKABLE bool isMandatory() {return mandatory;};
+    Q_INVOKABLE FieldType type() {return fieldType;};
+    Q_INVOKABLE ValueList values() {return fieldValues;};
+>>>>>>> a8da5c823819b4fae2235abc1c51d6d9e5200ce7
 private:
     QString fieldId, fieldLabel, fieldInfo;
     QUrl fieldInfoUrl;

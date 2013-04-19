@@ -3,6 +3,7 @@ import QtQuick 1.1
 import QtMultimediaKit 1.1
 
 Rectangle {
+    signal measurementsSaved
     anchors.fill: parent
     color: "black"
 
@@ -23,8 +24,6 @@ Rectangle {
         height: parent.height
         captureResolution: "900x506" // 3:2
         Column {
-            x: parent.TopLeft
-            y: parent.TopRight
             id: pageContent
             spacing: 16
             Text {
@@ -42,6 +41,12 @@ Rectangle {
                 text: qsTr("GPS coordinates: %1 | %2").arg(measurements.latitude).arg(measurements.longitude)
                 color: "#0000ff"
             }
+        }
+    }
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            measurementsSaved();
         }
     }
 }
