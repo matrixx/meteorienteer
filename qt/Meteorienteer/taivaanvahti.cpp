@@ -3,15 +3,12 @@
 #include <QNetworkReply>
 #include <QDebug>
 #include <QDomDocument>
-
+#include <QFile>
 #include "taivaanvahtifield.h"
 
 Taivaanvahti::Taivaanvahti(QObject *parent) :
     QObject(parent)
-{
-    connect(&nam, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyFinished(QNetworkReply*)));
-}
+{}
 
 void Taivaanvahti::getForm(int category)
 {
@@ -22,13 +19,82 @@ void Taivaanvahti::getForm(int category)
                                     "<Category>%1</Category>"
                                     "</Request>").arg(category);
 
-    nam.post(request, requestString.toUtf8());
+    QNetworkReply *reply = nam.post(request, requestString.toUtf8());
+    connect(reply, SIGNAL(finished()), this, SLOT(getFormFinished()));
 }
 
-void Taivaanvahti::replyFinished(QNetworkReply *reply)
+void Taivaanvahti::submitForm(QMap<TaivaanvahtiField *, QString> form, int category)
 {
+    QNetworkRequest request;
+    request.setUrl(QUrl("https://www.taivaanvahti.fi/api"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "text/xml");
+    QString outString;
+#ifndef LAHETAOIKEASTI
+    QDomDocument doc;
+    QDomElement requestElement = doc.createElement("Request");
+    doc.appendChild(requestElement);
+    QDomElement actionElement = doc.createElement("Action");
+    requestElement.appendChild(actionElement);
+    QDomText actionText = doc.createTextNode("ObservationAddRequest");
+    actionElement.appendChild(actionText);
+    QDomElement observationElement = doc.createElement("observation");
+    requestElement.appendChild(observationElement);
+    foreach(TaivaanvahtiField *field, form.keys()) {
+//        if(field->isMandatory())
+            field->createFieldElement(observationElement, form.value(field), doc);
+    }
+    // Create category id
+    QDomElement fieldElement = doc.createElement("field");
+    observationElement.appendChild(fieldElement);
+
+    QDomElement fieldIdElement = doc.createElement("field_id");
+    fieldElement.appendChild(fieldIdElement);
+
+    QDomText fieldIdText = doc.createTextNode("category_id");
+    fieldIdElement.appendChild(fieldIdText);
+
+    QDomElement fieldValueElement = doc.createElement("field_value");
+    fieldElement.appendChild(fieldValueElement);
+    QDomText fieldValueText = doc.createTextNode(QString::number(category));
+    fieldValueElement.appendChild(fieldValueText);
+    // end category id
+    // add category
+    QDomElement categoryElement = doc.createElement("category");
+    observationElement.appendChild(categoryElement);
+    TaivaanvahtiField::createFieldElement(categoryElement, "category_id", "tulipallo", doc);
+    TaivaanvahtiField::createFieldElement(categoryElement, "specific_havaintokategoria", "Tulipallo", doc);
+    // end category
+    outString = doc.toString();
+//    QNetworkReply *reply = nam.post(request, doc.toString().toUtf8());
+#else
+    outString = readFile("testi.xml");
+#endif
+    qDebug() << Q_FUNC_INFO << "Out: " << outString;
+    QNetworkReply *reply = nam.post(request, outString.toUtf8());
+    connect(reply, SIGNAL(finished()), this, SLOT(submitFormFinished()));
+}
+
+QString Taivaanvahti::readFile(QString filename) {
+  QFile file(filename);
+  if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+     return NULL;
+  }
+
+  QByteArray total;
+  QByteArray line;
+  while (!file.atEnd()) {
+     line = file.read(1024);
+     total.append(line);
+  }
+
+  return QString::fromUtf8(total);
+}
+
+void Taivaanvahti::getFormFinished()
+{
+    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
     QString replyString = QString::fromUtf8(reply->readAll());
-    QVariantList fields;
+    QVector<TaivaanvahtiField*> fields;
     QDomDocument doc;
     if(doc.setContent(replyString)) {
         // qDebug() << Q_FUNC_INFO << doc.toString();
@@ -45,14 +111,21 @@ void Taivaanvahti::replyFinished(QNetworkReply *reply)
     emit formReceived(fields);
 }
 
-void Taivaanvahti::handleCategory(QDomElement categoryElem, QVariantList &fields)
+void Taivaanvahti::submitFormFinished()
+{
+    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+    QString replyString = QString::fromUtf8(reply->readAll());
+    qDebug() << Q_FUNC_INFO << replyString;
+}
+
+void Taivaanvahti::handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields)
 {
     QDomElement e = categoryElem.firstChildElement();
     while(!e.isNull()) {
         if(e.tagName()=="field" || e.tagName()=="specific") {
             TaivaanvahtiField *field = new TaivaanvahtiField(this);
             field->parseFieldElement(e);
-            fields.append(qVariantFromValue((QObject*)field));
+            fields.append(field);
         }
         e = e.nextSiblingElement();
     }

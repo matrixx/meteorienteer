@@ -34,7 +34,9 @@ CONFIG += qdeclarative-boostable mobility
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     taivaanvahti.cpp \
-    taivaanvahtifield.cpp
+    taivaanvahtifield.cpp \
+    taivaanvahtitest.cpp \
+    starview.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -54,4 +56,6 @@ RESOURCES += \
 
 HEADERS += \
     taivaanvahti.h \
-    taivaanvahtifield.h
+    taivaanvahtifield.h \
+    taivaanvahtitest.h \
+    starview.h

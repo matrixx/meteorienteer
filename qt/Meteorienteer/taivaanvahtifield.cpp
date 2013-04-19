@@ -37,3 +37,29 @@ void TaivaanvahtiField::parseFieldElement(QDomElement elem)
     if(!fieldValues.isEmpty()) fieldType = TYPE_SELECTION;
     // qDebug() << fieldId << fieldLabel << fieldValues;
 }
+
+void TaivaanvahtiField::createFieldElement(QDomElement elem, QString value, QDomDocument &doc)
+{
+    QString idString = id();
+    // Workarounds:
+    if(idString == "observation_start_hours") idString = "start_hours";
+    if(idString == "observation_end_hours") idString = "end_hours";
+    createFieldElement(elem, idString, value, doc);
+}
+
+void TaivaanvahtiField::createFieldElement(QDomElement elem, QString name, QString value, QDomDocument &doc)
+{
+    QDomElement fieldElement = doc.createElement("field");
+    elem.appendChild(fieldElement);
+
+    QDomElement fieldIdElement = doc.createElement("field_id");
+    fieldElement.appendChild(fieldIdElement);
+
+    QDomText fieldIdText = doc.createTextNode(name);
+    fieldIdElement.appendChild(fieldIdText);
+
+    QDomElement fieldValueElement = doc.createElement("field_value");
+    fieldElement.appendChild(fieldValueElement);
+    QDomText fieldValueText = doc.createTextNode(value);
+    fieldValueElement.appendChild(fieldValueText);
+}
