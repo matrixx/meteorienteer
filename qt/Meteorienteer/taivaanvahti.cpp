@@ -122,7 +122,6 @@ void Taivaanvahti::submitFormFinished()
     QDomDocument doc;
     if(doc.setContent(replyString)) {
         QDomElement docElem = doc.documentElement();
-        qDebug() << Q_FUNC_INFO << docElem.tagName();
         QDomElement responseTypeElem = docElem.firstChildElement("response_type");
         success = responseTypeElem.text()=="Success";
         QDomElement observationIdElem = docElem.firstChildElement("observation_id");
@@ -130,7 +129,7 @@ void Taivaanvahti::submitFormFinished()
         QDomElement observationKeyElem = docElem.firstChildElement("observation_modification_key");
         key = observationKeyElem.text().toInt();
     }
-    qDebug() << Q_FUNC_INFO << success << id << key;
+    qDebug() << Q_FUNC_INFO << "success: " << success << " id: " << id << "key:" << key;
     emit formSubmitted(success, id, key);
 }
 

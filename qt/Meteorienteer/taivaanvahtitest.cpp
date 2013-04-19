@@ -21,7 +21,7 @@ void TaivaanvahtiTest::formReceived(QVector<TaivaanvahtiField*> &fields)
     foreach(TaivaanvahtiField *field, fields) {
         qDebug() << field->id() << field->values();
 
-        QString value = "testi testitesti";
+        QString value = "testi testitesti Testi";
         switch(field->type()) {
         case TaivaanvahtiField::TYPE_CHECKBOX:
             value = "true";
