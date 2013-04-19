@@ -3,6 +3,7 @@ using System.Collections;
 
 public class AdditionalData : MonoBehaviour {
 	
+	public Texture bgImage;
 	private DirectionView directionView;
 
 	void Awake(){
@@ -11,6 +12,7 @@ public class AdditionalData : MonoBehaviour {
 	
 	void OnGUI(){
 		GUI.skin = GUIOptions.Singleton.appStyle;
+		GUILayout.Box(new GUIContent(bgImage));
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
 		GUILayout.Label(Loc.Str("data_guide"));

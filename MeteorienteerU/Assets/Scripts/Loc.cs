@@ -9,7 +9,7 @@ public class Loc : MonoBehaviour
 		private Dictionary<string, string> translation = new Dictionary<string, string>();
 		public Translation(TextAsset source)
 		{
-			Match keym = Regex.Match(source.text, "\\w+:\\n");
+			Match keym = Regex.Match(source.text, "\\w+:(\\n|\\r\\n)");
 			while (keym.Success)
 			{
 				string key = keym.Value.Trim();

@@ -1,2 +1,30 @@
 mainmenu_observation:
 Observation
+mainmenu_info:
+Info
+
+info_text:
+Info
+infoview_back:
+Info View
+
+sensorcapture_guide:
+Guide
+sensorcapture_back:
+Back
+sensorcapture_capture:
+Capture
+
+direction_guide:
+Direction
+direction_back:
+Back
+direction_next:
+Submit
+
+data_guide:
+Additional data
+data_back:
+Back
+data_next:
+Next
