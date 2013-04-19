@@ -14,6 +14,7 @@ public class SensorCaptureView : MonoBehaviour
 	
 	void OnGUI()
 	{
+		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
 		GUILayout.Label(Loc.Str("sensorcapture_guide"));
