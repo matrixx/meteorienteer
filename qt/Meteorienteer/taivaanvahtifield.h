@@ -35,13 +35,13 @@ public:
     void parseFieldElement(QDomElement elem); // Parse field from XML element
     void createFieldElement(QDomElement elem, QString value, QDomDocument &doc);
     static void createFieldElement(QDomElement elem, QString name, QString value, QDomDocument &doc);
-    QString id() {return fieldId;};
-    QString label() {return fieldLabel;};
-    QString info() {return fieldInfo;};
-    QUrl infoUrl() {return fieldInfoUrl;};
-    bool isMandatory() {return mandatory;};
-    FieldType type() {return fieldType;};
-    ValueList values() {return fieldValues;};
+    Q_INVOKABLE QString id() {return fieldId;};
+    Q_INVOKABLE QString label() {return fieldLabel;};
+    Q_INVOKABLE QString info() {return fieldInfo;};
+    Q_INVOKABLE QUrl infoUrl() {return fieldInfoUrl;};
+    Q_INVOKABLE bool isMandatory() {return mandatory;};
+    Q_INVOKABLE FieldType type() {return fieldType;};
+    Q_INVOKABLE ValueList values() {return fieldValues;};
 private:
     QString fieldId, fieldLabel, fieldInfo;
     QUrl fieldInfoUrl;

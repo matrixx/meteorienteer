@@ -5,7 +5,7 @@
 TaivaanvahtiTest::TaivaanvahtiTest(QObject *parent) :
     QObject(parent)
 {
-    connect(&tv, SIGNAL(formReceived(QVector<TaivaanvahtiField*>&)), this, SLOT(formReceived(QVector<TaivaanvahtiField*>&)));
+    connect(&tv, SIGNAL(formReceived(QVector<TaivaanvahtiField*> &)), this, SLOT(formReceived(QVector<TaivaanvahtiField*> &)));
 }
 
 void TaivaanvahtiTest::runTest()
@@ -14,7 +14,7 @@ void TaivaanvahtiTest::runTest()
     tv.getForm(1);
 }
 
-void TaivaanvahtiTest::formReceived(QVector<TaivaanvahtiField *> &fields)
+void TaivaanvahtiTest::formReceived(QVector<TaivaanvahtiField*> &fields)
 {
     qDebug() << Q_FUNC_INFO << "Form received with " << fields.size() << " fields";
     Taivaanvahti::FormData formData;

@@ -109,7 +109,6 @@ void Taivaanvahti::getFormFinished()
         }
     }
     emit formReceived(fields);
-    qDeleteAll(fields);
 }
 
 void Taivaanvahti::submitFormFinished()
@@ -119,7 +118,7 @@ void Taivaanvahti::submitFormFinished()
     qDebug() << Q_FUNC_INFO << replyString;
 }
 
-void Taivaanvahti::handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField *> &fields)
+void Taivaanvahti::handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields)
 {
     QDomElement e = categoryElem.firstChildElement();
     while(!e.isNull()) {

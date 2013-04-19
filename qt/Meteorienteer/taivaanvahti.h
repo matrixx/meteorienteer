@@ -6,6 +6,7 @@
 #include <QDomElement>
 #include <QVector>
 #include <QMap>
+#include <QVariantList>
 
 class TaivaanvahtiField;
 
@@ -25,11 +26,10 @@ public:
     typedef QMap<TaivaanvahtiField*, QString> FormData;
 
     explicit Taivaanvahti(QObject *parent = 0);
-    void getForm(int category);
+    Q_INVOKABLE void getForm(int category);
     void submitForm(FormData form, int category);
 signals:
-    // fields is valid only during call and will be deleted after.
-    void formReceived(QVector<TaivaanvahtiField*> &fields);
+    Q_INVOKABLE void formReceived(QVector<TaivaanvahtiField*> &fields);
 
 private slots:
     void getFormFinished();
