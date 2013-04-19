@@ -5,6 +5,7 @@
 #include <QDomDocument>
 #include <QFile>
 #include "taivaanvahtifield.h"
+#include "taivaanvahtiform.h"
 
 Taivaanvahti::Taivaanvahti(QObject *parent) :
     QObject(parent)
@@ -94,6 +95,7 @@ void Taivaanvahti::getFormFinished()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
     QString replyString = QString::fromUtf8(reply->readAll());
+    TaivaanvahtiForm* form = new TaivaanvahtiForm();
     QVector<TaivaanvahtiField*> fields;
     QDomDocument doc;
     if(doc.setContent(replyString)) {
@@ -103,12 +105,13 @@ void Taivaanvahti::getFormFinished()
         QDomElement categoryElem = docElem.firstChildElement();
         while(!categoryElem.isNull()) {
             if(categoryElem.tagName()=="observation" || categoryElem.tagName()=="category") {
-                handleCategory(categoryElem, fields);
+                handleCategory(categoryElem, fields, form);
             }
             categoryElem = categoryElem.nextSiblingElement();
         }
     }
-    emit formReceived(fields);
+    form->setFields(fields);
+    emit formReceived(form);
 }
 
 void Taivaanvahti::submitFormFinished()
@@ -133,12 +136,12 @@ void Taivaanvahti::submitFormFinished()
     emit formSubmitted(success, id, key);
 }
 
-void Taivaanvahti::handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields)
+void Taivaanvahti::handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields, TaivaanvahtiForm* form)
 {
     QDomElement e = categoryElem.firstChildElement();
     while(!e.isNull()) {
         if(e.tagName()=="field" || e.tagName()=="specific") {
-            TaivaanvahtiField *field = new TaivaanvahtiField(this);
+            TaivaanvahtiField *field = new TaivaanvahtiField(form);
             field->parseFieldElement(e);
             fields.append(field);
         }

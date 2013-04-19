@@ -9,7 +9,7 @@
 #include <QVariantList>
 
 class TaivaanvahtiField;
-
+class TaivaanvahtiForm;
 /**
  * The Taivaanvahti class is a client class for
  * Taivaanvahti observation reporting system.
@@ -29,7 +29,7 @@ public:
     Q_INVOKABLE void getForm(int category);
     void submitForm(FormData form, int category);
 signals:
-    Q_INVOKABLE void formReceived(QVector<TaivaanvahtiField*> &fields);
+    void formReceived(TaivaanvahtiForm* form);
     void formSubmitted(bool success, int observationId, QString key);
 
 private slots:
@@ -37,7 +37,7 @@ private slots:
     void submitFormFinished();
 private:
     QString readFile(QString filename);
-    void handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields);
+    void handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields, TaivaanvahtiForm* form);
     QNetworkAccessManager nam;
 };
 

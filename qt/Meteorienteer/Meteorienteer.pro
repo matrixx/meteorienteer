@@ -36,7 +36,9 @@ SOURCES += main.cpp \
     taivaanvahti.cpp \
     taivaanvahtifield.cpp \
     taivaanvahtitest.cpp \
-    starview.cpp
+    starview.cpp \
+    formmanager.cpp \
+    taivaanvahtiform.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -58,4 +60,6 @@ HEADERS += \
     taivaanvahti.h \
     taivaanvahtifield.h \
     taivaanvahtitest.h \
-    starview.h
+    starview.h \
+    formmanager.h \
+    taivaanvahtiform.h

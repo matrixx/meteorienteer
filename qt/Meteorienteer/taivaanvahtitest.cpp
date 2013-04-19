@@ -1,11 +1,12 @@
 #include "taivaanvahtitest.h"
 #include <QDebug>
 #include "taivaanvahtifield.h"
+#include "taivaanvahtiform.h"
 
 TaivaanvahtiTest::TaivaanvahtiTest(QObject *parent) :
     QObject(parent)
 {
-    connect(&tv, SIGNAL(formReceived(QVector<TaivaanvahtiField*> &)), this, SLOT(formReceived(QVector<TaivaanvahtiField*> &)));
+    connect(&tv, SIGNAL(formReceived(TaivaanvahtiForm*)), this, SLOT(formReceived(TaivaanvahtiForm*)));
 }
 
 void TaivaanvahtiTest::runTest()
@@ -14,8 +15,9 @@ void TaivaanvahtiTest::runTest()
     tv.getForm(1);
 }
 
-void TaivaanvahtiTest::formReceived(QVector<TaivaanvahtiField*> &fields)
+void TaivaanvahtiTest::formReceived(TaivaanvahtiForm* form)
 {
+    QVector<TaivaanvahtiField*> fields = form->fields();
     qDebug() << Q_FUNC_INFO << "Form received with " << fields.size() << " fields";
     Taivaanvahti::FormData formData;
     foreach(TaivaanvahtiField *field, fields) {
