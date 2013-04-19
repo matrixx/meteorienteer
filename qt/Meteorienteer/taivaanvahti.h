@@ -3,6 +3,10 @@
 
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <QDomElement>
+#include <QVector>
+
+class TaivaanvahtiField;
 
 class Taivaanvahti : public QObject
 {
@@ -12,11 +16,12 @@ public:
     void getForm();
 
 signals:
-    
-public slots:
+    void formReceived(QVector<TaivaanvahtiField*> &fields);
+
 private slots:
     void replyFinished(QNetworkReply* reply);
 private:
+    void handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields);
     QNetworkAccessManager nam;
 };
 
