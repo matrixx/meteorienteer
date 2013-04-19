@@ -11,6 +11,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.setMainQmlFile(QLatin1String("qml/Meteorienteer/main.qml"));
     viewer.showExpanded();
     Taivaanvahti tv;
-    tv.getForm();
+    tv.getForm(1);
     return app->exec();
 }

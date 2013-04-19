@@ -8,12 +8,21 @@
 
 class TaivaanvahtiField;
 
+/**
+ * The Taivaanvahti class is a client class for
+ * Taivaanvahti observation reporting system.
+ *
+ * Usage:
+ * Connect formReceived() to your handler.
+ * call getForm() to get the form. Category 1 would be fireballs.
+ * formReceived() is emitted. In error fields is empty.
+ */
 class Taivaanvahti : public QObject
 {
     Q_OBJECT
 public:
     explicit Taivaanvahti(QObject *parent = 0);
-    void getForm();
+    void getForm(int category);
 
 signals:
     void formReceived(QVector<TaivaanvahtiField*> &fields);

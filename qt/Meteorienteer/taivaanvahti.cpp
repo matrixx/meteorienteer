@@ -13,17 +13,16 @@ Taivaanvahti::Taivaanvahti(QObject *parent) :
             this, SLOT(replyFinished(QNetworkReply*)));
 }
 
-void Taivaanvahti::getForm()
+void Taivaanvahti::getForm(int category)
 {
     QNetworkRequest request;
     request.setUrl(QUrl("https://www.taivaanvahti.fi/api"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "text/xml");
-    QByteArray data;
-    data = "<Request><Action>FormTemplateRequest</Action>"
-            "<Category>1</Category>"
-            "</Request>";
+    QString requestString = QString("<Request><Action>FormTemplateRequest</Action>"
+                                    "<Category>%1</Category>"
+                                    "</Request>").arg(category);
 
-    nam.post(request, data);
+    nam.post(request, requestString.toUtf8());
 }
 
 void Taivaanvahti::replyFinished(QNetworkReply *reply)
@@ -34,17 +33,13 @@ void Taivaanvahti::replyFinished(QNetworkReply *reply)
     if(doc.setContent(replyString)) {
         // qDebug() << Q_FUNC_INFO << doc.toString();
         QDomElement docElem = doc.documentElement();
-        QDomElement categoryElem = docElem.firstChildElement("observation");
-        if(!categoryElem.isNull()) {
-            handleCategory(categoryElem, fields);
-        } else {
-            qDebug() << Q_FUNC_INFO << "Error: invalid XML received.";
-        }
-        categoryElem = docElem.firstChildElement("category");
-        if(!categoryElem.isNull()) {
-            handleCategory(categoryElem, fields);
-        } else {
-            qDebug() << Q_FUNC_INFO << "Error: invalid XML received.";
+
+        QDomElement categoryElem = docElem.firstChildElement();
+        while(!categoryElem.isNull()) {
+            if(categoryElem.tagName()=="observation" || categoryElem.tagName()=="category") {
+                handleCategory(categoryElem, fields);
+            }
+            categoryElem = categoryElem.nextSiblingElement();
         }
     }
     emit formReceived(fields);

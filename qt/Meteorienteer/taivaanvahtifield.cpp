@@ -35,5 +35,5 @@ void TaivaanvahtiField::parseFieldElement(QDomElement elem)
         }
     }
     if(!fieldValues.isEmpty()) fieldType = TYPE_SELECTION;
-    //    qDebug() << fieldId << fieldLabel << fieldValues;
+    // qDebug() << fieldId << fieldLabel << fieldValues;
 }
