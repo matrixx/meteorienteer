@@ -4,7 +4,10 @@
 #include <QObject>
 #include "taivaanvahtifield.h"
 #include <QVector>
-
+/**
+ * The TaivaanvahtiForm class represents a form
+ * containing multiple fields.
+ */
 class TaivaanvahtiForm : public QObject
 {
     Q_OBJECT

@@ -7,9 +7,12 @@
 #include <QMap>
 #include <QString>
 
-// Value id, name
-typedef QMap<QString, QString> ValueList;
-
+/**
+ * The TaivaanvahtiField class represents a single
+ * field to be filled by user.
+ * A field may be a multiple selection list. In this
+ * case the values list contains the possible values.
+ */
 class TaivaanvahtiField : public QObject
 {
     Q_OBJECT
@@ -21,6 +24,9 @@ class TaivaanvahtiField : public QObject
     Q_PROPERTY(FieldType type READ type)
     Q_PROPERTY(ValueList values READ values)
 public:
+    // Value id, name
+    typedef QMap<QString, QString> ValueList;
+
     enum FieldType {
         TYPE_NOT_SET=0,
         TYPE_TEXT,

@@ -35,7 +35,7 @@ void TaivaanvahtiTest::formReceived(TaivaanvahtiForm* form)
             value = "2013-01-23";
             break;
         case TaivaanvahtiField::TYPE_SELECTION: {
-            ValueList vl = field->values();
+            TaivaanvahtiField::ValueList vl = field->values();
             value = field->values().keys().last();
             break;
         }

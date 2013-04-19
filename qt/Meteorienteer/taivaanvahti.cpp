@@ -111,7 +111,7 @@ void Taivaanvahti::getFormFinished()
         }
     }
     form->setFields(fields);
-    emit formReceived(form);
+    emit formReceived(form); // Ownership changes!
 }
 
 void Taivaanvahti::submitFormFinished()
