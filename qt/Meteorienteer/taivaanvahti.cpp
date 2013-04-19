@@ -28,7 +28,7 @@ void Taivaanvahti::getForm(int category)
 void Taivaanvahti::replyFinished(QNetworkReply *reply)
 {
     QString replyString = QString::fromUtf8(reply->readAll());
-    QVector<TaivaanvahtiField*> fields;
+    QVariantList fields;
     QDomDocument doc;
     if(doc.setContent(replyString)) {
         // qDebug() << Q_FUNC_INFO << doc.toString();
@@ -45,14 +45,14 @@ void Taivaanvahti::replyFinished(QNetworkReply *reply)
     emit formReceived(fields);
 }
 
-void Taivaanvahti::handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField *> &fields)
+void Taivaanvahti::handleCategory(QDomElement categoryElem, QVariantList &fields)
 {
     QDomElement e = categoryElem.firstChildElement();
     while(!e.isNull()) {
         if(e.tagName()=="field" || e.tagName()=="specific") {
             TaivaanvahtiField *field = new TaivaanvahtiField(this);
             field->parseFieldElement(e);
-            fields.append(field);
+            fields.append(qVariantFromValue((QObject*)field));
         }
         e = e.nextSiblingElement();
     }

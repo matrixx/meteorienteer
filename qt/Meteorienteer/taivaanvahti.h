@@ -5,6 +5,7 @@
 #include <QNetworkAccessManager>
 #include <QDomElement>
 #include <QVector>
+#include <QVariantList>
 
 class TaivaanvahtiField;
 
@@ -22,15 +23,15 @@ class Taivaanvahti : public QObject
     Q_OBJECT
 public:
     explicit Taivaanvahti(QObject *parent = 0);
-    void getForm(int category);
+    Q_INVOKABLE void getForm(int category);
 
 signals:
-    void formReceived(QVector<TaivaanvahtiField*> &fields);
+    Q_INVOKABLE void formReceived(QVariantList fields);
 
 private slots:
     void replyFinished(QNetworkReply* reply);
 private:
-    void handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields);
+    void handleCategory(QDomElement categoryElem, QVariantList &fields);
     QNetworkAccessManager nam;
 };
 
