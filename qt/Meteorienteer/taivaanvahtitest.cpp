@@ -19,7 +19,9 @@ void TaivaanvahtiTest::formReceived(QVector<TaivaanvahtiField*> &fields)
     qDebug() << Q_FUNC_INFO << "Form received with " << fields.size() << " fields";
     Taivaanvahti::FormData formData;
     foreach(TaivaanvahtiField *field, fields) {
-        QString value = "testitestitesti";
+        qDebug() << field->id() << field->values();
+
+        QString value = "testi testitesti";
         switch(field->type()) {
         case TaivaanvahtiField::TYPE_CHECKBOX:
             value = "true";
@@ -28,7 +30,7 @@ void TaivaanvahtiTest::formReceived(QVector<TaivaanvahtiField*> &fields)
             value = "lat=64.23414, lon=20.13445";
             break;
         case TaivaanvahtiField::TYPE_DATE:
-            value = "2013-11-23";
+            value = "2013-01-23";
             break;
         case TaivaanvahtiField::TYPE_SELECTION: {
             ValueList vl = field->values();
@@ -48,8 +50,20 @@ void TaivaanvahtiTest::formReceived(QVector<TaivaanvahtiField*> &fields)
         if(field->id()=="user_phone") value = "0407572533";
         if(field->id()=="user_team") value = "Tampereen Ursa";
         if(field->id()=="observation_showiness") value = "1";
-        qDebug() << field->id() << field->type() << value;
-        formData.insert(field, value);
+        if(field->id()=="observation_end_hours") value= "13:30";
+        if(field->id()=="specific_lentokulma") value="100";
+        bool add = true;
+        if(field->id().contains("minutes")) add=false;
+        if(field->id()=="specific_tulipallon_kirkkaus") add = false;
+        if(field->id()=="observation_demo_picture") add=false;
+        if(field->id()=="observation_public") add=false;
+        if(field->id()=="observation_user_pictures") add=false;
+        if(field->id()=="observation_equipment") add=false;
+        if(field->id()=="specific_havaintoajan_tarkkuus") add=false;
+        if(add) {
+            qDebug() << field->id() << field->type() << value;
+            formData.insert(field, value);
+        }
     }
     qDebug() << Q_FUNC_INFO << "Submitting " << formData.size() << " values..";
     tv.submitForm(formData, 1);
