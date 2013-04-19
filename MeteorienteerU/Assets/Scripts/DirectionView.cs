@@ -1,17 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
-public class DirectionView : MonoBehaviour {
-	
+public class DirectionView : MonoBehaviour
+{	
 	private SensorCaptureView sensorCaptureView;
 	private AdditionalData additionalData;
 
-	void Awake(){
+	void Awake()
+	{
 		sensorCaptureView = GetComponent<SensorCaptureView>();
 		additionalData = GetComponent<AdditionalData>();
 	}
 	
-	void OnGUI(){
+	void OnGUI()
+	{
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
