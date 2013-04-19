@@ -5,35 +5,42 @@ import QtMultimediaKit 1.1
 Rectangle {
     anchors.fill: parent
     color: "black"
+
     LocationDataProvider {
         id: measurements
     }
-
-    Row {
+    onVisibleChanged: {
+        if (visible) {
+            measurements.startMeasure();
+        } else {
+            measurements.stopMeasure();
+        }
+    }
+    Camera {
+        x: 0
+        y: 0
+        width: parent.width
+        height: parent.height
+        captureResolution: "900x506" // 3:2
         Column {
+            x: parent.TopLeft
+            y: parent.TopRight
             id: pageContent
             spacing: 16
-
             Text {
                 wrapMode: Text.WordWrap
                 text: qsTr("Accelerometer reading: %1 | %2 | %3").arg(measurements.accelx).arg(measurements.accely).arg(measurements.accelz)
-                color: "#fff"
+                color: "#0000ff"
             }
             Text {
                 wrapMode: Text.WordWrap
                 text: qsTr("Compass azimuth in degrees: %1").arg(measurements.azimuth)
-                color: "#fff"
+                color: "#0000ff"
             }
             Text {
                 wrapMode: Text.WordWrap
                 text: qsTr("GPS coordinates: %1 | %2").arg(measurements.latitude).arg(measurements.longitude)
-                color: "#fff"
-            }
-        }
-        Column {
-            Camera {
-                width: 800
-                height: 480
+                color: "#0000ff"
             }
         }
     }

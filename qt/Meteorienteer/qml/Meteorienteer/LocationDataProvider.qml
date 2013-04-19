@@ -10,28 +10,50 @@ Item {
     property real azimuth: 0
     property double latitude: 0.0
     property double longitude: 0.0
+    property bool active: false
+    signal measurementsReady;
 
     Accelerometer {
+        id: accelerometer
         onReadingChanged: {
             accelx = reading.x
             accely = reading.y
             accelz = reading.z
         }
-        active: true
+        active: false
     }
     Compass {
+        id: compass
         onReadingChanged: {
             azimuth = reading.azimuth
         }
-        active: true
+        active: false
     }
     PositionSource {
         id: positionSource
         updateInterval: 1000
-        active: true
+        active: false
         onPositionChanged: {
             latitude = positionSource.position.coordinate.latitude
             longitude = positionSource.position.coordinate.longitude
+            if (parent.active) {
+                stopMeasure();
+                measurementsReady();
+            }
         }
+    }
+
+    function startMeasure() {
+        active = true;
+        accelerometer.active = true;
+        compass.active = true;
+        positionSource.active = true;
+    }
+
+    function stopMeasure() {
+        active = false;
+        accelerometer.active = false;
+        compass.active = false;
+        positionSource.active = false;
     }
 }
