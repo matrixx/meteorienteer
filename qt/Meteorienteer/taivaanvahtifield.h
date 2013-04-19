@@ -37,7 +37,6 @@ public:
     Q_INVOKABLE bool isMandatory() {return mandatory;};
     Q_INVOKABLE FieldType type() {return fieldType;};
     Q_INVOKABLE ValueList values() {return fieldValues;};
->>>>>>> a8da5c823819b4fae2235abc1c51d6d9e5200ce7
 private:
     QString fieldId, fieldLabel, fieldInfo;
     QUrl fieldInfoUrl;
