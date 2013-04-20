@@ -5,12 +5,23 @@ public class AdditionalData : MonoBehaviour {
 	
 	public Texture bgImage;
 	private DirectionView directionView;
+	private Taivaanvahti taivaanVahti;
+	
+	private Vector2 scrollPosition;
 
-	void Awake(){
+	void Awake()
+	{
 		directionView = GetComponent<DirectionView>();
+		taivaanVahti = GetComponent<Taivaanvahti>();
 	}
 	
-	void OnGUI(){
+	void OnEnable()
+	{
+		if (taivaanVahti) taivaanVahti.GetForm();
+	}
+	
+	void OnGUI()
+	{
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.Box(new GUIContent(bgImage));
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
@@ -25,6 +36,8 @@ public class AdditionalData : MonoBehaviour {
 			directionView.enabled = true;
 		}
 		GUILayout.FlexibleSpace();
+		GUIDrawFormOptions();
+		GUILayout.FlexibleSpace();
 		GUILayout.Button(Loc.Str("data_next"));
 		GUILayout.EndHorizontal();
 		
@@ -32,5 +45,25 @@ public class AdditionalData : MonoBehaviour {
 		GUILayout.Label("");
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
+	}
+	
+	void GUIDrawFormOptions()
+	{
+		scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+		if (taivaanVahti)
+		{
+			if (taivaanVahti.FormReady)
+			{
+				foreach (TaivaanvahtiField field in taivaanVahti.Form.Fields)
+				{
+					GUILayout.BeginHorizontal();
+					GUILayout.Label(field.id);
+					GUILayout.TextField("");
+					GUILayout.Label(field.values != null ? field.values.Count.ToString() : "0");
+					GUILayout.EndHorizontal();
+				}
+			}
+		}
+		GUILayout.EndScrollView();
 	}
 }
