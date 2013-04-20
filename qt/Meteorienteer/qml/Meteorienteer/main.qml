@@ -25,7 +25,7 @@ Window {
         visible: false
         onDirectionSelected: {
             observationFormView.visible = true
-            observationView.visible = false
+            arrowPlotterView.visible = false
             observationFormView.direction = direction;
             taivaanvahti.getForm(1);
         }
@@ -33,14 +33,6 @@ Window {
     ObservationFormView {
         id: observationFormView
         visible: false
-        Connections {
-            target: taivaanvahti
-            onFormReceived: {
-                observationFormView.formFields = fields;
-                for (var i = 0; i < observationFormView.formFields.length; i++)
-                    console.log(observationFormView.formFields[i].label);
-            }
-        }
     }
 
     QueryDialog {
