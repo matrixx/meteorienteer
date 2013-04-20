@@ -4,10 +4,12 @@ import tv 1.0
 
 Rectangle {
     property variant formFields: 0;
+    property int direction: 0;
     color: "black"
     Connections {
         target: taivaanvahti
         onFormReceived: {
+            /*
             formFields = fields;
             for (var i = 0; i < formFields.length; i++) {
                 console.log(formFields[i].id);
@@ -21,6 +23,7 @@ Rectangle {
                     console.log(formFields[i].valueListValues[j]);
                 }
             }
+            */
         }
     }
 }

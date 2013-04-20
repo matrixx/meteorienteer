@@ -16,8 +16,17 @@ Window {
         id: observationView
         visible: false
         onMeasurementsSaved: {
+            arrowPlotterView.visible = true
+            observationView.visible = false
+        }
+    }
+    ArrowPlotter {
+        id: arrowPlotterView
+        visible: false
+        onDirectionSelected: {
             observationFormView.visible = true
             observationView.visible = false
+            observationFormView.direction = direction;
             taivaanvahti.getForm(1);
         }
     }
