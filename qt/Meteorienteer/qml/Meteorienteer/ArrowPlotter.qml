@@ -45,7 +45,6 @@ Rectangle {
             }
         }
         anchors.fill: parent
-        id: name
         source: "http://farm9.staticflickr.com/8251/8507360785_5fde045b8c_c.jpg"
     }
     function movedelta( mxi, myi, mxj, myj) {
