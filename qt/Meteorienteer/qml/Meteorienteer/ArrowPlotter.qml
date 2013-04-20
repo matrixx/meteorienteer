@@ -3,6 +3,8 @@ import QtQuick 1.1
 
 Rectangle {
     anchors.fill: parent;
+    signal directionSelected(int direction);
+    property int direction: 0;
     Image {
         anchors.fill: parent
         id: name
