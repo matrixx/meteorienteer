@@ -12,6 +12,11 @@ public class DirectionView : MonoBehaviour
 		additionalData = GetComponent<AdditionalData>();
 	}
 	
+	void OnEnable()
+	{
+		DirectionLine.Singleton.enabled = true;
+	}
+	
 	void OnGUI()
 	{
 		GUI.skin = GUIOptions.Singleton.appStyle;
@@ -27,7 +32,8 @@ public class DirectionView : MonoBehaviour
 			sensorCaptureView.enabled = true;
 		}
 		GUILayout.FlexibleSpace();
-		if(GUILayout.Button(Loc.Str("direction_next"))){
+		if(GUILayout.Button(Loc.Str("direction_next")))
+		{
 			this.enabled = false;
 			additionalData.enabled = true;
 		}
@@ -37,5 +43,10 @@ public class DirectionView : MonoBehaviour
 		GUILayout.Label("");
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
+	}
+	
+	void OnDisable()
+	{
+		DirectionLine.Singleton.enabled = false;
 	}
 }

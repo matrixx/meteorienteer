@@ -3,6 +3,7 @@ using System.Collections;
 
 public class InfoView : MonoBehaviour {
 	
+	public Texture bgImage;
 	private MainMenu mainMenu;
 	
 	void Awake()
@@ -13,6 +14,7 @@ public class InfoView : MonoBehaviour {
 	void OnGUI()
 	{
 		GUI.skin = GUIOptions.Singleton.appStyle;
+		GUILayout.Box(new GUIContent(bgImage));
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
 		GUILayout.Label(Loc.Str("info_text"));

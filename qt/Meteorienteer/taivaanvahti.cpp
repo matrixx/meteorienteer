@@ -5,6 +5,7 @@
 #include <QDomDocument>
 #include <QFile>
 #include "taivaanvahtifield.h"
+#include "taivaanvahtiform.h"
 
 Taivaanvahti::Taivaanvahti(QObject *parent) :
     QObject(parent)
@@ -65,7 +66,6 @@ void Taivaanvahti::submitForm(QMap<TaivaanvahtiField *, QString> form, int categ
     TaivaanvahtiField::createFieldElement(categoryElement, "specific_havaintokategoria", "Tulipallo", doc);
     // end category
     outString = doc.toString();
-//    QNetworkReply *reply = nam.post(request, doc.toString().toUtf8());
 #else
     outString = readFile("testi.xml");
 #endif
@@ -94,6 +94,7 @@ void Taivaanvahti::getFormFinished()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
     QString replyString = QString::fromUtf8(reply->readAll());
+    TaivaanvahtiForm* form = new TaivaanvahtiForm();
     QVector<TaivaanvahtiField*> fields;
     QDomDocument doc;
     if(doc.setContent(replyString)) {
@@ -103,12 +104,13 @@ void Taivaanvahti::getFormFinished()
         QDomElement categoryElem = docElem.firstChildElement();
         while(!categoryElem.isNull()) {
             if(categoryElem.tagName()=="observation" || categoryElem.tagName()=="category") {
-                handleCategory(categoryElem, fields);
+                handleCategory(categoryElem, fields, form);
             }
             categoryElem = categoryElem.nextSiblingElement();
         }
     }
-    emit formReceived(fields);
+    form->setFields(fields);
+    emit formReceived(form); // Ownership changes!
 }
 
 void Taivaanvahti::submitFormFinished()
@@ -116,14 +118,29 @@ void Taivaanvahti::submitFormFinished()
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
     QString replyString = QString::fromUtf8(reply->readAll());
     qDebug() << Q_FUNC_INFO << replyString;
+    bool success = false;
+    int id = 0;
+    QString key;
+    QDomDocument doc;
+    if(doc.setContent(replyString)) {
+        QDomElement docElem = doc.documentElement();
+        QDomElement responseTypeElem = docElem.firstChildElement("response_type");
+        success = responseTypeElem.text()=="Success";
+        QDomElement observationIdElem = docElem.firstChildElement("observation_id");
+        id = observationIdElem.text().toInt();
+        QDomElement observationKeyElem = docElem.firstChildElement("observation_modification_key");
+        key = observationKeyElem.text();
+    }
+    qDebug() << Q_FUNC_INFO << "success: " << success << " id: " << id << "key:" << key;
+    emit formSubmitted(success, id, key);
 }
 
-void Taivaanvahti::handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields)
+void Taivaanvahti::handleCategory(QDomElement categoryElem, QVector<TaivaanvahtiField*> &fields, TaivaanvahtiForm* form)
 {
     QDomElement e = categoryElem.firstChildElement();
     while(!e.isNull()) {
         if(e.tagName()=="field" || e.tagName()=="specific") {
-            TaivaanvahtiField *field = new TaivaanvahtiField(this);
+            TaivaanvahtiField *field = new TaivaanvahtiField(form);
             field->parseFieldElement(e);
             fields.append(field);
         }
