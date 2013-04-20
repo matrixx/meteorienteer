@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>gfx/arrow2.gif</file>
         <file>gfx/linnunrata_N9.jpg</file>
+        <file>gfx/buttonActive.png</file>
+        <file>gfx/buttonHover.png</file>
+        <file>gfx/buttonNormal.png</file>
+        <file>gfx/bg.jpg</file>
     </qresource>
 </RCC>

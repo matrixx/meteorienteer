@@ -11,86 +11,88 @@ Rectangle {
     Image {
         id: bgImage
         source: "qrc:/gfx/linnunrata_N9.jpg"
-        anchors.margins: 20
         anchors.fill: parent
     }
     Row {
-        x: 40
-        y: 40
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 20
         spacing: 20
-        Rectangle {
-            width: bgImage.width / 3 - 40;
+        Image {
+            width: (bgImage.width - 80) / 3;
             height: width
-            gradient: Gradient {
-                GradientStop { color: "#333333"; position: 0.0 }
-                GradientStop { color: "#444444"; position: 0.2 }
-                GradientStop { color: "#444444"; position: 0.8 }
-                GradientStop { color: "#333333"; position: 1.0 }
-            }
+            source: "qrc:/gfx/buttonNormal.png";
             Text {
                 color: "#ff0000"
                 text: qsTr("New Observation")
                 wrapMode: Text.WordWrap
-                anchors.fill: parent
-                anchors.margins: 10
-                font.pixelSize: 28
+                width: parent.width
+                anchors.centerIn: parent
+                font.pixelSize: 30
             }
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
                     createObservation()
                 }
+                onPressed: {
+                    parent.source = "qrc:/gfx/buttonHover.png";
+                }
+                onReleased: {
+                    parent.source = "qrc:/gfx/buttonNormal.png";
+                }
             }
         }
 
-
-        Rectangle {
-            width: bgImage.width / 3 - 40;
+        Image {
+            width: (bgImage.width - 80) / 3;
             height: width
-            gradient: Gradient {
-                GradientStop { color: "#333333"; position: 0.0 }
-                GradientStop { color: "#444444"; position: 0.2 }
-                GradientStop { color: "#444444"; position: 0.8 }
-                GradientStop { color: "#333333"; position: 1.0 }
-            }
+            source: "qrc:/gfx/buttonNormal.png";
             Text {
                 color: "#ff0000"
                 text: qsTr("Meteor Info")
                 wrapMode: Text.WordWrap
-                anchors.fill: parent
-                anchors.margins: 10
-                font.pixelSize: 28
+                width: parent.width
+                anchors.centerIn: parent
+                font.pixelSize: 30
             }
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
                     showInfo()
                 }
+                onPressed: {
+                    parent.source = "qrc:/gfx/buttonHover.png";
+                }
+                onReleased: {
+                    parent.source = "qrc:/gfx/buttonNormal.png";
+                }
             }
         }
 
 
-        Rectangle {
-            width: bgImage.width / 3 - 40;
+        Image {
+            width: (bgImage.width - 80) / 3;
             height: width
-            gradient: Gradient {
-                GradientStop { color: "#333333"; position: 0.0 }
-                GradientStop { color: "#444444"; position: 0.2 }
-                GradientStop { color: "#444444"; position: 0.8 }
-                GradientStop { color: "#333333"; position: 1.0 }
-            }
+            source: "qrc:/gfx/buttonNormal.png";
             Text {
                 color: "#ff0000"
                 text: qsTr("Observation History");
                 wrapMode: Text.WordWrap
-                anchors.fill: parent
-                anchors.margins: 10
-                font.pixelSize: 28
+                width: parent.width
+                anchors.centerIn: parent
+                font.pixelSize: 30
             }
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
                     showHistory()
+                }
+                onPressed: {
+                    parent.source = "qrc:/gfx/buttonHover.png";
+                }
+                onReleased: {
+                    parent.source = "qrc:/gfx/buttonNormal.png";
                 }
             }
         }
