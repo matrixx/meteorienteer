@@ -6,12 +6,31 @@ Rectangle {
     signal directionSelected(int direction);
     property int direction: 0;
     Image {
+        id: arrowOk
+        x:0; y:0;width:500;height:100;
+        source: "qrc:/gfx/buttonNormal.png"
+        Text {
+            anchors.left: parent.left
+            anchors.top: parent.top
+            id: arrowText
+            text: qsTr("Draw flight direction and press ok")
+        }
+         z:10;
+        MouseArea {
+            anchors.fill: parent;
+            onPressed: {
+                console.log("send arrow rotation" + arrow.rotation*Math.PI+90);
+                directionSelected(arrow.rotation*Math.PI+90);
+            }
+        }
+    }
+    Image {
         id: arrow
-        x:0; y:0;width:50;height:10;
+        x:100; y:100;width:50;height:10;
         fillMode: Image.Stretch;
         transformOrigin: "Left"; smooth: false;
         source: "qrc:/gfx/arrow2.gif"
-        z:10;
+        z:5;
         visible:true;
         opacity: 50
     }
