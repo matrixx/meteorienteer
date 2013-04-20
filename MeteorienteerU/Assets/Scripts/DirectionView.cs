@@ -48,5 +48,8 @@ public class DirectionView : MonoBehaviour
 	void OnDisable()
 	{
 		DirectionLine.Singleton.enabled = false;
+		/*if(SensorCaptureView.deviceCamera){
+			SensorCaptureView.deviceCamera.gameObject.SetActiveRecursively(false);
+		}*/
 	}
 }

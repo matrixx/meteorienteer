@@ -61,6 +61,8 @@ public class SensorCaptureView : MonoBehaviour
 	
 	void OnDisable()
 	{
-		if (deviceCamera) deviceCamera.webCamTex.Pause();
+		if (deviceCamera){
+			deviceCamera.webCamTex.Pause();
+		}
 	}
 }
