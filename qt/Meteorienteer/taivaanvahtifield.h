@@ -5,7 +5,7 @@
 #include <QDomElement>
 #include <QUrl>
 #include <QMap>
-#include <QString>
+#include <QStringList>
 
 /**
  * The TaivaanvahtiField class represents a single
@@ -23,6 +23,9 @@ class TaivaanvahtiField : public QObject
     Q_PROPERTY(bool isMandatory READ isMandatory)
     Q_PROPERTY(FieldType type READ type)
     Q_PROPERTY(ValueList values READ values)
+    Q_PROPERTY(QStringList valueListKeys READ valueListKeys)
+    Q_PROPERTY(QStringList valueListValues READ valueListValues)
+
 public:
     // Value id, name
     typedef QMap<QString, QString> ValueList;
@@ -48,6 +51,8 @@ public:
     Q_INVOKABLE bool isMandatory() {return mandatory;};
     Q_INVOKABLE FieldType type() {return fieldType;};
     Q_INVOKABLE ValueList values() {return fieldValues;};
+    Q_INVOKABLE QStringList valueListKeys() {return fieldValues.keys();};
+    Q_INVOKABLE QStringList valueListValues() {return fieldValues.values();};
 private:
     QString fieldId, fieldLabel, fieldInfo;
     QUrl fieldInfoUrl;

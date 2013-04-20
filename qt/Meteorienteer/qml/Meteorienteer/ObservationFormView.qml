@@ -7,8 +7,10 @@ Rectangle {
     property int direction: 0;
     color: "black"
     Connections {
-        target: taivaanvahti
-        onFormReceived: {
+        target: mgr
+        onFormReceived:
+        {
+
             /*
             formFields = fields;
             for (var i = 0; i < formFields.length; i++) {

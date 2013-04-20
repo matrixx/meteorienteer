@@ -15,8 +15,9 @@ public:
     explicit TaivaanvahtiForm(QObject *parent = 0);
     void setFields(QVector<TaivaanvahtiField*> fields);
     QVector<TaivaanvahtiField*> fields();
+
 signals:
-    
+    void dataReady();
 public slots:
 
 private:

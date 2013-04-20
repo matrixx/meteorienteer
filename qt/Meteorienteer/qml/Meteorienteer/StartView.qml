@@ -26,7 +26,7 @@ Rectangle {
                 color: "#ff0000"
                 text: qsTr("New Observation")
                 wrapMode: Text.WordWrap
-                width: parent.width
+                width: parent.width - 40
                 anchors.centerIn: parent
                 font.pixelSize: 30
             }
@@ -52,7 +52,7 @@ Rectangle {
                 color: "#ff0000"
                 text: qsTr("Meteor Info")
                 wrapMode: Text.WordWrap
-                width: parent.width
+                width: parent.width - 40
                 anchors.centerIn: parent
                 font.pixelSize: 30
             }
@@ -79,7 +79,7 @@ Rectangle {
                 color: "#ff0000"
                 text: qsTr("Observation History");
                 wrapMode: Text.WordWrap
-                width: parent.width
+                width: parent.width - 40
                 anchors.centerIn: parent
                 font.pixelSize: 30
             }

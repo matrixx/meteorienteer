@@ -1,4 +1,5 @@
 #include "taivaanvahtiform.h"
+#include <QStringList>
 
 TaivaanvahtiForm::TaivaanvahtiForm(QObject *parent) :
     QObject(parent)
