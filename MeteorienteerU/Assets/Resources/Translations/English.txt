@@ -1,5 +1,4 @@
-mainmenu_observation:
-Observation
+mainmenu_observation;Havainto;Observation;
 mainmenu_info:
 Info
 
