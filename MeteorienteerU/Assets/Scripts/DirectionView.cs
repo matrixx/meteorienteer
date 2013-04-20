@@ -22,17 +22,17 @@ public class DirectionView : MonoBehaviour
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
-		GUILayout.Label(Loc.Str("direction_guide"));
+		GUILayout.Label("Aseta nuoli kuvaamaan tulipallon lentorataa.");
 		GUILayout.FlexibleSpace();
 		
 		GUILayout.BeginHorizontal();
-		if (GUILayout.Button(Loc.Str("direction_back")))
+		if (GUILayout.Button("Takaisin"))
 		{
 			this.enabled = false;
 			sensorCaptureView.enabled = true;
 		}
 		GUILayout.FlexibleSpace();
-		if(GUILayout.Button(Loc.Str("direction_next")))
+		if(GUILayout.Button("Seuraava"))
 		{
 			this.enabled = false;
 			additionalData.enabled = true;

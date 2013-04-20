@@ -24,16 +24,15 @@ public class MainMenu : MonoBehaviour
 		
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		if (GUILayout.Button(Loc.Str("Havainto")))
+		if (GUILayout.Button("Havainto"))
 		{
 			this.enabled = false;
 			sensorCaptureView.enabled = true;
 		}
 		GUILayout.FlexibleSpace();
-		if(GUILayout.Button(Loc.Str("Info"))){
-			this.enabled = false;
-			infoView.enabled = true;
-		}
+		GUILayout.Button("Info");
+		GUILayout.FlexibleSpace();
+		GUILayout.Button("Havaintohistoria");
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 		

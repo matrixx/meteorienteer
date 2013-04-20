@@ -26,11 +26,11 @@ public class AdditionalData : MonoBehaviour {
 		GUILayout.Box(new GUIContent(bgImage));
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
-		GUILayout.Label(Loc.Str("data_guide"));
+		GUILayout.Label("Lisää tietoja havainnosta:");
 		GUILayout.FlexibleSpace();
 		
 		GUILayout.BeginHorizontal();
-		if (GUILayout.Button(Loc.Str("data_back")))
+		if (GUILayout.Button("Takaisin"))
 		{
 			this.enabled = false;
 			directionView.enabled = true;
@@ -38,7 +38,7 @@ public class AdditionalData : MonoBehaviour {
 		GUILayout.FlexibleSpace();
 		GUIDrawFormOptions();
 		GUILayout.FlexibleSpace();
-		GUILayout.Button(Loc.Str("data_next"));
+		GUILayout.Button("Lähetä");
 		GUILayout.EndHorizontal();
 		
 		GUILayout.FlexibleSpace();

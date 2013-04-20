@@ -31,11 +31,11 @@ public class SensorCaptureView : MonoBehaviour
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
-		GUILayout.Label(Loc.Str("sensorcapture_guide"));
+		GUILayout.Label("Suuntaa kamera sinne, missä havaitsit tulipallon, ja ota kuva.");
 		GUILayout.FlexibleSpace();
 		
 		GUILayout.BeginHorizontal();
-		if (GUILayout.Button(Loc.Str("sensorcapture_back")))
+		if (GUILayout.Button("Takaisin"))
 		{
 			this.enabled = false;
 			mainMenu.enabled = true;
@@ -45,7 +45,7 @@ public class SensorCaptureView : MonoBehaviour
 			}
 		}
 		GUILayout.FlexibleSpace();
-		if(GUILayout.Button(Loc.Str("sensorcapture_capture")))
+		if(GUILayout.Button("Ota kuva"))
 		{
 			SensorData.CaptureNow();
 			this.enabled = false;
