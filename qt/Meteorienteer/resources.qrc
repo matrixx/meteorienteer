@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>gfx/bg.jpg</file>
+        <file>gfx/arrow2.gif</file>
     </qresource>
 </RCC>
