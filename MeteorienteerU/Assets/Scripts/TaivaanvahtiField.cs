@@ -55,7 +55,11 @@ public class TaivaanvahtiField
 			while (valueNode != null)
 			{
 				values.Add(valueNode["value_id"].InnerText, valueNode["value_name"].InnerText);
-				while (valueNode!= null && valueNode.Name != "value") valueNode = valueNode.NextSibling;
+				do
+				{
+					valueNode = valueNode.NextSibling;
+				}
+				while (valueNode != null && valueNode.Name != "value");
 			}
 		}
 		

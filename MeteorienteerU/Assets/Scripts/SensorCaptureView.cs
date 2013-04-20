@@ -55,6 +55,20 @@ public class SensorCaptureView : MonoBehaviour
 		
 		GUILayout.FlexibleSpace();
 		GUILayout.Label("");
+		if (Input.location.status == LocationServiceStatus.Running)
+		{
+			GUILayout.Label("Latitude: " + Input.location.lastData.latitude);
+			GUILayout.Label("Longitude: " + Input.location.lastData.longitude);
+		}
+		else
+		{
+			GUILayout.Label("Location services unavailable");
+		}
+		GUILayout.Label("---");
+		GUILayout.Label("Heading: " + Mathf.Round(Input.compass.trueHeading));
+		GUILayout.Label("---");
+		float angle = Vector3.Angle(Vector3.down, Input.acceleration) - 90f;
+		GUILayout.Label("Vertical angle: " + Mathf.Round(angle));
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}

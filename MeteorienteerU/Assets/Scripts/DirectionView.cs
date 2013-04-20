@@ -41,6 +41,20 @@ public class DirectionView : MonoBehaviour
 		
 		GUILayout.FlexibleSpace();
 		GUILayout.Label("");
+		if (SensorData.LocationAvailable)
+		{
+			GUILayout.Label("Latitude: " + SensorData.Latitude);
+			GUILayout.Label("Longitude: " + SensorData.Longitude);
+		}
+		else
+		{
+			GUILayout.Label("Location services unavailable");
+		}
+		GUILayout.Label("---");
+		GUILayout.Label("Heading: " + Mathf.Round(SensorData.TrueHeading));
+		GUILayout.Label("---");
+		float angle = Vector3.Angle(Vector3.down, SensorData.Acceleration) - 90f;
+		GUILayout.Label("Vertical angle: " + Mathf.Round(angle));
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}
