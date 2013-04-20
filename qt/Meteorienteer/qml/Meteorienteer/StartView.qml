@@ -10,7 +10,7 @@ Rectangle {
     anchors.fill: parent
     Image {
         id: bgImage
-        source: "qrc:/gfx/bg.jpg"
+        source: "qrc:/gfx/linnunrata_N9.jpg"
         anchors.margins: 20
         anchors.fill: parent
     }
