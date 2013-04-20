@@ -4,7 +4,7 @@ import QtMultimediaKit 1.1
 import Qt.labs.shaders 1.0
 
 Rectangle {
-    signal measurementsSaved
+    signal measurementsSaved(string imagePath)
     anchors.fill: parent
     color: "black"
 
@@ -43,6 +43,7 @@ Rectangle {
         width: parent.width
         height: parent.height
         captureResolution: "900x506" // 3:2
+        onImageSaved: measurementsSaved(path)
         /*StartView {
             anchors.fill: parent;
             color: "red"
@@ -70,7 +71,8 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            measurementsSaved();
+            cam.captureImage();
+            //measurementsSaved();
         }
     }
 }

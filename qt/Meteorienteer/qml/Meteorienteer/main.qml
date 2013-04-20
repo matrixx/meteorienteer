@@ -16,6 +16,7 @@ Window {
         id: observationView
         visible: false
         onMeasurementsSaved: {
+            arrowPlotterView.imageUrl = imagePath;
             arrowPlotterView.visible = true
             observationView.visible = false
         }

@@ -2,9 +2,11 @@
 import QtQuick 1.1
 
 Rectangle {
+    id: arrowPlotter
     anchors.fill: parent;
     signal directionSelected(int direction);
     property int direction: 0;
+    property alias imageUrl: capturedImage.source;
     Image {
         id: arrowOk
         x:0; y:0;width:500;height:100;
@@ -35,6 +37,7 @@ Rectangle {
         opacity: 50
     }
     Image {
+        id: capturedImage;
         MouseArea {
             id: mouse_area1
             anchors.fill: parent
@@ -64,7 +67,7 @@ Rectangle {
             }
         }
         anchors.fill: parent
-        source: "http://farm9.staticflickr.com/8251/8507360785_5fde045b8c_c.jpg"
+        source: "qrc:/gfx/arrow2.gif"
     }
     function movedelta( mxi, myi, mxj, myj) {
         return Math.sqrt( Math.pow(mxj-mxi,2) + Math.pow(myj-myi,2) );
