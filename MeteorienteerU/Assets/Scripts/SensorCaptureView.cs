@@ -4,6 +4,7 @@ using System.Collections;
 public class SensorCaptureView : MonoBehaviour
 {
 	public CamViewer deviceCamera;
+	public GUISkin transparentGuiSkin;
 	private MainMenu mainMenu;
 	private DirectionView directionView;
 	
@@ -28,12 +29,31 @@ public class SensorCaptureView : MonoBehaviour
 	
 	void OnGUI()
 	{
+		// draw the screen
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
-		GUILayout.Label("Suuntaa kamera sinne, missä havaitsit tulipallon, ja ota kuva.");
+		
+		// above the menu
+		GUILayout.Box("Suuntaa kamera sinne, missä havaitsit tulipallon, ja ota kuva."); // 1
+		Rect rect = GUILayoutUtility.GetLastRect (); // size of the box
+		if (Input.location.status == LocationServiceStatus.Running)
+		{
+			GUILayout.Space(rect.height); // 2 | 1
+			GUILayout.Space(rect.height); // 3 | 1
+		}
+		else
+		{
+			GUILayout.Space(rect.height); // 3 | 2
+		}
+		GUILayout.Space(rect.height);
+		GUILayout.Space(rect.height);
+		GUILayout.Space(rect.height); // 4 | 3
+		GUILayout.Space(rect.height); // 5 | 4
+		GUILayout.Space(rect.height); // 6 | 5
 		GUILayout.FlexibleSpace();
 		
+		// menu
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Takaisin"))
 		{
@@ -53,22 +73,23 @@ public class SensorCaptureView : MonoBehaviour
 		}
 		GUILayout.EndHorizontal();
 		
+		// below the menu
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("");
+		GUI.skin = transparentGuiSkin;
 		if (Input.location.status == LocationServiceStatus.Running)
 		{
-			GUILayout.Label("Latitude: " + Input.location.lastData.latitude);
-			GUILayout.Label("Longitude: " + Input.location.lastData.longitude);
+			GUILayout.Box("Latitude: " + Input.location.lastData.latitude); // 1 | 0
+			GUILayout.Box("Longitude: " + Input.location.lastData.longitude); // 2 | 0
 		}
 		else
 		{
-			GUILayout.Label("Location services unavailable");
+			GUILayout.Box("Location services unavailable"); // 2 | 1
 		}
-		GUILayout.Label("---");
-		GUILayout.Label("Heading: " + Mathf.Round(Input.compass.trueHeading));
-		GUILayout.Label("---");
+		GUILayout.Box("---"); // 3 | 2
+		GUILayout.Box("Heading: " + Mathf.Round(Input.compass.trueHeading)); // 4 | 3
+		GUILayout.Box("---"); // 5 | 4
 		float angle = -Vector3.Angle(Vector3.forward, Input.acceleration) + 90f;
-		GUILayout.Label("Vertical angle: " + Mathf.Round(angle));
+		GUILayout.Box("Vertical angle: " + Mathf.Round(angle)); // 6 | 5
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class AdditionalData : MonoBehaviour {
 	
 	public Texture bgImage;
+	public GUISkin guiskin;
 	private DirectionView directionView;
 	private Taivaanvahti taivaanVahti;
 	
@@ -101,7 +102,7 @@ public class AdditionalData : MonoBehaviour {
 	
 	void OnGUI()
 	{
-		GUISkin origSkin = GUI.skin;
+		GUISkin origSkin = guiskin;
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), bgImage, ScaleMode.StretchToFill);
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
