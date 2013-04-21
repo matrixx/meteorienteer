@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
 	void OnGUI()
 	{
 		GUI.skin = GUIOptions.Singleton.appStyle;
-		GUILayout.Box(new GUIContent(bgImage));
+		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), bgImage, ScaleMode.StretchToFill);
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();

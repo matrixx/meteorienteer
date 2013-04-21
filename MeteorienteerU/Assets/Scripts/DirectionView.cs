@@ -53,7 +53,7 @@ public class DirectionView : MonoBehaviour
 		GUILayout.Label("---");
 		GUILayout.Label("Heading: " + Mathf.Round(SensorData.TrueHeading));
 		GUILayout.Label("---");
-		float angle = Vector3.Angle(Vector3.down, SensorData.Acceleration) - 90f;
+		float angle = -Vector3.Angle(Vector3.forward, SensorData.Acceleration) + 90f;
 		GUILayout.Label("Vertical angle: " + Mathf.Round(angle));
 		GUILayout.EndVertical();
 		GUILayout.EndArea();

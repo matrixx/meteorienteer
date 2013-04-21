@@ -101,8 +101,9 @@ public class AdditionalData : MonoBehaviour {
 	
 	void OnGUI()
 	{
-	//	GUI.skin = GUIOptions.Singleton.appStyle;
-		GUILayout.Box(new GUIContent(bgImage));
+		GUISkin origSkin = GUI.skin;
+		GUI.skin = GUIOptions.Singleton.appStyle;
+		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), bgImage, ScaleMode.StretchToFill);
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
 		GUILayout.Label("Lisää tietoja havainnosta:");
@@ -115,7 +116,9 @@ public class AdditionalData : MonoBehaviour {
 			directionView.enabled = true;
 		}
 		GUILayout.FlexibleSpace();
+		GUI.skin = origSkin;
 		GUIDrawFormOptions();
+		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.FlexibleSpace();
 		GUILayout.Button("Lähetä");
 		GUILayout.EndHorizontal();

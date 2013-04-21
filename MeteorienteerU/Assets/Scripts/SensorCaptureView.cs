@@ -67,7 +67,7 @@ public class SensorCaptureView : MonoBehaviour
 		GUILayout.Label("---");
 		GUILayout.Label("Heading: " + Mathf.Round(Input.compass.trueHeading));
 		GUILayout.Label("---");
-		float angle = Vector3.Angle(Vector3.down, Input.acceleration) - 90f;
+		float angle = -Vector3.Angle(Vector3.forward, Input.acceleration) + 90f;
 		GUILayout.Label("Vertical angle: " + Mathf.Round(angle));
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
