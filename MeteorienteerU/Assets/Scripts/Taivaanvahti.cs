@@ -6,6 +6,7 @@ using System.Xml;
 public class Taivaanvahti : MonoBehaviour
 {
 	public string URL = "https://www.taivaanvahti.fi/api";
+	public int category = 1;
 	
 	private string gotFormString;
 	private string sendString;
@@ -23,7 +24,7 @@ public class Taivaanvahti : MonoBehaviour
 	IEnumerator GetFormCR()
 	{
 		string request = "<Request><Action>FormTemplateRequest</Action>" +
-                                    "<Category>1</Category>" +
+                                    "<Category>" + category + "</Category>" +
                                     "</Request>";
 		Hashtable headers = new Hashtable();
 		headers["Content-Type"] = "text/xml";
@@ -45,7 +46,7 @@ public class Taivaanvahti : MonoBehaviour
 			while (categoryNode != null)
 			{
 				Debug.Log("categoryNode.Name: " + categoryNode.Name);
-				if (categoryNode.Name == "observation" || categoryNode.Name == "caregory")
+				if (categoryNode.Name == "observation" || categoryNode.Name == "category")
 				{
 					HandleCategory(categoryNode, fields, form);
 				}
@@ -62,7 +63,9 @@ public class Taivaanvahti : MonoBehaviour
 	    XmlNode e = categoryNode.FirstChild;
 	    while(e != null)
 		{
-	        if(e.Name=="field" || e.Name=="specific")
+			Debug.Log(e.Name);
+			Debug.Log(e.LocalName);
+	        if (e.Name == "field" || e.Name == "specific")
 			{
 	            TaivaanvahtiField field = new TaivaanvahtiField(form);
 	            field.ParseFieldElement(e);
