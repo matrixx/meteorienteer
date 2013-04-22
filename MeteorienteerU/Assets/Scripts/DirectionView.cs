@@ -22,17 +22,17 @@ public class DirectionView : MonoBehaviour
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
-		GUILayout.Label(Loc.Str("direction_guide"));
+		GUILayout.Label("Aseta nuoli kuvaamaan tulipallon lentorataa.");
 		GUILayout.FlexibleSpace();
 		
 		GUILayout.BeginHorizontal();
-		if (GUILayout.Button(Loc.Str("direction_back")))
+		if (GUILayout.Button("Takaisin"))
 		{
 			this.enabled = false;
 			sensorCaptureView.enabled = true;
 		}
 		GUILayout.FlexibleSpace();
-		if(GUILayout.Button(Loc.Str("direction_next")))
+		if(GUILayout.Button("Seuraava"))
 		{
 			this.enabled = false;
 			additionalData.enabled = true;
@@ -41,6 +41,20 @@ public class DirectionView : MonoBehaviour
 		
 		GUILayout.FlexibleSpace();
 		GUILayout.Label("");
+		if (SensorData.LocationAvailable)
+		{
+			GUILayout.Label("Latitude: " + SensorData.Latitude);
+			GUILayout.Label("Longitude: " + SensorData.Longitude);
+		}
+		else
+		{
+			GUILayout.Label("Location services unavailable");
+		}
+		GUILayout.Label("---");
+		GUILayout.Label("Heading: " + Mathf.Round(SensorData.TrueHeading));
+		GUILayout.Label("---");
+		float angle = -Vector3.Angle(Vector3.forward, SensorData.Acceleration) + 90f;
+		GUILayout.Label("Vertical angle: " + Mathf.Round(angle));
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}
