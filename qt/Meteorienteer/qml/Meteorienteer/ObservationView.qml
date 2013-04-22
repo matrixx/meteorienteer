@@ -21,7 +21,7 @@ Rectangle {
 
     ShaderEffectItem {
         property variant source: ShaderEffectSource { sourceItem: cam; hideSource: true }
-        property real wiggleAmount: 0.005
+        property real wiggleAmount: 0.0; //0.005
         anchors.fill: parent
 
         fragmentShader: "
@@ -32,6 +32,7 @@ Rectangle {
         {
             highp vec2 wiggledTexCoord = qt_TexCoord0;
             wiggledTexCoord.s += sin(4.0 * 3.141592653589 * wiggledTexCoord.t) * wiggleAmount;
+            //gl_FragColor = texture2D(source, wiggledTexCoord.st);
             gl_FragColor = texture2D(source, wiggledTexCoord.st);
         }
         "
@@ -44,10 +45,7 @@ Rectangle {
         height: parent.height
         captureResolution: "900x506" // 3:2
         onImageSaved: measurementsSaved(path)
-        /*StartView {
-            anchors.fill: parent;
-            color: "red"
-        }*/
+
         Column {
             id: pageContent
             spacing: 16
