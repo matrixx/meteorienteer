@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "taivaanvahtiform.h"
+#include "taivaanvahti.h"
 
 class FormManager : public QObject
 {
@@ -13,8 +14,9 @@ class FormManager : public QObject
 
 public:
     explicit FormManager(QObject *parent = 0);
+    Q_INVOKABLE void getForm();
     Q_INVOKABLE int fieldCount();
-    Q_INVOKABLE void next();
+    Q_INVOKABLE bool next();
     Q_INVOKABLE int currentField();
     Q_INVOKABLE QString type();
     Q_INVOKABLE QString id();
@@ -22,14 +24,24 @@ public:
     Q_INVOKABLE void setValue(QString value);
     Q_INVOKABLE void setValueIndex(int index);
     Q_INVOKABLE QStringList values();
+    Q_INVOKABLE void saveSetting(QString id, QString value);
+    Q_INVOKABLE QString loadSetting(QString id);
+    Q_INVOKABLE void submit();
+
 signals:
-    void formReveiced();
+    Q_INVOKABLE void formReceived();
+    Q_INVOKABLE void submitted(bool success);
+
 public slots:
     void receiveForm(TaivaanvahtiForm* form);
+    void onSubmitted(bool success, int observationId, QString observationModificationKey);
+
 private:
     void filter();
 
+    Taivaanvahti* m_tv;
     TaivaanvahtiForm* m_form;
+    QMap<TaivaanvahtiField*, QString> m_result;
     int m_currentField;
     TaivaanvahtiField* m_currentTaivaanvahtiField;
     QString m_currentId;

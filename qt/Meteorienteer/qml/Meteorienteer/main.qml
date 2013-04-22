@@ -28,12 +28,17 @@ Window {
             observationFormView.visible = true
             arrowPlotterView.visible = false
             observationFormView.direction = direction;
-            taivaanvahti.getForm(1);
+            mgr.getForm();
         }
     }
     ObservationFormView {
         id: observationFormView
         visible: false
+        Connections {
+            target: mgr;
+            onFormReceived:
+                observationFormView.loadField();
+        }
     }
 
     QueryDialog {
