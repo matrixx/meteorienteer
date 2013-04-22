@@ -22,10 +22,12 @@ Rectangle {
     ShaderEffectItem {
         property variant source: ShaderEffectSource { sourceItem: cam; hideSource: true }
         property real wiggleAmount: 0.0; //0.005
+        property real edge: 0.4;
         anchors.fill: parent
 
         fragmentShader: "
         varying highp vec2 qt_TexCoord0;
+        uniform highp float edge;
         uniform sampler2D source;
         uniform highp float wiggleAmount;
         void main(void)
@@ -33,7 +35,9 @@ Rectangle {
             highp vec2 wiggledTexCoord = qt_TexCoord0;
             wiggledTexCoord.s += sin(4.0 * 3.141592653589 * wiggledTexCoord.t) * wiggleAmount;
             //gl_FragColor = texture2D(source, wiggledTexCoord.st);
-            gl_FragColor = texture2D(source, wiggledTexCoord.st);
+            gl_FragColor = texture2D(source, qt_TexCoord0.st);
+            gl_FragColor.a = 1.0;
+            gl_FragColor.rgb = step(0.2, gl_FragColor.rgb);
         }
         "
     }
