@@ -20,6 +20,7 @@ Rectangle {
     }
 
     ShaderEffectItem {
+        id: hlitem;
         property variant source: ShaderEffectSource { sourceItem: cam; hideSource: true }
         property real wiggleAmount: 0.005;
         property real highLightThreshold: 0.2;
@@ -41,12 +42,34 @@ Rectangle {
         }
         "
     }
+    Rectangle {
+        anchors.top: cam.bottom;
+        anchors.left: cam.left
+        anchors.right: cam.right
+        height: toolBarHeight;
+        z:30;
+        id: sliderIt
+        Rectangle {
+            color: "red"
+            height: cam.toolBarHeight
+            width: 100;
+        MouseArea {
+            id: moveArea
+            x: parent.width * hlitem.highLightThreshold;
+            anchors.fill: parent;
+            drag.target: parent;
+            drag.axis: "XAxis"
+            onMouseXChanged: hlitem.highLightThreshold = (mouseX/sliderIt.width);
+            }
+        }
+    }
     Camera {
+        property int toolBarHeight:100;
         id: cam
         x: 0
         y: 0
         width: parent.width
-        height: parent.height
+        height: parent.height - toolBarHeight
         captureResolution: "900x506" // 3:2
         onImageSaved: measurementsSaved(path)
 
