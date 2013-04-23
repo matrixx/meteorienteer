@@ -47,7 +47,7 @@ Rectangle {
         anchors.top: cam.bottom;
         anchors.left: cam.left
         anchors.right: cam.right
-        height: toolBarHeight;
+        height: cam.toolBarHeight;
         z:30;
         id: sliderIt
         Rectangle {

@@ -46,6 +46,7 @@ private:
     TaivaanvahtiField* m_currentTaivaanvahtiField;
     QString m_currentId;
     QString m_currentValue;
+    QStringList m_filterList;
 };
 
 #endif // FORMMANAGER_H

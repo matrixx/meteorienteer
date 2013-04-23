@@ -9,6 +9,23 @@ FormManager::FormManager(QObject *parent) :
 {
     m_tv = new Taivaanvahti;
     connect(m_tv, SIGNAL(formReceived(TaivaanvahtiForm*)), this, SLOT(receiveForm(TaivaanvahtiForm*)));
+    m_filterList.append("observation_date");
+    m_filterList.append("observation_start_hours");
+    m_filterList.append("observation_coordinates");
+    m_filterList.append("observation_location");
+    m_filterList.append("user_name");
+    m_filterList.append("user_email");
+    m_filterList.append("user_phone");
+    m_filterList.append("observation_public");
+    m_filterList.append("observation_title");
+    m_filterList.append("observation_description");
+    m_filterList.append("observation_equipment");
+    m_filterList.append("specific_havaintoajan_tarkkuus");
+    m_filterList.append("specific_lennon_kesto");
+    m_filterList.append("specific_sammumistapa");
+    m_filterList.append("specific_ilmansuunta_katoamishetkellä");
+    m_filterList.append("specific_korkeus_katoamishetkellä");
+    m_filterList.append("specific_lentokulma");
 }
 
 void FormManager::getForm()
@@ -125,7 +142,7 @@ void FormManager::receiveForm(TaivaanvahtiForm* form)
     qDebug() << "FormManager received form";
     m_form = form;
     form->setParent(this);
-    //filter();
+    filter();
     for (int i = 0; i < m_form->fields().size(); ++i) {
         qDebug() << "field number:" << i;
         TaivaanvahtiField* field = m_form->fields()[i];
@@ -158,7 +175,7 @@ void FormManager::filter()
     for (int i = 0; i < fields.size(); ++i) {
         // if we want only mandatory fields, filter out non-mandatory
         TaivaanvahtiField* field = fields.at(i);
-        if (field->isMandatory()) {
+        if (m_filterList.contains(field->id())) {
             newFields.push_back(field);
         } else {
             delete field;

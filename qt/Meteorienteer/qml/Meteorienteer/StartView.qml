@@ -23,7 +23,7 @@ Rectangle {
             height: width
             source: "qrc:/gfx/buttonNormal.png";
             Text {
-                color: "#ff0000"
+                color: "#ffffff"
                 text: qsTr("New Observation")
                 wrapMode: Text.WordWrap
                 width: parent.width - 40
@@ -49,7 +49,7 @@ Rectangle {
             height: width
             source: "qrc:/gfx/buttonNormal.png";
             Text {
-                color: "#ff0000"
+                color: "#ffffff"
                 text: qsTr("Meteor Info")
                 wrapMode: Text.WordWrap
                 width: parent.width - 40
@@ -76,7 +76,7 @@ Rectangle {
             height: width
             source: "qrc:/gfx/buttonNormal.png";
             Text {
-                color: "#ff0000"
+                color: "#ffffff"
                 text: qsTr("Observation History");
                 wrapMode: Text.WordWrap
                 width: parent.width - 40
