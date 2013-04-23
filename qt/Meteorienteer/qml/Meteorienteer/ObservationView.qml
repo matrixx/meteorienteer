@@ -24,6 +24,7 @@ Rectangle {
         property variant source: ShaderEffectSource { sourceItem: cam; hideSource: true }
         property real wiggleAmount: 0.005;
         property real highLightThreshold: 0.2;
+        onHighLightThresholdChanged: console.debug("onHighLightThresholdChanged:"+highLightThreshold)
         anchors.fill: parent
 
         fragmentShader: "
@@ -50,16 +51,20 @@ Rectangle {
         z:30;
         id: sliderIt
         Rectangle {
+            id: grab
             color: "red"
             height: cam.toolBarHeight
             width: 100;
+//            x: sliderIt.width * hlitem.highLightThreshold;
         MouseArea {
             id: moveArea
-            x: parent.width * hlitem.highLightThreshold;
             anchors.fill: parent;
             drag.target: parent;
             drag.axis: "XAxis"
-            onMouseXChanged: hlitem.highLightThreshold = (mouseX/sliderIt.width);
+            onMouseXChanged: {
+                hlitem.highLightThreshold = (moveArea.mapToItem(sliderIt,mouseX, mouseY).x/sliderIt.width);
+                //console.debug("MouseX:"+ mouseX + " sliderwidth:" + sliderIt.width)
+                }
             }
         }
     }
