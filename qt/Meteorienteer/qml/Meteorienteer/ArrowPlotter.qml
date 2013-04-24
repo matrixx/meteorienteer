@@ -21,8 +21,8 @@ Rectangle {
         MouseArea {
             anchors.fill: parent;
             onPressed: {
-                console.log("send arrow rotation" + arrow.rotation*Math.PI+90);
-                directionSelected(arrow.rotation*Math.PI+90);
+                console.log("send arrow rotation" + arrow.rotation+90);
+                directionSelected(arrow.rotation+90);
             }
         }
     }

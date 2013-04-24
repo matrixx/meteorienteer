@@ -23,7 +23,7 @@ Rectangle {
         id: hlitem;
         property variant source: ShaderEffectSource { sourceItem: cam; hideSource: true }
         property real wiggleAmount: 0.005;
-        property real highLightThreshold: 0.2;
+        property real highLightThreshold: 0.7;
         onHighLightThresholdChanged: console.debug("onHighLightThresholdChanged:"+highLightThreshold)
         anchors.fill: parent
 
@@ -39,7 +39,7 @@ Rectangle {
             //gl_FragColor = texture2D(source, wiggledTexCoord.st);
             gl_FragColor = texture2D(source, qt_TexCoord0.st);
             gl_FragColor.a = 1.0;
-            gl_FragColor.rgb = step(highLightThreshold, gl_FragColor.rgb);
+            gl_FragColor.rgb = step(highLightThreshold, gl_FragColor.rgb) + gl_FragColor.rgb;
         }
         "
     }
@@ -50,19 +50,25 @@ Rectangle {
         height: cam.toolBarHeight;
         z:30;
         id: sliderIt
+        color: "black"
         Rectangle {
             id: grab
-            color: "red"
+            color: "#4574b5"
             height: cam.toolBarHeight
             width: 100;
+            radius: 20
+            border.color: "darkgrey"
+            Component.onCompleted: grab.x = sliderIt.width * hlitem.highLightThreshold
 //            x: sliderIt.width * hlitem.highLightThreshold;
         MouseArea {
             id: moveArea
             anchors.fill: parent;
             drag.target: parent;
             drag.axis: "XAxis"
+            drag.maximumX: sliderIt.width - grab.width
+            drag.minimumX: 0
             onMouseXChanged: {
-                hlitem.highLightThreshold = (moveArea.mapToItem(sliderIt,mouseX, mouseY).x/sliderIt.width);
+                hlitem.highLightThreshold = (moveArea.mapToItem(sliderIt,mouseX, mouseY).x/(sliderIt.width-grab.width));
                 //console.debug("MouseX:"+ mouseX + " sliderwidth:" + sliderIt.width)
                 }
             }
