@@ -26,7 +26,7 @@ symbian:TARGET.CAPABILITY += NetworkServices
 # MOBILITY +=
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
-CONFIG += qdeclarative-boostable mobility
+CONFIG += qdeclarative-boostable mobility multimedia
 
 # Add dependency to Symbian components
 # CONFIG += qt-components
@@ -38,7 +38,10 @@ SOURCES += main.cpp \
     taivaanvahtitest.cpp \
     starview.cpp \
     formmanager.cpp \
-    taivaanvahtiform.cpp
+    taivaanvahtiform.cpp \
+    acam.cpp \
+    uyvy2rgb.cpp \
+    avideosurface.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -63,4 +66,7 @@ HEADERS += \
     taivaanvahtitest.h \
     starview.h \
     formmanager.h \
-    taivaanvahtiform.h
+    taivaanvahtiform.h \
+    acam.h \
+    uyvy2rgb.h \
+    avideosurface.h
