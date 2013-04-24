@@ -18,82 +18,25 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: 20
         spacing: 20
-        Image {
-            width: (bgImage.width - 80) / 3;
-            height: width
-            source: "qrc:/gfx/buttonNormal.png";
-            Text {
-                color: "#ffffff"
-                text: qsTr("New Observation")
-                wrapMode: Text.WordWrap
-                width: parent.width - 40
-                anchors.centerIn: parent
-                font.pixelSize: 30
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    createObservation()
-                }
-                onPressed: {
-                    parent.source = "qrc:/gfx/buttonHover.png";
-                }
-                onReleased: {
-                    parent.source = "qrc:/gfx/buttonNormal.png";
-                }
+        MeteorButton {
+            width: (bgImage.width - 80) / 3
+            text: qsTr("New Observation")
+            onClicked: {
+                createObservation();
             }
         }
-
-        Image {
+        MeteorButton {
             width: (bgImage.width - 80) / 3;
-            height: width
-            source: "qrc:/gfx/buttonNormal.png";
-            Text {
-                color: "#ffffff"
-                text: qsTr("Meteor Info")
-                wrapMode: Text.WordWrap
-                width: parent.width - 40
-                anchors.centerIn: parent
-                font.pixelSize: 30
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    showInfo()
-                }
-                onPressed: {
-                    parent.source = "qrc:/gfx/buttonHover.png";
-                }
-                onReleased: {
-                    parent.source = "qrc:/gfx/buttonNormal.png";
-                }
+            text: qsTr("Meteor Info")
+            onClicked: {
+                showInfo();
             }
         }
-
-
-        Image {
+        MeteorButton {
             width: (bgImage.width - 80) / 3;
-            height: width
-            source: "qrc:/gfx/buttonNormal.png";
-            Text {
-                color: "#ffffff"
-                text: qsTr("Observation History");
-                wrapMode: Text.WordWrap
-                width: parent.width - 40
-                anchors.centerIn: parent
-                font.pixelSize: 30
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    showHistory()
-                }
-                onPressed: {
-                    parent.source = "qrc:/gfx/buttonHover.png";
-                }
-                onReleased: {
-                    parent.source = "qrc:/gfx/buttonNormal.png";
-                }
+            text: qsTr("Observation History");
+            onClicked: {
+                showHistory()
             }
         }
     }
