@@ -6,7 +6,7 @@ DEPLOYMENTFOLDERS = folder_01
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-QT += sensors location network xml
+QT += sensors location network xml systeminfo
 
 symbian:TARGET.UID3 = 0xE5E9375B
 
@@ -39,9 +39,9 @@ SOURCES += main.cpp \
     starview.cpp \
     formmanager.cpp \
     taivaanvahtiform.cpp \
-    acam.cpp \
-    uyvy2rgb.cpp \
-    avideosurface.cpp
+    acam.cpp
+#    uyvy2rgb.cpp
+#    avideosurface.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -67,6 +67,6 @@ HEADERS += \
     starview.h \
     formmanager.h \
     taivaanvahtiform.h \
-    acam.h \
-    uyvy2rgb.h \
-    avideosurface.h
+    acam.h
+#    uyvy2rgb.h
+#    avideosurface.h

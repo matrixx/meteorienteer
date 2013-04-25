@@ -16,7 +16,7 @@ public:
     virtual void updateVideo() = 0;
 };
 
-class MyVideoSurface: public QAbstractVideoSurface 
+class MyVideoSurface: public QAbstractVideoSurface
 {
 Q_OBJECT
 

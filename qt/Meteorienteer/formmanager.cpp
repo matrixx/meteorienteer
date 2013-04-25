@@ -12,17 +12,17 @@ FormManager::FormManager(QObject *parent) :
 //    m_filterList.append("observation_date");
 //    m_filterList.append("observation_start_hours");
 //    m_filterList.append("observation_coordinates");
-    m_filterList.append("observation_location");
-    m_filterList.append("user_name");
-    m_filterList.append("user_email");
-    m_filterList.append("user_phone");
+//    m_filterList.append("observation_location");
+//    m_filterList.append("user_name");
+//    m_filterList.append("user_email");
+//    m_filterList.append("user_phone");
 //    m_filterList.append("observation_public");
     m_filterList.append("observation_title");
     m_filterList.append("observation_description");
-    m_filterList.append("observation_equipment");
-//    m_filterList.append("specific_havaintoajan_tarkkuus");
-//    m_filterList.append("specific_lennon_kesto");
-//    m_filterList.append("specific_sammumistapa");
+//    m_filterList.append("observation_equipment");
+    m_filterList.append("specific_havaintoajan_tarkkuus");
+    m_filterList.append("specific_lennon_kesto");
+    m_filterList.append("specific_sammumistapa");
 //    m_filterList.append("specific_ilmansuunta_katoamishetkellä");
 //    m_filterList.append("specific_korkeus_katoamishetkellä");
 //    m_filterList.append("specific_lentokulma");
@@ -95,8 +95,8 @@ QString FormManager::type()
         type = "TextAreaField.qml";
         break;
     };
-    return "TextAreaField.qml";
-//    return type;
+//    return "TextAreaField.qml";
+    return type;
 }
 
 QString FormManager::label()
@@ -121,7 +121,7 @@ QString FormManager::setValue(QString value)
 QString FormManager::setValueIndex(int index)
 {
     QString retval = "";
-    if (values().size() >= index ) {
+    if (index >= values().size() || index < 0) {
         retval = "index out of range";
     } else {
         retval = validate(m_currentId, values().at(index));
@@ -130,6 +130,7 @@ QString FormManager::setValueIndex(int index)
         m_currentValue = m_currentTaivaanvahtiField->values().keys().at(index);
         m_result[m_currentField].first.second = m_currentValue;
         m_result[m_currentField].second = index;
+        qDebug() << "setting value index value:" << m_currentValue;
     }
     return retval;
 }
