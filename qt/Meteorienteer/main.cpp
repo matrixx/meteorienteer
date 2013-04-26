@@ -17,7 +17,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     FormManager mgr;
     viewer.rootContext()->setContextProperty("mgr", &mgr);
     viewer.setMainQmlFile(QLatin1String("qml/Meteorienteer/main.qml"));
-    viewer.showExpanded();
+    //viewer.showExpanded();
+    viewer.showFullScreen();
 //    TaivaanvahtiTest tvt;
 //    tvt.runTest();
     return app->exec();

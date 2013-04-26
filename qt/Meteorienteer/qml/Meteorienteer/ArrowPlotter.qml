@@ -28,44 +28,79 @@ Rectangle {
     }
     Image {
         id: arrow
-        x:100; y:100;width:50;height:10;
+        x:300; y:300; width:200;height:80;
         fillMode: Image.Stretch;
         transformOrigin: "Left"; smooth: false;
-        source: "qrc:/gfx/arrow2.gif"
+        source: "qrc:/gfx/arrow1.gif"
         z:5;
         visible:true;
-        opacity: 50
+        opacity: 0.5;
+        property bool endGrabVisible: false
+        Rectangle { anchors.rightMargin: width/-2; anchors.bottom: arrow.bottom; anchors.right: arrow.right; color: "red"; height: 80; width: 80;
+            MouseArea {
+                anchors.fill: parent;
+                property int mxi;
+                property int myi;
+                onPressed: {
+                    myi= mapToItem(capturedImage,mouseX, mouseY).y
+                    mxi= mapToItem(capturedImage,mouseX, mouseY).x;
+                    //mxi= parent.x
+                    //myi = parent.y
+                    //mxi= mapToItem(capturedImage,mouseX, mouseY).y
+                    console.debug( "mouse("+mxi+","+myi+") rg pressed");
+                }
+                onMousePositionChanged:{
+                    var mouseXj = mapToItem(capturedImage,mouseX, mouseY).x
+                    var mouseYj = mapToItem(capturedImage,mouseX, mouseY).y;
+                    console.debug( "mouse("+mouseXj+","+mouseYj+") right grab position changed");
+                    //arrow.x=mxi; arrow.y=myi;
+                    arrow.visible=true;
+                    arrow.transformOrigin = "left";
+                    //arrow.rotation = Math.atan2(mouseYj-myi,mouseXj-mxi)*180/(Math.PI);
+                    arrow.rotation = Math.atan2(mouseYj-parent.x,mouseXj-parent.y)*180/(Math.PI);
+                    //arrow.width = movedelta(mxi,myi,mouseX,mouseY)*0.7;
+                    console.debug( "arrow width:" + arrow.width);
+                }
+            }
+        }
+        Rectangle { anchors.leftMargin: width/-2; anchors.bottom: arrow.bottom; anchors.left:arrow.left; color: "red"; height: 80; width: 80;
+        MouseArea {
+        }
+        }
     }
     Image {
         id: capturedImage;
-        MouseArea {
-            id: mouse_area1
-            anchors.fill: parent
-            property int mxi;
-            property int myi;
-            property int trigdelta: 20;
 
-            onPressed: {
-                myi=mouseY;
-                mxi=mouseX;
-                console.debug( "mouse("+mxi+","+myi+") pressed");
-            }
-            onReleased: {
-                console.debug( "mouse("+mouseX+","+mouseY+") released");
-                console.debug( "mouse move delta:" + movedelta(mxi, myi, mouseX, mouseY) );
-                arrow.visible=true;
-            }
-            onMousePositionChanged: {
-                if(movedelta(mxi,myi, mouseX, mouseY)>trigdelta && pressed) {
-                    arrow.x=mxi; arrow.y=myi;
-                    arrow.visible=true;
-                    arrow.x = mxi; arrow.y = myi;
-                    arrow.transformOrigin = "left";
-                    arrow.rotation = Math.atan2(mouseY-myi,mouseX-mxi)*180/(Math.PI);
-                    arrow.width = movedelta(mxi,myi,mouseX,mouseY);
-                } else arrow.visible=false;
-            }
+
+    MouseArea {
+        id: mouse_area1
+        anchors.fill: parent
+        property int mxi;
+        property int myi;
+        property int trigdelta: 20;
+
+        onPressed: {
+            myi=mouseY;
+            mxi=mouseX;
+            console.debug( "mouse("+mxi+","+myi+") pressed");
         }
+        onReleased: {
+            console.debug( "mouse("+mouseX+","+mouseY+") released");
+            console.debug( "mouse move delta:" + movedelta(mxi, myi, mouseX, mouseY) );
+            arrow.visible=true;
+        }
+        onMousePositionChanged: {
+            if(movedelta(mxi,myi, mouseX, mouseY)>trigdelta && pressed) {
+                arrow.x=mxi; arrow.y=myi;
+                arrow.visible=true;
+                arrow.x = mxi; arrow.y = myi;
+                arrow.transformOrigin = "left";
+                arrow.rotation = Math.atan2(mouseY-myi,mouseX-mxi)*180/(Math.PI);
+                arrow.width = movedelta(mxi,myi,mouseX,mouseY);
+                arrow.endGrabVisible = true;
+            } else arrow.visible=false;
+        }
+    }
         anchors.fill: parent
         source: "qrc:/gfx/arrow2.gif"
     }
