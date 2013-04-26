@@ -37,7 +37,9 @@ Window {
         Connections {
             target: mgr;
             onFormReceived:
-                observationFormView.loadField();
+                observationFormView.init();
+            onSubmitted:
+                observationFormView.onSubmitted(success);
         }
     }
 

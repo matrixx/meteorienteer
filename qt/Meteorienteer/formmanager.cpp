@@ -9,23 +9,23 @@ FormManager::FormManager(QObject *parent) :
 {
     m_tv = new Taivaanvahti;
     connect(m_tv, SIGNAL(formReceived(TaivaanvahtiForm*)), this, SLOT(receiveForm(TaivaanvahtiForm*)));
-    m_filterList.append("observation_date");
-    m_filterList.append("observation_start_hours");
-    m_filterList.append("observation_coordinates");
-    m_filterList.append("observation_location");
-    m_filterList.append("user_name");
-    m_filterList.append("user_email");
-    m_filterList.append("user_phone");
-    m_filterList.append("observation_public");
+//    m_filterList.append("observation_date");
+//    m_filterList.append("observation_start_hours");
+//    m_filterList.append("observation_coordinates");
+//    m_filterList.append("observation_location");
+//    m_filterList.append("user_name");
+//    m_filterList.append("user_email");
+//    m_filterList.append("user_phone");
+//    m_filterList.append("observation_public");
     m_filterList.append("observation_title");
     m_filterList.append("observation_description");
-    m_filterList.append("observation_equipment");
+//    m_filterList.append("observation_equipment");
     m_filterList.append("specific_havaintoajan_tarkkuus");
     m_filterList.append("specific_lennon_kesto");
     m_filterList.append("specific_sammumistapa");
-    m_filterList.append("specific_ilmansuunta_katoamishetkellä");
-    m_filterList.append("specific_korkeus_katoamishetkellä");
-    m_filterList.append("specific_lentokulma");
+//    m_filterList.append("specific_ilmansuunta_katoamishetkellä");
+//    m_filterList.append("specific_korkeus_katoamishetkellä");
+//    m_filterList.append("specific_lentokulma");
 }
 
 void FormManager::getForm()
@@ -36,7 +36,24 @@ void FormManager::getForm()
 
 int FormManager::fieldCount()
 {
-    return m_form->fields().size();
+    if (m_form != NULL) {
+        return m_form->fields().size();
+    } else {
+        return 0;
+    }
+}
+
+bool FormManager::previous()
+{
+    bool retval = false;
+    if (m_currentField > 0) {
+        m_currentField--;
+        m_currentTaivaanvahtiField = m_form->fields().at(m_currentField);
+        m_currentId = m_currentTaivaanvahtiField->id();
+        labelChanged();
+        retval = true;
+    }
+    return retval;
 }
 
 bool FormManager::next()
@@ -44,16 +61,12 @@ bool FormManager::next()
     bool retval = false;
     if (m_currentField < m_form->fields().size() - 1) {
         m_currentField++;
-        m_currentTaivaanvahtiField = m_form->fields()[m_currentField];
+        m_currentTaivaanvahtiField = m_form->fields().at(m_currentField);
         m_currentId = m_currentTaivaanvahtiField->id();
+        labelChanged();
         retval = true;
     }
     return retval;
-}
-
-int FormManager::currentField()
-{
-    return m_currentField;
 }
 
 QString FormManager::type()
@@ -82,29 +95,44 @@ QString FormManager::type()
         type = "TextAreaField.qml";
         break;
     };
-    return "TextAreaField.qml";
-//    return type;
-}
-
-QString FormManager::id()
-{
-    return m_currentId;
+//    return "TextAreaField.qml";
+    return type;
 }
 
 QString FormManager::label()
 {
-    return m_currentTaivaanvahtiField->label();
+    if (m_currentTaivaanvahtiField != NULL) {
+        return m_currentTaivaanvahtiField->label();
+    } else {
+        return QString();
+    }
 }
 
-void FormManager::setValue(QString value)
+QString FormManager::setValue(QString value)
 {
-    m_currentValue = value;
-    m_result.insert(m_currentTaivaanvahtiField, value);
+    QString retval = validate(m_currentId, value);
+    if (retval.isEmpty()) {
+        m_currentValue = value;
+        m_result[m_currentField].first.second = value;
+    }
+    return retval;
 }
 
-void FormManager::setValueIndex(int index)
+QString FormManager::setValueIndex(int index)
 {
-    m_currentValue = index;
+    QString retval = "";
+    if (index >= values().size() || index < 0) {
+        retval = "index out of range";
+    } else {
+        retval = validate(m_currentId, values().at(index));
+    }
+    if (retval.isEmpty()) {
+        m_currentValue = m_currentTaivaanvahtiField->values().keys().at(index);
+        m_result[m_currentField].first.second = m_currentValue;
+        m_result[m_currentField].second = index;
+        qDebug() << "setting value index value:" << m_currentValue;
+    }
+    return retval;
 }
 
 QStringList FormManager::values()
@@ -132,9 +160,24 @@ QString FormManager::loadSetting(QString id)
 
 void FormManager::submit()
 {
-    if (!m_result.isEmpty()) {
-        m_tv->submitForm(m_result, 1);
+    qDebug() << "submitting:";
+    QMap<TaivaanvahtiField*, QString> values;
+    for (int i = 0; i < m_result.size(); ++i) {
+        QPair<TaivaanvahtiField*, QString> field = m_result.at(i).first;
+        values.insert(field.first, field.second);
+        qDebug() << field.first->id() << field.second;
     }
+    // TODO: this fakes submission until properly tested
+    emit submitted(true);
+//    m_tv->submitForm(values, 1);
+}
+
+void FormManager::reset()
+{
+    delete m_form;
+    m_form = NULL;
+    m_currentTaivaanvahtiField = NULL;
+    m_result.clear();
 }
 
 void FormManager::receiveForm(TaivaanvahtiForm* form)
@@ -143,6 +186,7 @@ void FormManager::receiveForm(TaivaanvahtiForm* form)
     m_form = form;
     form->setParent(this);
     filter();
+    /*
     for (int i = 0; i < m_form->fields().size(); ++i) {
         qDebug() << "field number:" << i;
         TaivaanvahtiField* field = m_form->fields()[i];
@@ -156,15 +200,15 @@ void FormManager::receiveForm(TaivaanvahtiForm* form)
             qDebug() << keys[j] << values[j];
         }
     }
+    */
     emit formReceived();
 }
 
 void FormManager::onSubmitted(bool success, int observationId, QString observationModificationKey)
 {
     qDebug() << "onSubmitted, success:" << success << "|" << observationId << "|" << observationModificationKey;
-    delete m_form;
-    m_form = NULL;
-    m_result.clear();
+    // TODO: handle submit fail, do not reset if failed
+    reset();
     emit submitted(success);
 }
 
@@ -173,13 +217,19 @@ void FormManager::filter()
     QVector<TaivaanvahtiField*> fields = m_form->fields();
     QVector<TaivaanvahtiField*> newFields;
     for (int i = 0; i < fields.size(); ++i) {
-        // if we want only mandatory fields, filter out non-mandatory
         TaivaanvahtiField* field = fields.at(i);
         if (m_filterList.contains(field->id())) {
             newFields.push_back(field);
+            m_result.push_back(qMakePair(qMakePair(field, QString()), 0));
         } else {
             delete field;
         }
     }
     m_form->setFields(newFields);
+}
+
+QString FormManager::validate(QString /*id*/, QString /*value*/)
+{
+    QString retval = "";
+    return retval;
 }

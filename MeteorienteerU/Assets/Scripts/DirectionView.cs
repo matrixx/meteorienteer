@@ -3,6 +3,7 @@ using System.Collections;
 
 public class DirectionView : MonoBehaviour
 {	
+	public GUISkin transparentGuiSkin;
 	private SensorCaptureView sensorCaptureView;
 	private AdditionalData additionalData;
 
@@ -19,12 +20,26 @@ public class DirectionView : MonoBehaviour
 	
 	void OnGUI()
 	{
-		GUI.skin = GUIOptions.Singleton.appStyle;
+		GUI.skin = transparentGuiSkin;
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
-		GUILayout.Label("Aseta nuoli kuvaamaan tulipallon lentorataa.");
+		GUILayout.Box("Aseta nuoli kuvaamaan tulipallon lentorataa.");
+		if (SensorData.LocationAvailable)
+		{
+			GUILayout.Box("");
+			GUILayout.Box("");
+		}
+		else
+		{
+			GUILayout.Box("");
+		}
+		GUILayout.Box("");
+		GUILayout.Box("");
+		GUILayout.Box("");
+		GUILayout.Box("");
 		GUILayout.FlexibleSpace();
 		
+		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Takaisin"))
 		{
@@ -39,22 +54,24 @@ public class DirectionView : MonoBehaviour
 		}
 		GUILayout.EndHorizontal();
 		
+		
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("");
+		GUI.skin = transparentGuiSkin;
+		GUILayout.Box("");
 		if (SensorData.LocationAvailable)
 		{
-			GUILayout.Label("Latitude: " + SensorData.Latitude);
-			GUILayout.Label("Longitude: " + SensorData.Longitude);
+			GUILayout.Box("Leveysaste: " + SensorData.Latitude);
+			GUILayout.Box("Pituusaste: " + SensorData.Longitude);
 		}
 		else
 		{
-			GUILayout.Label("Location services unavailable");
+			GUILayout.Box("Paikannusdataa ei saatavilla");
 		}
-		GUILayout.Label("---");
-		GUILayout.Label("Heading: " + Mathf.Round(SensorData.TrueHeading));
-		GUILayout.Label("---");
+		GUILayout.Box("---");
+		GUILayout.Box("Ilmansuunta: " + Mathf.Round(SensorData.TrueHeading));
+		GUILayout.Box("---");
 		float angle = -Vector3.Angle(Vector3.forward, SensorData.Acceleration) + 90f;
-		GUILayout.Label("Vertical angle: " + Mathf.Round(angle));
+		GUILayout.Box("Korkeuskulma: " + Mathf.Round(angle));
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}
