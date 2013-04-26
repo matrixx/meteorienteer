@@ -4,6 +4,7 @@ import QtMultimediaKit 1.1
 import Qt.labs.shaders 1.0
 
 Rectangle {
+    id: obview
     signal measurementsSaved(string imagePath)
     anchors.fill: parent
     color: "black"
@@ -21,9 +22,11 @@ Rectangle {
 
     ShaderEffectItem {
         id: hlitem;
+
         property variant source: ShaderEffectSource { sourceItem: cam; hideSource: true }
         property real wiggleAmount: 0.005;
         property real highLightThreshold: 0.7;
+        property bool enabled: cam.toolBarEnabled
         onHighLightThresholdChanged: console.debug("onHighLightThresholdChanged:"+highLightThreshold)
         anchors.fill: parent
 
@@ -32,18 +35,24 @@ Rectangle {
         uniform highp float highLightThreshold;
         uniform sampler2D source;
         uniform highp float wiggleAmount;
+        uniform bool enabled;
         void main(void)
         {
-            highp vec2 wiggledTexCoord = qt_TexCoord0;
-            wiggledTexCoord.s += sin(4.0 * 3.141592653589 * wiggledTexCoord.t) * wiggleAmount;
-            //gl_FragColor = texture2D(source, wiggledTexCoord.st);
-            gl_FragColor = texture2D(source, qt_TexCoord0.st);
-            gl_FragColor.a = 1.0;
-            gl_FragColor.rgb = step(highLightThreshold, gl_FragColor.rgb) + gl_FragColor.rgb;
+            if (enabled)
+            {
+                highp vec2 wiggledTexCoord = qt_TexCoord0.st;
+                wiggledTexCoord.s += sin(4.0 * 3.141592653589 * wiggledTexCoord.t) * wiggleAmount;
+                //gl_FragColor = texture2D(source, wiggledTexCoord.st);
+                gl_FragColor = texture2D(source, qt_TexCoord0.st);
+                gl_FragColor.a = 1.0;
+                gl_FragColor.rgb = step(highLightThreshold, gl_FragColor.rgb) + gl_FragColor.rgb;
+            } else
+                gl_FragColor = texture2D(source, qt_TexCoord0.st);
         }
         "
     }
     Rectangle {
+        visible: cam.toolBarEnabled
         anchors.top: cam.bottom;
         anchors.left: cam.left
         anchors.right: cam.right
@@ -76,11 +85,12 @@ Rectangle {
     }
     Camera {
         property int toolBarHeight:100;
+        property bool toolBarEnabled: false;
         id: cam
         x: 0
         y: 0
         width: parent.width
-        height: parent.height - toolBarHeight
+        height: toolBarEnabled ? obview.height - toolBarHeight : obview.height;
         captureResolution: "900x506" // 3:2
         onImageSaved: measurementsSaved(path)
 

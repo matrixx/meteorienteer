@@ -4,11 +4,12 @@
 #include <QAbstractVideoSurface>
 #include <QVideoRendererControl>
 #include <QVideoSurfaceFormat>
-
+#include <QWidget>
+#include <QPainter>
 #include "uyvy2rgb.h"
 
 /*****************************************************************************
-* MyVideoSurface
+* AVideoSurface
 */
 class VideoIF
 {
@@ -16,13 +17,13 @@ public:
     virtual void updateVideo() = 0;
 };
 
-class MyVideoSurface: public QAbstractVideoSurface 
+class AVideoSurface: public QAbstractVideoSurface
 {
 Q_OBJECT
 
 public:
-    MyVideoSurface(QWidget* widget, VideoIF* target, QObject * parent = 0);
-    ~MyVideoSurface();
+    AVideoSurface(QWidget* widget, VideoIF* target, QObject * parent = 0);
+    ~AVideoSurface();
 
     bool start(const QVideoSurfaceFormat &format);
 
@@ -35,6 +36,7 @@ public:
 
     void calcLuma(uchar* luma, uchar* rgb, int width);
     void edgify(QImage* image);
+    void setWidget(QWidget* w) { m_targetWidget = w; }
 
 private:
     QWidget* m_targetWidget;

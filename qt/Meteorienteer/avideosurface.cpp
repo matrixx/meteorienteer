@@ -1,6 +1,6 @@
 //#include "cameraexample.h"
 #include "qmath.h"
-
+#include "avideosurface.h"
 /*****************************************************************************
 * AVideoSurface
 */

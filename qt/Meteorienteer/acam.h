@@ -2,6 +2,9 @@
 #define ACAM_H
 
 #include <QDeclarativeItem>
+#include <QCamera>
+#include <qsystemscreensaver.h>
+#include <avideosurface.h>
 
 class ACam : public QDeclarativeItem
 {
@@ -13,7 +16,8 @@ protected:
     void paint(QPainter *,
                      const QStyleOptionGraphicsItem *,
                      QWidget * );
-    
+    AVideoSurface*         m_videoSurface;
+    //QSystemScreenSaver *     m_systemScreenSaver;
 signals:
     
 public slots:
