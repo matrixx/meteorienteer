@@ -29,7 +29,7 @@ Rectangle {
             id: radioParent
             width: 400
             height: childrenRect.height
-            radius: 5
+            radius: 15
             border.color: "white"
             border.width: 1
             Component.onCompleted: {

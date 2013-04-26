@@ -10,6 +10,7 @@ class FormManager : public QObject
     Q_OBJECT
     Q_PROPERTY(QString type READ type)
     Q_PROPERTY(QString label READ label NOTIFY labelChanged)
+    Q_PROPERTY(QString prefilled READ prefilled NOTIFY prefilledChanged)
 
 public:
     // Form submission data. Field, value
@@ -22,16 +23,20 @@ public:
     Q_INVOKABLE bool next();
     Q_INVOKABLE QString type();
     Q_INVOKABLE QString label();
+    Q_INVOKABLE QString prefilled();
     Q_INVOKABLE QString setValue(QString value);
     Q_INVOKABLE QString setValueIndex(int index);
     Q_INVOKABLE QStringList values();
     Q_INVOKABLE void submit();
     Q_INVOKABLE void reset();
+    Q_INVOKABLE void setCompass(qreal azimuth);
+    Q_INVOKABLE void setCoordinate(double lat, double lon);
 
 signals:
     void formReceived();
     void submitted(bool success);
     void labelChanged();
+    void prefilledChanged();
 
 public slots:
     void receiveForm(TaivaanvahtiForm* form);
@@ -42,6 +47,9 @@ private:
     QString validate(QString id, QString value);
     void saveSetting(QString id, QString value);
     QString loadSetting(QString id);
+    void prefill();
+    QString localizedLabel();
+    QStringList localizedValues();
 
     Taivaanvahti* m_tv;
     TaivaanvahtiForm* m_form;
@@ -52,6 +60,8 @@ private:
     QString m_currentId;
     QString m_currentValue;
     QStringList m_filterList;
+    QString m_compassPoint;
+    QString m_coordinate;
 };
 
 #endif // FORMMANAGER_H

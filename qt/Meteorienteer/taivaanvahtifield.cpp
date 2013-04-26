@@ -16,9 +16,6 @@ void TaivaanvahtiField::parseFieldElement(QDomElement elem)
     fieldInfoUrl = QUrl(elem.firstChildElement("field_info_url").text());
 
     QString fieldTypeString = elem.firstChildElement("field_type").text();
-
-    qDebug() << "parsing field id:" << fieldId << "field type string:" << fieldTypeString;
-
     if(fieldTypeString=="text") fieldType = TYPE_TEXT;
     if(fieldTypeString.toLower()=="date") fieldType = TYPE_DATE;
     if(fieldTypeString.toLower()=="time") fieldType = TYPE_TIME;
@@ -29,7 +26,6 @@ void TaivaanvahtiField::parseFieldElement(QDomElement elem)
     if(fieldType == TYPE_NOT_SET) {
         qDebug() << Q_FUNC_INFO << "Warning: field type " << fieldTypeString << " not handled!";
     }
-    qDebug() << "evaluated as:" << fieldType;
     QDomElement valuesElement = elem.firstChildElement("values");
     if(!valuesElement.isNull()) {
         QDomElement valueElement = valuesElement.firstChildElement("value");

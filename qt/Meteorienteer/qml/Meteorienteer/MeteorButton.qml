@@ -7,6 +7,7 @@ Image {
     property alias text: buttonText.text
     signal clicked();
     source: "qrc:/gfx/buttonNormal.png";
+    smooth: true
 
     Text {
         id: buttonText

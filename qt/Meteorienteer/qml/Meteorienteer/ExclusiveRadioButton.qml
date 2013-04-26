@@ -8,7 +8,7 @@ Rectangle {
     property int index: 0;
     signal selected(int index)
     width: parent.width
-    height: Math.max(buttonLabel.height, 100);
+    height: Math.max(buttonLabel.height + 20, 100);
     color: "black"
     border.color: "white"
     border.width: 1
@@ -16,10 +16,11 @@ Rectangle {
         id: rb
         checked: false
         anchors.left: parent.left
+        anchors.leftMargin: 15
         anchors.verticalCenter: parent.verticalCenter
         onCheckedChanged: {
             if (checked) {
-                parent.selected(index)
+                selected(index)
             }
         }
     }
@@ -28,7 +29,7 @@ Rectangle {
         anchors.margins: 20
         anchors.left: rb.right
         anchors.top: parent.top
-        width: 380 - rb.width
+        width: 365 - rb.width
         text: mgr.label
         wrapMode: Text.WordWrap
         color: "white"

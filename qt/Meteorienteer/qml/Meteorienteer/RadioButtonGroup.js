@@ -14,7 +14,7 @@ function populate() {
             } else {
                 button.checked = false;
             }
-            button.selected.connect(onSelectionChanged());
+            button.selected.connect(onSelectionChanged);
             buttonList.push(button);
         }
     }
@@ -25,7 +25,6 @@ function onSelectionChanged(index) {
         selectedIndex = index;
         for (var i = 0; i < buttonList.length; ++i) {
             if (i !== selectedIndex) {
-                console.debug("unchecking index:" + i);
                 buttonList[i].unCheck();
             }
         }
@@ -35,7 +34,7 @@ function onSelectionChanged(index) {
 function save() {
     var validationError = mgr.setValueIndex(selectedIndex);
     if (validationError === "") {
-        console.debug("successfully submitted value: " + selectedIndex);
+        console.debug("successfully saved value: " + selectedIndex);
         radioButtonField.saved(true);
     } else {
         console.debug("validation error: " + validationError);

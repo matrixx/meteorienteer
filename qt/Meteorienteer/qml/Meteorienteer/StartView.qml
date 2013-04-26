@@ -13,6 +13,18 @@ Rectangle {
         source: "qrc:/gfx/linnunrata_N9.jpg"
         anchors.fill: parent
     }
+    Text {
+        id: title
+        text: "Meteorienteer";
+        font {
+            pixelSize: 40;
+        }
+        color: "white"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.margins: 20
+    }
+
     Row {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left

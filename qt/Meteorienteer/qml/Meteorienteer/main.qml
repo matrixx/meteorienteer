@@ -41,6 +41,16 @@ Window {
             onSubmitted:
                 observationFormView.onSubmitted(success);
         }
+        onFormSubmitSucceeded: {
+            submittedView.visible = true;
+            observationFormView.visible = false;
+        }
+    }
+
+    SubmittedView {
+        id: submittedView
+        anchors.fill: parent
+        visible: false;
     }
 
     QueryDialog {
