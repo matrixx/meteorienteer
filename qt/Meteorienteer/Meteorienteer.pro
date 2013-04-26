@@ -38,8 +38,8 @@ SOURCES += main.cpp \
     taivaanvahtitest.cpp \
     starview.cpp \
     formmanager.cpp \
-    taivaanvahtiform.cpp \
-    acam.cpp
+    taivaanvahtiform.cpp
+#    acam.cpp
 #    uyvy2rgb.cpp
 #    avideosurface.cpp
 
@@ -66,7 +66,7 @@ HEADERS += \
     taivaanvahtitest.h \
     starview.h \
     formmanager.h \
-    taivaanvahtiform.h \
-    acam.h
+    taivaanvahtiform.h
+#    acam.h
 #    uyvy2rgb.h
 #    avideosurface.h
