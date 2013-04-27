@@ -63,6 +63,17 @@ Rectangle {
         height: 100;
         z:30
         id: shootButton
+        Text {
+            anchors.fill: parent
+            wrapMode: Text.Wrap
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            id: shootText
+            color: "#ffffff"
+            text: qsTr("Take Pic!")
+            font.family: "Sans Serif"
+            font.pointSize: 25
+        }
         MouseArea {
             anchors.fill: parent
          onPressed: {
