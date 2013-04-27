@@ -59,19 +59,8 @@ Rectangle {
         Rectangle { anchors.leftMargin: width/-2; anchors.bottom: arrow.bottom; anchors.left:arrow.left; color: "red"; height: 80; width: 80;
             MouseArea {
                 anchors.fill: parent;
-                onPressed: {
-                    console.debug( "mouse("+mxi+","+myi+") rg pressed");
-                }
-                onMousePositionChanged:{
-                    var mouseXj = mapToItem(capturedImage,mouseX, mouseY).x
-                    var mouseYj = mapToItem(capturedImage,mouseX, mouseY).y;
-                    console.debug( "mouse("+mouseXj+","+mouseYj+") right grab position changed");
-                    arrow.visible=true;
-                    arrow.transformOrigin = "left";
-                    arrow.rotation = Math.atan2(mouseYj-arrow.x+(arrow.height*0.5),mouseXj-arrow.y+(arrow.height*0.5))*180/(Math.PI);
-                    arrow.width = movedelta(arrow.x,arrow.y,mouseXj,mouseYj);
-                    console.debug( "arrowrg  width:" + arrow.width);
-                }
+                drag.axis: Drag.XandYAxis
+                drag.target: arrow
             }
         }
     }
