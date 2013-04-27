@@ -7,5 +7,6 @@
         <file>gfx/buttonNormal.png</file>
         <file>gfx/bg.jpg</file>
         <file>gfx/arrow1.gif</file>
+        <file alias="splash">gfx/pensieve_t.png</file>
     </qresource>
 </RCC>
