@@ -26,7 +26,7 @@ void ACam::paint(QPainter *painter,
                  const QStyleOptionGraphicsItem *,
                  QWidget *widget )
 {
-    m_videoSurface->setWidget(widget);
-    m_videoSurface->paint(painter);
+    //m_videoSurface->setWidget(widget);
+    //m_videoSurface->paint(painter);
     //
 }

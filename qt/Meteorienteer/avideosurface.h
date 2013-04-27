@@ -17,11 +17,7 @@ public:
     virtual void updateVideo() = 0;
 };
 
-<<<<<<< HEAD
 class AVideoSurface: public QAbstractVideoSurface
-=======
-class MyVideoSurface: public QAbstractVideoSurface
->>>>>>> d7272e542ccdfb0679b90f5fa3afe395900eeb1a
 {
 Q_OBJECT
 

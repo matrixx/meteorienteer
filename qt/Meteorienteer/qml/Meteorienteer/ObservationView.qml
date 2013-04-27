@@ -8,7 +8,9 @@ Rectangle {
     signal measurementsSaved(string imagePath)
     anchors.fill: parent
     color: "black"
-
+    property bool toolBarEnabled: false;
+    property bool shooterEnabled: true;
+    property int toolBarHeight:100;
     LocationDataProvider {
         id: measurements
     }
@@ -23,10 +25,10 @@ Rectangle {
     ShaderEffectItem {
         id: hlitem;
 
-        property variant source: ShaderEffectSource { sourceItem: cam; hideSource: true }
+        //property variant source: ShaderEffectSource { sourceItem: cam; hideSource: true }
         property real wiggleAmount: 0.005;
         property real highLightThreshold: 0.7;
-        property bool enabled: cam.toolBarEnabled
+        property bool enabled: obview.toolBarEnabled
         onHighLightThresholdChanged: console.debug("onHighLightThresholdChanged:"+highLightThreshold)
         anchors.fill: parent
 
@@ -51,8 +53,53 @@ Rectangle {
         }
         "
     }
+    Image {
+        state: "normal"
+        visible: obview.shooterEnabled
+        anchors.right: obview.right
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.rightMargin: 20
+        width: 100;
+        height: 100;
+        z:30
+        id: shootButton
+        MouseArea {
+            anchors.fill: parent
+         onPressed: {
+             shootButton.state = "active"
+             cam.captureImage();
+         }
+         onReleased: {
+             shootButton.state = "normal"
+         }
+        }
+        states: [
+            State {
+                name: "normal"
+                PropertyChanges {
+                    target: shootButton
+                    source: "qrc:/gfx/buttonNormal.png"
+                }
+            },
+            State {
+                name: "hover"
+                PropertyChanges {
+                    target: shootButton
+                    source: "qrc:/gfx/buttonHover.png"
+                }
+            },
+            State {
+                name: "active"
+                PropertyChanges {
+                    target: shootButton
+                    source: "qrc:/gfx/buttonActive.png"
+                }
+            }
+        ]
+    }
+
     Rectangle {
-        visible: cam.toolBarEnabled
+        visible: obview.toolBarEnabled
         anchors.top: cam.bottom;
         anchors.left: cam.left
         anchors.right: cam.right
@@ -84,13 +131,11 @@ Rectangle {
         }
     }
     Camera {
-        property int toolBarHeight:100;
-        property bool toolBarEnabled: false;
         id: cam
         x: 0
         y: 0
         width: parent.width
-        height: toolBarEnabled ? obview.height - toolBarHeight : obview.height;
+        height: obview.toolBarEnabled ? obview.height - obview.toolBarHeight : obview.height ;
         captureResolution: "900x506" // 3:2
         onImageSaved: measurementsSaved(path)
 

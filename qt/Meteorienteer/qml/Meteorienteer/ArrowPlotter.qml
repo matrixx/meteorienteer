@@ -35,37 +35,44 @@ Rectangle {
         z:5;
         visible:true;
         opacity: 0.5;
+        property int mxi;
+        property int myi;
         property bool endGrabVisible: false
         Rectangle { anchors.rightMargin: width/-2; anchors.bottom: arrow.bottom; anchors.right: arrow.right; color: "red"; height: 80; width: 80;
             MouseArea {
                 anchors.fill: parent;
-                property int mxi;
-                property int myi;
                 onPressed: {
-                    myi= mapToItem(capturedImage,mouseX, mouseY).y
-                    mxi= mapToItem(capturedImage,mouseX, mouseY).x;
-                    //mxi= parent.x
-                    //myi = parent.y
-                    //mxi= mapToItem(capturedImage,mouseX, mouseY).y
                     console.debug( "mouse("+mxi+","+myi+") rg pressed");
                 }
                 onMousePositionChanged:{
                     var mouseXj = mapToItem(capturedImage,mouseX, mouseY).x
                     var mouseYj = mapToItem(capturedImage,mouseX, mouseY).y;
                     console.debug( "mouse("+mouseXj+","+mouseYj+") right grab position changed");
-                    //arrow.x=mxi; arrow.y=myi;
                     arrow.visible=true;
                     arrow.transformOrigin = "left";
-                    //arrow.rotation = Math.atan2(mouseYj-myi,mouseXj-mxi)*180/(Math.PI);
-                    arrow.rotation = Math.atan2(mouseYj-parent.x,mouseXj-parent.y)*180/(Math.PI);
-                    //arrow.width = movedelta(mxi,myi,mouseX,mouseY)*0.7;
-                    console.debug( "arrow width:" + arrow.width);
+                    arrow.rotation = Math.atan2(mouseYj-arrow.y,mouseXj-arrow.x)*180/(Math.PI);
+                    arrow.width = movedelta(arrow.x,arrow.y,mouseXj,mouseYj);
+                    console.debug( "arrowrg  width:" + arrow.width);
                 }
             }
         }
         Rectangle { anchors.leftMargin: width/-2; anchors.bottom: arrow.bottom; anchors.left:arrow.left; color: "red"; height: 80; width: 80;
-        MouseArea {
-        }
+            MouseArea {
+                anchors.fill: parent;
+                onPressed: {
+                    console.debug( "mouse("+mxi+","+myi+") rg pressed");
+                }
+                onMousePositionChanged:{
+                    var mouseXj = mapToItem(capturedImage,mouseX, mouseY).x
+                    var mouseYj = mapToItem(capturedImage,mouseX, mouseY).y;
+                    console.debug( "mouse("+mouseXj+","+mouseYj+") right grab position changed");
+                    arrow.visible=true;
+                    arrow.transformOrigin = "left";
+                    arrow.rotation = Math.atan2(mouseYj-arrow.x+(arrow.height*0.5),mouseXj-arrow.y+(arrow.height*0.5))*180/(Math.PI);
+                    arrow.width = movedelta(arrow.x,arrow.y,mouseXj,mouseYj);
+                    console.debug( "arrowrg  width:" + arrow.width);
+                }
+            }
         }
     }
     Image {
@@ -75,8 +82,8 @@ Rectangle {
     MouseArea {
         id: mouse_area1
         anchors.fill: parent
-        property int mxi;
-        property int myi;
+        property alias mxi: arrow.x
+        property alias myi: arrow.y
         property int trigdelta: 20;
 
         onPressed: {
