@@ -38,7 +38,7 @@ Rectangle {
         property int mxi;
         property int myi;
         property bool endGrabVisible: false
-        Rectangle { anchors.rightMargin: width/-2; anchors.bottom: arrow.bottom; anchors.right: arrow.right; color: "red"; height: 80; width: 80;
+        Rectangle { anchors.rightMargin: width/-2; anchors.bottom: arrow.bottom; anchors.right: arrow.right; color: "#000010ff"; radius: 30; border.color: "darkgrey"; height: 80; width: 80;
             MouseArea {
                 anchors.fill: parent;
                 onPressed: {
@@ -56,7 +56,7 @@ Rectangle {
                 }
             }
         }
-        Rectangle { anchors.leftMargin: width/-2; anchors.bottom: arrow.bottom; anchors.left:arrow.left; color: "red"; height: 80; width: 80;
+        Rectangle { anchors.leftMargin: width/-2; anchors.bottom: arrow.bottom; anchors.left:arrow.left; color: "#000000ff"; radius: 3; border.color: "#f3aeae"; height: 80; width: 80;
             MouseArea {
                 anchors.fill: parent;
                 drag.axis: Drag.XandYAxis
