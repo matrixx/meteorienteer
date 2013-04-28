@@ -31,7 +31,7 @@ public class Taivaanvahti : MonoBehaviour
 		WWW www = new WWW(URL, System.Text.Encoding.UTF8.GetBytes(request), headers);
 		yield return www;
 		gotFormString = www.text;
-		Debug.Log(gotFormString);
+	//	Debug.Log(gotFormString);
 		
 		
 	    TaivaanvahtiForm form = new TaivaanvahtiForm();
@@ -45,7 +45,6 @@ public class Taivaanvahti : MonoBehaviour
 		{
 			while (categoryNode != null)
 			{
-				Debug.Log("categoryNode.Name: " + categoryNode.Name);
 				if (categoryNode.Name == "observation" || categoryNode.Name == "category")
 				{
 					HandleCategory(categoryNode, fields, form);
@@ -63,8 +62,6 @@ public class Taivaanvahti : MonoBehaviour
 	    XmlNode e = categoryNode.FirstChild;
 	    while(e != null)
 		{
-			Debug.Log(e.Name);
-			Debug.Log(e.LocalName);
 	        if (e.Name == "field" || e.Name == "specific")
 			{
 	            TaivaanvahtiField field = new TaivaanvahtiField(form);

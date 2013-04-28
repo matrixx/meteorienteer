@@ -27,12 +27,14 @@ public class Popup {
 		}
  
 		GUI.Label(position, buttonContent, buttonStyle);
-		if (showList) {
-			Rect listRect = new Rect(position.x, position.y, position.width, listStyle.CalcHeight(listContent[0], 1.0f)*listContent.Length);
+		if (showList)
+		{
+			Rect listRect = new Rect(position.x, position.y, position.width, position.height*listContent.Length);
 			GUI.Box(listRect, "", boxStyle);
 			listEntry = GUI.SelectionGrid(listRect, listEntry, listContent, 1, listStyle);
 		}
-		if (done) {
+		if (done)
+		{
 			showList = false;
 		}
 		return done;
