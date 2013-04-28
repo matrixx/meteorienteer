@@ -175,8 +175,7 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            cam.captureImage();
-            //measurementsSaved();
+            //cam.captureImage();
         }
     }
 }
