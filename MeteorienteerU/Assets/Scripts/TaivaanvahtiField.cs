@@ -14,7 +14,7 @@ public class TaivaanvahtiField
         TYPE_TIME
     };
 	
-	public string id {get; private set;}
+	public string id {get; set;}
 	public string label {get; private set;}
 	public string info {get; private set;}
 	public string infoUrl {get; private set;}
@@ -64,5 +64,31 @@ public class TaivaanvahtiField
 		}
 		
 		if (values != null && values.Count > 0) type = FieldType.TYPE_SELECTION;
+	}
+	
+    public void CreateFieldElement(XmlElement elem, string valuestr, XmlDocument doc)
+	{
+	    string idString = id;
+    	// Workarounds:
+	    if(idString == "observation_start_hours") idString = "start_hours";
+	    if(idString == "observation_end_hours") idString = "end_hours";
+	    CreateFieldElement(elem, idString, valuestr, doc);
+	}
+    
+	public static void CreateFieldElement(XmlElement elem, string name, string valuestr, XmlDocument doc)
+	{
+	    XmlElement fieldElement = doc.CreateElement("field");
+	    elem.AppendChild(fieldElement);
+	
+	    XmlElement fieldIdElement = doc.CreateElement("field_id");
+	    fieldElement.AppendChild(fieldIdElement);
+	
+	    XmlText fieldIdText = doc.CreateTextNode(name);
+	    fieldIdElement.AppendChild(fieldIdText);
+	
+	    XmlElement fieldValueElement = doc.CreateElement("field_value");
+	    fieldElement.AppendChild(fieldValueElement);
+	    XmlText fieldValueText = doc.CreateTextNode(valuestr);
+	    fieldValueElement.AppendChild(fieldValueText);
 	}
 }

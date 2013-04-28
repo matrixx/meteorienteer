@@ -15,6 +15,7 @@ public class AdditionalData : MonoBehaviour
 	public List<string> usedFields;
 	
 	private DirectionView directionView;
+	private SentView sentView;
 	private Taivaanvahti taivaanVahti;
 	
 	private Vector2 scrollPosition;
@@ -24,10 +25,12 @@ public class AdditionalData : MonoBehaviour
 	{
 		directionView = GetComponent<DirectionView>();
 		taivaanVahti = GetComponent<Taivaanvahti>();
+		sentView = GetComponent<SentView>();
 	}
 	
 	void OnEnable()
 	{
+		sendResult = Taivaanvahti.SendResult.None;
 		Debug.Log("AdditionalData::OnEnable");
 		Debug.Log(fieldValues.Count);
 		formWasReady = false;
@@ -113,7 +116,7 @@ public class AdditionalData : MonoBehaviour
 		fieldValues.Add("specific_lentokulma", Mathf.Round(travelAngle).ToString());
 		
 		fieldValues.Add("observation_date", System.DateTime.Now.ToShortDateString());
-		fieldValues.Add("observation_start_hours", System.DateTime.Now.ToShortTimeString());
+		fieldValues.Add("observation_start_hours", System.DateTime.Now.Hour.ToString() + ":" + System.DateTime.Now.Minute.ToString());
 		
 		fieldValues.Add("observation_coordinates", SensorData.Latitude + ", " + SensorData.Longitude);
 	}	
@@ -125,7 +128,15 @@ public class AdditionalData : MonoBehaviour
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), bgImage, ScaleMode.StretchToFill);
 		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
 		GUILayout.BeginVertical();
-		GUILayout.Label("Lisää tietoja havainnosta:");
+		GUILayout.Box("Lisää tietoja havainnosta:");
+		if (sendResult == Taivaanvahti.SendResult.MissingFields)
+		{
+			GUILayout.Box("Error: Some fields are missing");
+		}
+		else if (sendResult == Taivaanvahti.SendResult.OtherError)
+		{
+			GUILayout.Box("Error: Error sending data to server.");
+		}
 		GUILayout.FlexibleSpace();
 		
 		GUILayout.BeginHorizontal();
@@ -145,7 +156,10 @@ public class AdditionalData : MonoBehaviour
 		GUILayout.FlexibleSpace();
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();
-		GUILayout.Button("Lähetä");
+		if (GUILayout.Button("Lähetä"))
+		{
+			SubmitForm();
+		}
 		GUILayout.FlexibleSpace();
 		GUILayout.EndVertical();
 		GUILayout.EndHorizontal();
@@ -155,6 +169,8 @@ public class AdditionalData : MonoBehaviour
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}
+	
+	private Taivaanvahti.SendResult sendResult;
 	
 	void Update()
 	{
@@ -182,6 +198,16 @@ public class AdditionalData : MonoBehaviour
 					++fieldNumber;
 				}
 				formWasReady = true;
+			}
+			if (taivaanVahti.OngoingSendResult() == Taivaanvahti.SendResult.Success)
+			{
+				this.enabled = false;
+				sentView.enabled = true;
+				sendResult = Taivaanvahti.SendResult.None;
+			}
+			else if (taivaanVahti.OngoingSendResult() != Taivaanvahti.SendResult.None)
+			{
+				sendResult = taivaanVahti.OngoingSendResult();
 			}
 		}
 	}
@@ -267,5 +293,90 @@ public class AdditionalData : MonoBehaviour
 			}
 		}
 		GUILayout.EndScrollView();
+	}
+	
+	void SubmitForm()
+	{
+		if (taivaanVahti && taivaanVahti.FormReady && formWasReady)
+		{
+			Dictionary<TaivaanvahtiField, string> submitData = new Dictionary<TaivaanvahtiField, string>();
+			foreach (TaivaanvahtiField field in taivaanVahti.Form.Fields)
+			{
+				if (usedFields.Contains(field.id) && fieldValues.ContainsKey(field.id))
+				{
+					submitData.Add(field, fieldValues[field.id]);
+				}
+				else if (field.id == "start_day")
+				{
+					if (fieldValues.ContainsKey("observation_date"))
+					{
+						submitData.Add(field, System.DateTime.Parse(fieldValues["observation_date"]).Day.ToString());
+					}
+				}
+				else if (field.id == "start_month")
+				{
+					if (fieldValues.ContainsKey("observation_date"))
+					{
+						submitData.Add(field, System.DateTime.Parse(fieldValues["observation_date"]).Month.ToString());
+					}
+				}
+				else if (field.id == "start_year")
+				{
+					if (fieldValues.ContainsKey("observation_date"))
+					{
+						submitData.Add(field, System.DateTime.Parse(fieldValues["observation_date"]).Year.ToString());
+					}
+				}
+				else if (field.id == "start_minutes")
+				{
+					if (fieldValues.ContainsKey("observation_start_minutes"))
+					{
+						submitData.Add(field, System.DateTime.Parse(fieldValues["observation_start_minutes"]).Minute.ToString());
+					}
+				}
+			}
+			
+			if (taivaanVahti.Form.Fields.Find(ff => ff.id == "start_day") == null)
+			{
+				TaivaanvahtiField field = new TaivaanvahtiField(null);
+				field.id = "start_day";
+				if (fieldValues.ContainsKey("observation_date"))
+				{
+					submitData.Add(field, System.DateTime.Parse(fieldValues["observation_date"]).Day.ToString());
+				}
+			}
+			
+			if (taivaanVahti.Form.Fields.Find(ff => ff.id == "start_month") == null)
+			{
+				TaivaanvahtiField field = new TaivaanvahtiField(null);
+				field.id = "start_month";
+				if (fieldValues.ContainsKey("observation_date"))
+				{
+					submitData.Add(field, System.DateTime.Parse(fieldValues["observation_date"]).Month.ToString());
+				}
+			}
+			
+			if (taivaanVahti.Form.Fields.Find(ff => ff.id == "start_year") == null)
+			{
+				TaivaanvahtiField field = new TaivaanvahtiField(null);
+				field.id = "start_year";
+				if (fieldValues.ContainsKey("observation_date"))
+				{
+					submitData.Add(field, System.DateTime.Parse(fieldValues["observation_date"]).Year.ToString());
+				}
+			}
+			
+			if (taivaanVahti.Form.Fields.Find(ff => ff.id == "start_minutes") == null)
+			{
+				TaivaanvahtiField field = new TaivaanvahtiField(null);
+				field.id = "start_minutes";
+				if (fieldValues.ContainsKey("observation_start_hours"))
+				{
+					submitData.Add(field, System.DateTime.Parse(fieldValues["observation_start_hours"]).Minute.ToString());
+				}
+			}
+			
+			taivaanVahti.SubmitForm(submitData);
+		}	
 	}
 }
