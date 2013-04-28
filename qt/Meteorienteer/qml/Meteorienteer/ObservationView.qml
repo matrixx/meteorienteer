@@ -153,6 +153,7 @@ Rectangle {
         Column {
             id: pageContent
             spacing: 16
+            visible: obview.toolBarEnabled
             Text {
                 wrapMode: Text.WordWrap
                 text: qsTr("Accelerometer reading: %1 | %2 | %3").arg(measurements.accelx).arg(measurements.accely).arg(measurements.accelz)
@@ -164,6 +165,7 @@ Rectangle {
                 color: "#0000ff"
             }
             Text {
+
                 wrapMode: Text.WordWrap
                 text: qsTr("GPS coordinates: %1 | %2").arg(measurements.latitude).arg(measurements.longitude)
                 color: "#0000ff"
