@@ -41,7 +41,7 @@ Rectangle {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
-                reset();
+                FieldHandler.reset();
             }
         }
         MeteorButton {
@@ -79,7 +79,7 @@ Rectangle {
         if (mgr.previous()) {
             FieldHandler.loadCurrentField();
         } else {
-            reset();
+            FieldHandler.reset();
         }
     }
     function onSaved(success) {

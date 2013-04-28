@@ -33,6 +33,7 @@ Rectangle {
         MeteorButton {
             width: (bgImage.width - 80) / 3
             text: qsTr("New Observation")
+            fontSize: 34;
             onClicked: {
                 createObservation();
             }
@@ -40,6 +41,7 @@ Rectangle {
         MeteorButton {
             width: (bgImage.width - 80) / 3;
             text: qsTr("Meteor Info")
+            fontSize: 34;
             onClicked: {
                 showInfo();
             }
@@ -47,6 +49,7 @@ Rectangle {
         MeteorButton {
             width: (bgImage.width - 80) / 3;
             text: qsTr("Observation History");
+            fontSize: 34;
             onClicked: {
                 showHistory()
             }

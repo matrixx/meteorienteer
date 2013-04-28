@@ -5,6 +5,7 @@ Image {
     width: 200;
     height: width
     property alias text: buttonText.text
+    property alias fontSize: buttonText.font.pixelSize;
     signal clicked();
     source: "qrc:/gfx/buttonNormal.png";
     smooth: true
