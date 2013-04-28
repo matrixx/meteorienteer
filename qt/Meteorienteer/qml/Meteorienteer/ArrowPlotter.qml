@@ -8,23 +8,59 @@ Rectangle {
     property int direction: 0;
     property alias imageUrl: capturedImage.source;
     Image {
+        state: "normal"
+        //visible: obview.shooterEnabled
+        anchors.right: arrowPlotter.right
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.rightMargin: 20
+        width: 100;
+        height: 100;
+        z:30
         id: arrowOk
-        x:0; y:0;width:500;height:100;
-        source: "qrc:/gfx/buttonNormal.png"
         Text {
-            anchors.left: parent.left
-            anchors.top: parent.top
-            id: arrowText
-            text: qsTr("Draw flight direction and press ok")
+            anchors.fill: parent
+            wrapMode: Text.Wrap
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            id: arrowOkText
+            color: "#ffffff"
+            text: qsTr("Ok!")
+            font.family: "Sans Serif"
+            font.pointSize: 25
         }
-         z:10;
         MouseArea {
-            anchors.fill: parent;
-            onPressed: {
-                console.log("send arrow rotation" + arrow.rotation+90);
-                directionSelected(arrow.rotation+90);
-            }
+            anchors.fill: parent
+         onPressed: {
+             arrowOk.state = "active"
+             directionSelected(arrow.rotation+90);
+         }
+         onReleased: {
+             shootButton.state = "normal"
+         }
         }
+        states: [
+            State {
+                name: "normal"
+                PropertyChanges {
+                    target: arrowOk
+                    source: "qrc:/gfx/buttonNormal.png"
+                }
+            },
+            State {
+                name: "hover"
+                PropertyChanges {
+                    target: arrowOk
+                    source: "qrc:/gfx/buttonHover.png"
+                }
+            },
+            State {
+                name: "active"
+                PropertyChanges {
+                    target: arrowOk
+                    source: "qrc:/gfx/buttonActive.png"
+                }
+            }
+        ]
     }
     Image {
         id: arrow
