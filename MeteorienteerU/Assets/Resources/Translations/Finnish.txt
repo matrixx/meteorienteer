@@ -1,2 +1,151 @@
-mainmenu_observation:
+mainmenu_observation;
 Havainto
+mainmenu_info;
+Info
+mainmenu_history;
+Havaintohistoria
+sensorcaptureview_back;
+Takaisin
+sensorcaptureview_next;
+Ota kuva
+directionview_back;
+Takaisin
+directionview_next;
+Seuraava
+additionaldata_back;
+Takaisin
+additionaldata_next;
+Lähetä
+
+observation;
+Havainto
+date;
+Päivämäärä
+time;
+Kellonaika
+location;
+Paikkakunnan nimi
+user_name;
+Oikea nimi
+email;
+Sähköpostiosoite
+phone;
+Puhelinnumero
+observation_public;
+Nimeni voi näkyä havaintoni yhteydessä
+observation_title_night_1;
+Tulipallo yötaivaalla, Venusta kirkkaampi
+observation_title_night_2;
+Tulipallo yötaivaalla, kuin puolikuu
+observation_title_night_3;
+Tulipallo yötaivaalla, kuin täysikuu
+observation_title_night_4;
+Tulipallo yötaivaalla, täysikuuta kirkkaampi
+observation_title_night_5;
+Tulipallo yötaivaalla, kuin Aurinko
+observation_title_twilight;
+Tulipallo hämärätaivaalla
+observation_title_day;
+Tulipallo päivätaivaalla
+observation_description;
+Havaintokertomus
+observation_showiness;
+Ilmiön kirkkaus
+observation_equipment;
+Tekniset tiedot
+specific_accuracy;
+Antamasi havaintoajan tarkkuus?
+select;
+- valitse -
+specific_accuracy_1;
+Enintään 1 min heitto mahdollinen
+specific_accuracy_2;
+2 min heitto mahdollinen
+specific_accuracy_3;
+5 min heitto mahdollinen
+specific_accuracy_4;
+15 min heitto mahdollinen
+specific_accuracy_5;
+1-2 tunnin heitto mahdollinen
+specific_accuracy_6;
+1-2 päivän epätarkkuus
+specific_accuracy_7;
+Havaintokuukausi on epävarma
+specific_accuracy_8;
+Havaintovuosi on epävarma
+specific_duration;
+Kuinka kauan näit tulipallon lentävän taivaalla?
+specific_duration_1;
+Alle sekunnin
+specific_duration_2;
+1 sekunnin
+specific_duration_3;
+2 sekuntia
+specific_duration_4;
+3 sekuntia
+specific_duration_5;
+4 sekuntia
+specific_duration_6;
+5 sekuntia
+specific_duration_7;
+6 sekuntia
+specific_duration_8;
+7 sekuntia
+specific_duration_9;
+8 sekuntia
+specific_duration_10;
+9 sekuntia
+specific_duration_11;
+10 sekuntia
+specific_duration_12;
+11-15 sekuntia
+specific_duration_13;
+16-20 sekuntia
+specific_duration_14;
+Yli 20 sekuntia
+specific_fading;
+Miten tulipallo sammui?
+specific_fading_1;
+Katosi esteen (esim. puiden  tai pilven) taakse
+specific_fading_2;
+Sammui yhtäkkiä
+specific_fading_3;
+Sammui hiipumalla
+specific_fading_4;
+Hajosi palasiksi, jotka hiipuivat
+specific_direction;
+Missä ilmansuunnassa tulipallo oli, kun se katosi näkyvistäsi?
+specific_compass_point_1;
+Pohjoinen
+specific_compass_point_2;
+Koillinen
+specific_compass_point_3;
+Itä
+specific_compass_point_4;
+Kaakko
+specific_compass_point_5;
+Etelä
+specific_compass_point_6;
+Lounas
+specific_compass_point_7;
+Länsi
+specific_compass_point_8;
+Luode
+specific_height;
+Kuinka korkealla tulipallo oli, kun se katosi näkyvistäsi?
+specific_height_1;
+Suoraan pääni yläpuolella
+specific_height_2;
+Lähes suoraan pääni yläpuolella
+specific_height_3;
+Noin 1/3:n päässä taivaanlaesta kohti horisonttia
+specific_height_4;
+Noin puolivälissä taivasta
+specific_height_5;
+Noin 1/3:n päässä horisontista kohti taivaanlakea
+specific_height_6;
+Melko matalalla lähellä horisonttia
+specific_height_7;
+Erittäin matalalla horisontin luona
+specific_angle_8;
+Millä korkeuskulmalla tulipallo sijaitsi, kun se katosi näkyvistäsi?

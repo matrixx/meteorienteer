@@ -1,29 +1,151 @@
-mainmenu_observation;Havainto;Observation;
-mainmenu_info:
+mainmenu_observation;
+Observation
+mainmenu_info;
 Info
-
-info_text:
-Info
-infoview_back:
-Info View
-
-sensorcapture_guide:
-Guide
-sensorcapture_back:
+mainmenu_history;
+Observation history
+sensorcaptureview_back;
 Back
-sensorcapture_capture:
-Capture
-
-direction_guide:
-Direction
-direction_back:
+sensorcaptureview_next;
+Take pic
+directionview_back;
 Back
-direction_next:
-Submit
-
-data_guide:
-Additional data
-data_back:
-Back
-data_next:
+directionview_next;
 Next
+additionaldata_back;
+Back
+additionaldata_next;
+Send
+
+observation;
+Observation
+date;
+Observation date
+time;
+Time
+location;
+City
+user_name;
+Your real name
+email;
+Email
+phone;
+Phone
+observation_public;
+My name can be shown as part the public observation data
+observation_title_night_1;
+Fireball at night, brighter than Venus
+observation_title_night_2;
+Fireball at night, like half Moon
+observation_title_night_3;
+Fireball at night, like full Moon
+observation_title_night_4;
+ireball at night, brighter than full Moon
+observation_title_night_5;
+Fireball at night, like the Sun
+observation_title_twilight;
+Fireball right after sunset
+observation_title_day;
+A mid-day fireball
+observation_description;
+Story
+observation_showiness;
+Observation's showiness
+observation_equipment;
+Technical details
+specific_accuracy;
+How precise is your time estimate?
+select;
+- valitse -
+specific_accuracy_1;
+The difference is one minute at maximum
+specific_accuracy_2;
+The difference can be about 2 minutes
+specific_accuracy_3;
+The difference can be about 5 minutes
+specific_accuracy_4;
+The difference can be about 15 minutes
+specific_accuracy_5;
+The difference can be from one to two hours
+specific_accuracy_6;
+The difference can be from one to two days
+specific_accuracy_7;
+The month of the observation is uncertain
+specific_accuracy_8;
+The year of the observation is uncertain
+specific_duration;
+How long did the fireball's flight last?
+specific_duration_1;
+Less than one second
+specific_duration_2;
+1 second
+specific_duration_3;
+2 seconds
+specific_duration_4;
+3 seconds
+specific_duration_5;
+4 seconds
+specific_duration_6;
+5 seconds
+specific_duration_7;
+6 seconds
+specific_duration_8;
+7 seconds
+specific_duration_9;
+8 seconds
+specific_duration_10;
+9 seconds
+specific_duration_11;
+10 seconds
+specific_duration_12;
+11-15 seconds
+specific_duration_13;
+16-20 seconds
+specific_duration_14;
+More than 20 seconds
+specific_fading;
+How did your fireball fade away?
+specific_fading_1;
+It disappeared behind an object (perhaps a tree or clouds)
+specific_fading_2;
+Faded out quickly
+specific_fading_3;
+Faded out slowly
+specific_fading_4;
+Broke into pieces which then faded out
+specific_direction;
+What was the compass direction of the object when it disappeared?
+specific_compass_point_1;
+North
+specific_compass_point_2;
+Northeast
+specific_compass_point_3;
+East
+specific_compass_point_4;
+Southeast
+specific_compass_point_5;
+South
+specific_compass_point_6;
+Southwest
+specific_compass_point_7;
+West
+specific_compass_point_8;
+Northwest
+specific_height;
+How high was the fireball when it disappeared?
+specific_height_1;
+Directly over my head
+specific_height_2;
+Nearly over my head
+specific_height_3;
+About 1/3 from the zenith towards horizon
+specific_height_4;
+Directly between the zenith and the horizon;
+specific_height_5;
+About 1/3 from the horizon towards zenith
+specific_height_6;
+Quite close to horizon
+specific_height_7;
+Very close to horizon
+specific_angle;
+What was the direction angle of the observation?

@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
 		
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Havainto"))
+		if (GUILayout.Button(Loc.Str("mainmenu_observation")))
 		{
 			this.enabled = false;
 			sensorCaptureView.enabled = true;
