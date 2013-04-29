@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
 		GUILayout.FlexibleSpace();
 		GUILayout.Button("Info");
 		GUILayout.FlexibleSpace();
-		GUILayout.Button("Havaintohistoria");
+		GUILayout.Button("Historia");
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 		

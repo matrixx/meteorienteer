@@ -12,6 +12,14 @@ Item {
     property double longitude: 0.0
     property bool active: false
     signal measurementsReady;
+    signal accel(real x, real y, real z);
+    signal comp(real azimuth);
+    signal gps(double lat, double lon);
+
+    Component.onCompleted: {
+        comp.connect(mgr.setCompass);
+        gps.connect(mgr.setCoordinate);
+    }
 
     Accelerometer {
         id: accelerometer
@@ -55,5 +63,9 @@ Item {
         accelerometer.active = false;
         compass.active = false;
         positionSource.active = false;
+        console.debug("submitting coordinates:")
+        accel(accelx, accely, accelz);
+        comp(azimuth);
+        gps(latitude, longitude);
     }
 }

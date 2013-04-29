@@ -13,87 +13,45 @@ Rectangle {
         source: "qrc:/gfx/linnunrata_N9.jpg"
         anchors.fill: parent
     }
+    Text {
+        id: title
+        text: "Meteorienteer";
+        font {
+            pixelSize: 40;
+        }
+        color: "white"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.margins: 20
+    }
+
     Row {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 20
         spacing: 20
-        Image {
-            width: (bgImage.width - 80) / 3;
-            height: width
-            source: "qrc:/gfx/buttonNormal.png";
-            Text {
-                color: "#ff0000"
-                text: qsTr("New Observation")
-                wrapMode: Text.WordWrap
-                width: parent.width
-                anchors.centerIn: parent
-                font.pixelSize: 30
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    createObservation()
-                }
-                onPressed: {
-                    parent.source = "qrc:/gfx/buttonHover.png";
-                }
-                onReleased: {
-                    parent.source = "qrc:/gfx/buttonNormal.png";
-                }
+        MeteorButton {
+            width: (bgImage.width - 80) / 3
+            text: qsTr("New Observation")
+            fontSize: 34;
+            onClicked: {
+                createObservation();
             }
         }
-
-        Image {
+        MeteorButton {
             width: (bgImage.width - 80) / 3;
-            height: width
-            source: "qrc:/gfx/buttonNormal.png";
-            Text {
-                color: "#ff0000"
-                text: qsTr("Meteor Info")
-                wrapMode: Text.WordWrap
-                width: parent.width
-                anchors.centerIn: parent
-                font.pixelSize: 30
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    showInfo()
-                }
-                onPressed: {
-                    parent.source = "qrc:/gfx/buttonHover.png";
-                }
-                onReleased: {
-                    parent.source = "qrc:/gfx/buttonNormal.png";
-                }
+            text: qsTr("Meteor Info")
+            fontSize: 34;
+            onClicked: {
+                showInfo();
             }
         }
-
-
-        Image {
+        MeteorButton {
             width: (bgImage.width - 80) / 3;
-            height: width
-            source: "qrc:/gfx/buttonNormal.png";
-            Text {
-                color: "#ff0000"
-                text: qsTr("Observation History");
-                wrapMode: Text.WordWrap
-                width: parent.width
-                anchors.centerIn: parent
-                font.pixelSize: 30
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    showHistory()
-                }
-                onPressed: {
-                    parent.source = "qrc:/gfx/buttonHover.png";
-                }
-                onReleased: {
-                    parent.source = "qrc:/gfx/buttonNormal.png";
-                }
+            text: qsTr("Observation History");
+            fontSize: 34;
+            onClicked: {
+                showHistory()
             }
         }
     }

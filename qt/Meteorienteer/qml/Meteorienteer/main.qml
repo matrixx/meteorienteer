@@ -28,12 +28,29 @@ Window {
             observationFormView.visible = true
             arrowPlotterView.visible = false
             observationFormView.direction = direction;
-            taivaanvahti.getForm(1);
+            mgr.getForm();
         }
     }
     ObservationFormView {
         id: observationFormView
         visible: false
+        Connections {
+            target: mgr;
+            onFormReceived:
+                observationFormView.init();
+            onSubmitted:
+                observationFormView.onSubmitted(success);
+        }
+        onFormSubmitSucceeded: {
+            submittedView.visible = true;
+            observationFormView.visible = false;
+        }
+    }
+
+    SubmittedView {
+        id: submittedView
+        anchors.fill: parent
+        visible: false;
     }
 
     QueryDialog {

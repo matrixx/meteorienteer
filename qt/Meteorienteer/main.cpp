@@ -3,25 +3,28 @@
 #include "taivaanvahtitest.h"
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
-#include "taivaanvahti.h"
-#include "taivaanvahtifield.h"
 #include "formmanager.h"
 #include <QtDeclarative>
+#include <QSplashScreen>
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
-{
+{   
     QScopedPointer<QApplication> app(createApplication(argc, argv));
-
+    QPixmap pixmap(":splash");
+    QSplashScreen splash(pixmap);
+    splash.setMask(pixmap.mask());
+    splash.showFullScreen();
     QmlApplicationViewer viewer;
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
-    Taivaanvahti tv;
+    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockLandscape);
+    QCoreApplication::setApplicationName("Meteorienteer");
+    QCoreApplication::setOrganizationName("Meteorienteers");
     FormManager mgr;
-    QObject::connect(&tv, SIGNAL(formReceived(TaivaanvahtiForm*)), &mgr, SLOT(receiveForm(TaivaanvahtiForm*)));
-    viewer.rootContext()->setContextProperty("taivaanvahti", &tv);
-    qmlRegisterType<TaivaanvahtiField>("tv", 1, 0, "TaivaanvahtiField");
+    viewer.rootContext()->setContextProperty("mgr", &mgr);
     viewer.setMainQmlFile(QLatin1String("qml/Meteorienteer/main.qml"));
-    viewer.showExpanded();
-    TaivaanvahtiTest tvt;
-    tvt.runTest();
+    //viewer.showExpanded();
+    viewer.showFullScreen();
+    splash.finish(&viewer);
+//    TaivaanvahtiTest tvt;
+//    tvt.runTest();
     return app->exec();
 }

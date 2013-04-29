@@ -6,7 +6,7 @@ DEPLOYMENTFOLDERS = folder_01
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-QT += sensors location network xml
+QT += sensors location network xml systeminfo
 
 symbian:TARGET.UID3 = 0xE5E9375B
 
@@ -26,8 +26,8 @@ symbian:TARGET.CAPABILITY += NetworkServices
 # MOBILITY +=
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
-CONFIG += qdeclarative-boostable mobility
-
+CONFIG += qdeclarative-boostable mobility multimedia
+MOBILITY += multimedia systeminfo
 # Add dependency to Symbian components
 # CONFIG += qt-components
 
@@ -39,6 +39,9 @@ SOURCES += main.cpp \
     starview.cpp \
     formmanager.cpp \
     taivaanvahtiform.cpp
+#    acam.cpp
+#    uyvy2rgb.cpp
+#    avideosurface.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -64,3 +67,6 @@ HEADERS += \
     starview.h \
     formmanager.h \
     taivaanvahtiform.h
+#    acam.h
+#    uyvy2rgb.h
+#    avideosurface.h
