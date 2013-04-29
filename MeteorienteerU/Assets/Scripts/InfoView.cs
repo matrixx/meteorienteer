@@ -13,9 +13,10 @@ public class InfoView : MonoBehaviour {
 	
 	void OnGUI()
 	{
+		GUI.matrix = GUIOptions.Singleton.GUIMatrix;
 		GUI.skin = GUIOptions.Singleton.appStyle;
-		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), bgImage, ScaleMode.StretchToFill);
-		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
+		GUI.DrawTexture(new Rect(0, 0, GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y), bgImage, ScaleMode.StretchToFill);
+		GUILayout.BeginArea(new Rect(0,0,GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
 		GUILayout.Label(Loc.Str("info_text"));
 		GUILayout.FlexibleSpace();

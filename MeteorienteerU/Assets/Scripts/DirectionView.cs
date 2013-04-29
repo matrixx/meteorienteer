@@ -20,8 +20,9 @@ public class DirectionView : MonoBehaviour
 	
 	void OnGUI()
 	{
+		GUI.matrix = GUIOptions.Singleton.GUIMatrix;
 		GUI.skin = transparentGuiSkin;
-		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
+		GUILayout.BeginArea(new Rect(0,0,GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
 		GUILayout.Box("Aseta nuoli kuvaamaan tulipallon lentorataa.");
 		if (SensorData.LocationAvailable)

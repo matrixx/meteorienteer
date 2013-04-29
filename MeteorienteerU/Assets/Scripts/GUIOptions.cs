@@ -38,9 +38,6 @@ public class GUIOptions : MonoBehaviour
 	
 	void FixedUpdate()
 	{
-		GUI.matrix = GUIOptions.Singleton.GUIMatrix;
-		GUI.Box(new Rect(0,0,GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y), "This development copy of the game has expired.");
-
 		screenWidth = Screen.width;
 		screenHeight = Screen.height;
 		

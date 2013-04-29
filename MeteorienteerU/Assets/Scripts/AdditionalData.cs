@@ -123,19 +123,20 @@ public class AdditionalData : MonoBehaviour
 	
 	void OnGUI()
 	{
+		GUI.matrix = GUIOptions.Singleton.GUIMatrix;
 		GUISkin origSkin = guiskin;
 		GUI.skin = GUIOptions.Singleton.appStyle;
-		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), bgImage, ScaleMode.StretchToFill);
-		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
+		GUI.DrawTexture(new Rect(0, 0, GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y), bgImage, ScaleMode.StretchToFill);
+		GUILayout.BeginArea(new Rect(0,0, GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
-		GUILayout.Box("Lisää tietoja havainnosta:");
+		GUILayout.Label("Lisää tietoja havainnosta:");
 		if (sendResult == Taivaanvahti.SendResult.MissingFields)
 		{
-			GUILayout.Box("Error: Some fields are missing");
+			GUILayout.Label("Error: Some fields are missing");
 		}
 		else if (sendResult == Taivaanvahti.SendResult.OtherError)
 		{
-			GUILayout.Box("Error: Error sending data to server.");
+			GUILayout.Label("Error: Error sending data to server.");
 		}
 		GUILayout.FlexibleSpace();
 		
@@ -236,7 +237,7 @@ public class AdditionalData : MonoBehaviour
 						}
 						if (field.type == TaivaanvahtiField.FieldType.TYPE_SELECTION && field.values != null && field.values.Count > 1)
 						{
-							GUILayout.Box(field.label);
+							GUILayout.Label(field.label);
 							GUILayout.FlexibleSpace();
 							GUIContent[] listContent = new GUIContent[field.values.Count];
 							int i = 0;
@@ -254,7 +255,7 @@ public class AdditionalData : MonoBehaviour
 						}
 						else
 						{
-							GUILayout.Box(field.label);
+							GUILayout.Label(field.label);
 							GUILayout.FlexibleSpace();
 							fieldValues[field.id] = GUILayout.TextField(fieldValues[field.id], GUILayout.Width(inputWidth));
 						}

@@ -30,8 +30,9 @@ public class SensorCaptureView : MonoBehaviour
 	void OnGUI()
 	{
 		// draw the screen
+		GUI.matrix = GUIOptions.Singleton.GUIMatrix;
 		GUI.skin = GUIOptions.Singleton.appStyle;
-		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
+		GUILayout.BeginArea(new Rect(0,0,GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
 		
 		// above the menu

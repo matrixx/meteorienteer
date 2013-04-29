@@ -11,7 +11,8 @@ public class CanHasGps : MonoBehaviour
 	
 	void OnGUI()
 	{
-		GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
+		GUI.matrix = GUIOptions.Singleton.GUIMatrix;
+		GUILayout.BeginArea(new Rect(0,0,GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();
 		if (Input.location.status == LocationServiceStatus.Running)

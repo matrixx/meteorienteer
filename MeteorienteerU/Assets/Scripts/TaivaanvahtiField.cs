@@ -31,8 +31,8 @@ public class TaivaanvahtiField
 		id = node["field_id"].InnerText;
 	    label = node["field_label"].InnerText;
 		isMandatory = node["field_mandatory"].InnerText == "1";
-		info = node["field_info"].InnerText;
-		infoUrl = node["field_info_url"].InnerText;
+		info = node["field_info"]!=null ? node["field_info"].InnerText : "";
+		infoUrl = node["field_info_url"]!=null ? node["field_info_url"].InnerText : "";
 		
 		type = FieldType.TYPE_NOT_SET;
 	    string fieldTypeString = node["field_type"].InnerText;

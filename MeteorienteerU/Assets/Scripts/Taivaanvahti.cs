@@ -42,7 +42,7 @@ public class Taivaanvahti : MonoBehaviour
 		WWW www = new WWW(URL, System.Text.Encoding.UTF8.GetBytes(request), headers);
 		yield return www;
 		gotFormString = www.text;
-	//	Debug.Log(gotFormString);
+		Debug.Log(gotFormString);
 		
 		
 	    TaivaanvahtiForm form = new TaivaanvahtiForm();
