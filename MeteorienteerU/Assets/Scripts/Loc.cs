@@ -74,7 +74,7 @@ public class Loc : MonoBehaviour
 		Debug.Log("öm");
 
 		// Language detection, currently commented out because no real translation yet.
-		currentLanguage = Application.systemLanguage;
+		//currentLanguage = Application.systemLanguage;
 
 		Object[] transAssets = Resources.LoadAll("Translations", typeof(TextAsset));
 		foreach (TextAsset transAsset in transAssets)

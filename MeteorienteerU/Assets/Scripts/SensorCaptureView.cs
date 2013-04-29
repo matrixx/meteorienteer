@@ -36,7 +36,7 @@ public class SensorCaptureView : MonoBehaviour
 		GUILayout.BeginVertical();
 		
 		// above the menu
-		GUILayout.Box("Suuntaa kamera sinne, missä havaitsit tulipallon, ja ota kuva."); // 1
+		GUILayout.Box(Loc.Str ("sensorcaptureview_info")); // 1
 		Rect rect = GUILayoutUtility.GetLastRect (); // size of the box
 		if (Input.location.status == LocationServiceStatus.Running)
 		{
@@ -56,7 +56,7 @@ public class SensorCaptureView : MonoBehaviour
 		
 		// menu
 		GUILayout.BeginHorizontal();
-		if (GUILayout.Button("Takaisin"))
+		if (GUILayout.Button(Loc.Str ("sensorcaptureview_back")))
 		{
 			this.enabled = false;
 			mainMenu.enabled = true;
@@ -66,7 +66,7 @@ public class SensorCaptureView : MonoBehaviour
 			}
 		}
 		GUILayout.FlexibleSpace();
-		if(GUILayout.Button("Ota kuva"))
+		if(GUILayout.Button(Loc.Str ("sensorcaptureview_next")))
 		{
 			SensorData.CaptureNow();
 			this.enabled = false;

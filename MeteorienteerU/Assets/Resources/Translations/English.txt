@@ -4,10 +4,14 @@ mainmenu_info;
 Info
 mainmenu_history;
 Observation history
+sensorcaptureview_info;
+Direct the camera to where you saw the fireball and take a picture.
 sensorcaptureview_back;
 Back
 sensorcaptureview_next;
 Take pic
+directionview_info;
+Drag the points of the arrow so that it depicts the flight of the fireball.
 directionview_back;
 Back
 directionview_next;

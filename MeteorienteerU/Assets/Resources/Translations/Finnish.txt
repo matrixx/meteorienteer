@@ -4,10 +4,14 @@ mainmenu_info;
 Info
 mainmenu_history;
 Havaintohistoria
+sensorcaptureview_info;
+Suuntaa kamera sinne, missä havaitsit tulipallon, ja ota kuva.
 sensorcaptureview_back;
 Takaisin
 sensorcaptureview_next;
 Ota kuva
+directionview_info;
+Aseta nuoli kuvaamaan tulipallon lentorataa.
 directionview_back;
 Takaisin
 directionview_next;

@@ -24,7 +24,7 @@ public class DirectionView : MonoBehaviour
 		GUI.skin = transparentGuiSkin;
 		GUILayout.BeginArea(new Rect(0,0,GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
-		GUILayout.Box("Aseta nuoli kuvaamaan tulipallon lentorataa.");
+		GUILayout.Box(Loc.Str ("directionview_info"));
 		if (SensorData.LocationAvailable)
 		{
 			GUILayout.Box("");
@@ -42,13 +42,13 @@ public class DirectionView : MonoBehaviour
 		
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginHorizontal();
-		if (GUILayout.Button("Takaisin"))
+		if (GUILayout.Button(Loc.Str ("directionview_back")))
 		{
 			this.enabled = false;
 			sensorCaptureView.enabled = true;
 		}
 		GUILayout.FlexibleSpace();
-		if(GUILayout.Button("Seuraava"))
+		if(GUILayout.Button(Loc.Str ("directionview_next")))
 		{
 			this.enabled = false;
 			additionalData.enabled = true;
