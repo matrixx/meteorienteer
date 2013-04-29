@@ -1,4 +1,4 @@
-#ifndef TAIVAANVAHTIFIELD_H
+﻿#ifndef TAIVAANVAHTIFIELD_H
 #define TAIVAANVAHTIFIELD_H
 
 #include <QObject>

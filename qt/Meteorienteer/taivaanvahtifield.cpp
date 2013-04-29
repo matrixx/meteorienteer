@@ -1,4 +1,4 @@
-#include "taivaanvahtifield.h"
+﻿#include "taivaanvahtifield.h"
 #include <QDebug>
 #include <QDomNode>
 

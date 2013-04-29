@@ -1,4 +1,4 @@
-#include "taivaanvahti.h"
+﻿#include "taivaanvahti.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QDebug>

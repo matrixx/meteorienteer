@@ -1,4 +1,4 @@
-#ifndef TAIVAANVAHTIFORM_H
+﻿#ifndef TAIVAANVAHTIFORM_H
 #define TAIVAANVAHTIFORM_H
 
 #include <QObject>
