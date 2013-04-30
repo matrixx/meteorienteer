@@ -1,4 +1,4 @@
-mainmenu_observation;
+﻿mainmenu_observation;
 Havainto
 mainmenu_info;
 Info
@@ -16,27 +16,50 @@ directionview_back;
 Takaisin
 directionview_next;
 Seuraava
+additionaldata_title;
+Syötä lisätiedot
+additionaldata_missing_fields;
+Virhe: Joitakin kenttiä puuttuu.
+additionaldata_other_error;
+Virhe lähetettäessä palvelimelle.
 additionaldata_back;
 Takaisin
+additionaldata_previous;
+Edellinen
 additionaldata_next;
+Seuraava
+additionaldata_send;
 Lähetä
+additionaldata_connectingtoserver;
+Yhdistetään palvelimelle...
 
-observation;
+observation_title;
 Havainto
-date;
+
+observation_date;
 Päivämäärä
-time;
+
+observation_start_hours;
 Kellonaika
-location;
+
+observation_coordinates;
+Havainnon koordinaatit (leveysaste, pituusaste)
+
+observation_location;
 Paikkakunnan nimi
+
 user_name;
 Oikea nimi
-email;
+
+user_email;
 Sähköpostiosoite
+
 phone;
 Puhelinnumero
+
 observation_public;
 Nimeni voi näkyä havaintoni yhteydessä
+
 observation_title_night_1;
 Tulipallo yötaivaalla, Venusta kirkkaampi
 observation_title_night_2;
@@ -51,16 +74,22 @@ observation_title_twilight;
 Tulipallo hämärätaivaalla
 observation_title_day;
 Tulipallo päivätaivaalla
+
 observation_description;
 Havaintokertomus
+
 observation_showiness;
 Ilmiön kirkkaus
+
 observation_equipment;
 Tekniset tiedot
-specific_accuracy;
+
+specific_havaintoajan_tarkkuus;
 Antamasi havaintoajan tarkkuus?
+
 select;
 - valitse -
+
 specific_accuracy_1;
 Enintään 1 min heitto mahdollinen
 specific_accuracy_2;
@@ -77,8 +106,10 @@ specific_accuracy_7;
 Havaintokuukausi on epävarma
 specific_accuracy_8;
 Havaintovuosi on epävarma
-specific_duration;
+
+specific_lennon_kesto;
 Kuinka kauan näit tulipallon lentävän taivaalla?
+
 specific_duration_1;
 Alle sekunnin
 specific_duration_2;
@@ -107,8 +138,10 @@ specific_duration_13;
 16-20 sekuntia
 specific_duration_14;
 Yli 20 sekuntia
-specific_fading;
+
+specific_sammumistapa;
 Miten tulipallo sammui?
+
 specific_fading_1;
 Katosi esteen (esim. puiden  tai pilven) taakse
 specific_fading_2;
@@ -117,8 +150,10 @@ specific_fading_3;
 Sammui hiipumalla
 specific_fading_4;
 Hajosi palasiksi, jotka hiipuivat
-specific_direction;
+
+specific_ilmansuunta_katoamishetkellä;
 Missä ilmansuunnassa tulipallo oli, kun se katosi näkyvistäsi?
+
 specific_compass_point_1;
 Pohjoinen
 specific_compass_point_2;
@@ -135,7 +170,8 @@ specific_compass_point_7;
 Länsi
 specific_compass_point_8;
 Luode
-specific_height;
+
+specific_korkeus_katoamishetkellä;
 Kuinka korkealla tulipallo oli, kun se katosi näkyvistäsi?
 specific_height_1;
 Suoraan pääni yläpuolella
@@ -151,5 +187,7 @@ specific_height_6;
 Melko matalalla lähellä horisonttia
 specific_height_7;
 Erittäin matalalla horisontin luona
-specific_angle_8;
-Millä korkeuskulmalla tulipallo sijaitsi, kun se katosi näkyvistäsi?
+
+specific_lentokulma;
+Mihin suuntaan tulipallo lensi (0 = suoraan ylöspäin,
+90 = oikealle, 180 = alas, 270 = vasemmalle)?

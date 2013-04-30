@@ -1,4 +1,4 @@
-mainmenu_observation;
+﻿mainmenu_observation;
 Observation
 mainmenu_info;
 Info
@@ -16,27 +16,50 @@ directionview_back;
 Back
 directionview_next;
 Next
+additionaldata_title;
+Input additional data
+additionaldata_missing_fields;
+Error: Some fields are missing data.
+additionaldata_other_error;
+Error sending observation to server.
 additionaldata_back;
 Back
+additionaldata_previous;
+Previous
 additionaldata_next;
+Next
+additionaldata_send;
 Send
+additionaldata_connectingtoserver;
+Connecting to server...
 
-observation;
+observation_title;
 Observation
-date;
+
+observation_date;
 Observation date
-time;
+
+observation_start_hours;
 Time
-location;
+
+observation_coordinates;
+Observation coordinates (latitude, longitude)
+
+observation_location;
 City
+
 user_name;
 Your real name
-email;
+
+user_email;
 Email
+
 phone;
 Phone
+
 observation_public;
 My name can be shown as part the public observation data
+
 observation_title_night_1;
 Fireball at night, brighter than Venus
 observation_title_night_2;
@@ -44,23 +67,29 @@ Fireball at night, like half Moon
 observation_title_night_3;
 Fireball at night, like full Moon
 observation_title_night_4;
-ireball at night, brighter than full Moon
+Fireball at night, brighter than full Moon
 observation_title_night_5;
 Fireball at night, like the Sun
 observation_title_twilight;
 Fireball right after sunset
 observation_title_day;
 A mid-day fireball
+
 observation_description;
 Story
+
 observation_showiness;
 Observation's showiness
+
 observation_equipment;
 Technical details
-specific_accuracy;
+
+specific_havaintoajan_tarkkuus;
 How precise is your time estimate?
+
 select;
-- valitse -
+- select -
+
 specific_accuracy_1;
 The difference is one minute at maximum
 specific_accuracy_2;
@@ -77,8 +106,10 @@ specific_accuracy_7;
 The month of the observation is uncertain
 specific_accuracy_8;
 The year of the observation is uncertain
-specific_duration;
+
+specific_lennon_kesto;
 How long did the fireball's flight last?
+
 specific_duration_1;
 Less than one second
 specific_duration_2;
@@ -107,8 +138,10 @@ specific_duration_13;
 16-20 seconds
 specific_duration_14;
 More than 20 seconds
-specific_fading;
+
+specific_sammumistapa;
 How did your fireball fade away?
+
 specific_fading_1;
 It disappeared behind an object (perhaps a tree or clouds)
 specific_fading_2;
@@ -117,8 +150,10 @@ specific_fading_3;
 Faded out slowly
 specific_fading_4;
 Broke into pieces which then faded out
-specific_direction;
+
+specific_ilmansuunta_katoamishetkellä;
 What was the compass direction of the object when it disappeared?
+
 specific_compass_point_1;
 North
 specific_compass_point_2;
@@ -135,8 +170,10 @@ specific_compass_point_7;
 West
 specific_compass_point_8;
 Northwest
-specific_height;
+
+specific_korkeus_katoamishetkellä;
 How high was the fireball when it disappeared?
+
 specific_height_1;
 Directly over my head
 specific_height_2;
@@ -144,12 +181,15 @@ Nearly over my head
 specific_height_3;
 About 1/3 from the zenith towards horizon
 specific_height_4;
-Directly between the zenith and the horizon;
+Directly between the zenith and the horizon
 specific_height_5;
 About 1/3 from the horizon towards zenith
 specific_height_6;
 Quite close to horizon
 specific_height_7;
 Very close to horizon
-specific_angle;
-What was the direction angle of the observation?
+
+specific_lentokulma;
+Which direction did the fireball move? (0 = straight up,
+90 = to the right, 180 = down, 270 = left)?
+

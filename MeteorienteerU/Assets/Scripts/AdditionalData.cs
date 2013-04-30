@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public class AdditionalData : MonoBehaviour
 {
@@ -24,12 +25,58 @@ public class AdditionalData : MonoBehaviour
 	private int currentField = -1;
 	private int firstField = -1;
 	private int lastField = -1;
+	
+//	private Dictionary<string, string> fieldIdsToTranslations = new Dictionary<string, string>();
+	private Dictionary<string, string> valuesToTranslations = new Dictionary<string, string>();
 
 	void Awake()
 	{
 		directionView = GetComponent<DirectionView>();
 		taivaanVahti = GetComponent<Taivaanvahti>();
 		sentView = GetComponent<SentView>();
+		
+		TextAsset mappingFile = (TextAsset)Resources.Load("valuesToTranslations", typeof(TextAsset));
+		Match linem = Regex.Match(mappingFile.text, ".+;\\s*(\\n|\\r\\n)");
+		while (linem.Success)
+		{
+			string line = linem.Value.Trim();
+			line = line.Remove(line.Length - 1);
+			string[] separator = {"=>"};
+			string[] keyAndValue = line.Split(separator, System.StringSplitOptions.None);
+			valuesToTranslations.Add(keyAndValue[0].Replace("==>", "=>"), keyAndValue[1].Replace("==>", "=>"));
+			linem = linem.NextMatch();
+		}
+		
+//		mappingFile = (TextAsset)Resources.Load("valuesToTranslations.txt", typeof(TextAsset));
+//		linem = Regex.Match(mappingFile.text, ".+;\\s*(\\n|\\r\\n)");
+//		while (linem.Success)
+//		{
+//			string line = linem.Value.Trim();
+//			line = line.Remove(line.Length - 1);
+//			string[] separator = {"=>"};
+//			string[] keyAndValue = line.Split(separator, System.StringSplitOptions.None);
+//			valuesToTranslations.Add(keyAndValue[0].Replace("==>", "=>"), keyAndValue[1].Replace("==>", "=>"));
+//			linem = linem.NextMatch();
+//		}
+		
+//		Match keym = Regex.Match(source.text, ".+[^\\],?");
+//		while (keym.Success)
+//		{
+//			string key = keym.Value.Trim();
+//			key = key.Remove(key.Length - 1);
+//			Match next = keym.NextMatch();
+//			string trstr = "";
+//			if (next.Success)
+//			{
+//				trstr = source.text.Substring(keym.Index + keym.Length, next.Index - (keym.Index + keym.Length)).Trim().Replace("\\,", ",");
+//			}
+//			else
+//			{
+//				trstr = source.text.Substring(keym.Index + keym.Length).Trim().Replace("\\,", ",");
+//			}
+//			translation.Add(key, trstr);
+//			keym = next;
+//		}
 	}
 	
 	void OnEnable()
@@ -122,8 +169,11 @@ public class AdditionalData : MonoBehaviour
 		if (directionLineVec.x < 0) travelAngle = 360f - travelAngle;
 		fieldValues.Add("specific_lentokulma", Mathf.Round(travelAngle).ToString());
 		
-		fieldValues.Add("observation_date", System.DateTime.Now.ToShortDateString());
-		fieldValues.Add("observation_start_hours", System.DateTime.Now.Hour.ToString() + ":" + System.DateTime.Now.Minute.ToString());
+		System.DateTime nowTime = System.DateTime.Now;
+		
+		fieldValues.Add("observation_date", nowTime.ToShortDateString());
+		fieldValues.Add("observation_start_hours", nowTime.Hour.ToString() + ":" +
+			(nowTime.Minute < 10 ? "0" : "") + nowTime.Minute.ToString());
 		
 		fieldValues.Add("observation_coordinates", SensorData.Latitude + ", " + SensorData.Longitude);
 	}	
@@ -136,14 +186,14 @@ public class AdditionalData : MonoBehaviour
 		GUI.DrawTexture(new Rect(0, 0, GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y), bgImage, ScaleMode.StretchToFill);
 		GUILayout.BeginArea(new Rect(0,0, GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
-		GUILayout.Label("Lisää tietoja havainnosta:");
+		GUILayout.Label(Loc.Str("additionaldata_title"));
 		if (sendResult == Taivaanvahti.SendResult.MissingFields)
 		{
-			GUILayout.Label("Error: Some fields are missing");
+			GUILayout.Label(Loc.Str("additionaldata_missing_fields"));
 		}
 		else if (sendResult == Taivaanvahti.SendResult.OtherError)
 		{
-			GUILayout.Label("Error: Error sending data to server.");
+			GUILayout.Label(Loc.Str("additionaldata_other_error"));
 		}
 		GUILayout.FlexibleSpace();
 		
@@ -160,7 +210,7 @@ public class AdditionalData : MonoBehaviour
 		GUILayout.BeginHorizontal();
 		if (currentField == firstField)
 		{
-			if (GUILayout.Button("Takaisin"))
+			if (GUILayout.Button(Loc.Str("additionaldata_back")))
 			{
 				this.enabled = false;
 				directionView.enabled = true;
@@ -168,7 +218,7 @@ public class AdditionalData : MonoBehaviour
 		}
 		else
 		{
-			if (GUILayout.Button("Edellinen"))
+			if (GUILayout.Button(Loc.Str("additionaldata_previous")))
 			{
 				PrevField();
 			}
@@ -180,14 +230,14 @@ public class AdditionalData : MonoBehaviour
 		{
 			if (currentField == lastField)
 			{
-				if (GUILayout.Button("Lähetä"))
+				if (GUILayout.Button(Loc.Str("additionaldata_send")))
 				{
 					SubmitForm();
 				}
 			}
 			else
 			{
-				if (GUILayout.Button("Seuraava"))
+				if (GUILayout.Button(Loc.Str("additionaldata_next")))
 				{
 					NextField();
 				}
@@ -362,45 +412,52 @@ public class AdditionalData : MonoBehaviour
 	
 	void GUIDrawCurrentField()
 	{
-		if (taivaanVahti && taivaanVahti.FormReady && formWasReady && currentField >= 0 && currentField < taivaanVahti.Form.Fields.Count)
+		if (taivaanVahti && taivaanVahti.FormReady && formWasReady)
 		{
-			TaivaanvahtiField field =  taivaanVahti.Form.Fields[currentField];
-			
-			GUILayout.BeginVertical();
-			if (field.type == TaivaanvahtiField.FieldType.TYPE_CHECKBOX)
+			if (currentField >= 0 && currentField < taivaanVahti.Form.Fields.Count)
 			{
-				fieldValues[field.id] = GUILayout.Toggle(fieldValues[field.id] != "0", field.label) ? "1" : "0";
-			}
-			if (field.type == TaivaanvahtiField.FieldType.TYPE_SELECTION && field.values != null && field.values.Count > 1)
-			{
-				GUILayout.Label(field.label);
-				GUIContent[] listContent = new GUIContent[field.values.Count];
-				int i = 0;
-				foreach (string str in field.values.Values)
+				TaivaanvahtiField field =  taivaanVahti.Form.Fields[currentField];
+				
+				GUILayout.BeginVertical();
+				if (field.type == TaivaanvahtiField.FieldType.TYPE_CHECKBOX)
 				{
-					listContent[i] = new GUIContent(str);
-					if (str == fieldValues[field.id])
-					{
-						listEntry[currentField] = i;
-					}
-					++i;
+					fieldValues[field.id] = GUILayout.Toggle(fieldValues[field.id] != "0", Loc.Str(field.id)) ? "1" : "0";
 				}
-				//Rect rc = GUILayoutUtility.GetRect(inputWidth, GUI.skin.box.CalcSize(listContent[listEntry[currentField]]).y);
-//				bool show = showPopup[currentField];
-				int entry = listEntry[currentField];
-//				Popup.List(rc, ref show, ref entry, listContent[listEntry[currentField]],
-//					listContent, GUI.skin.button, dropdownBackgroudStyle, GUI.skin.button);
-				entry = GUILayout.SelectionGrid(entry, listContent, 2);
-//				showPopup[currentField] = show;
-				listEntry[currentField] = entry;
-				fieldValues[field.id] = listContent[entry].text;
+				if (field.type == TaivaanvahtiField.FieldType.TYPE_SELECTION && field.values != null && field.values.Count > 1)
+				{
+					GUILayout.Label(Loc.Str(field.id));
+					GUIContent[] listContent = new GUIContent[field.values.Count];
+					int i = 0;
+					foreach (string str in field.values.Values)
+					{
+						string loc_id;
+						if (!valuesToTranslations.TryGetValue(str, out loc_id))
+						{
+							loc_id = str;
+						}
+						listContent[i] = new GUIContent(Loc.Str(loc_id));
+						if (str == fieldValues[field.id])
+						{
+							listEntry[currentField] = i;
+						}
+						++i;
+					}
+					int entry = listEntry[currentField];
+					entry = GUILayout.SelectionGrid(entry, listContent, 2);
+					listEntry[currentField] = entry;
+					fieldValues[field.id] = listContent[entry].text;
+				}
+				else
+				{
+					GUILayout.Label(Loc.Str(field.id));
+					fieldValues[field.id] = GUILayout.TextField(fieldValues[field.id], GUILayout.Width(inputWidth));
+				}
+				GUILayout.EndVertical();
 			}
-			else
-			{
-				GUILayout.Label(field.label);
-				fieldValues[field.id] = GUILayout.TextField(fieldValues[field.id], GUILayout.Width(inputWidth));
-			}
-			GUILayout.EndVertical();
+		}
+		else
+		{
+			GUILayout.Label(Loc.Str("additionaldata_connectingtoserver"));
 		}
 	}
 	
@@ -436,11 +493,21 @@ public class AdditionalData : MonoBehaviour
 						submitData.Add(field, System.DateTime.Parse(fieldValues["observation_date"]).Year.ToString());
 					}
 				}
+				
+				if (field.id == "start_hours")
+				{
+					if (fieldValues.ContainsKey("observation_start_hours"))
+					{
+						string hours = System.DateTime.Parse(fieldValues["observation_start_hours"]).Hour.ToString();
+						Debug.Log(hours);
+						submitData.Add(field, hours);
+					}
+				}
 				else if (field.id == "start_minutes")
 				{
-					if (fieldValues.ContainsKey("observation_start_minutes"))
+					if (fieldValues.ContainsKey("observation_start_hours"))
 					{
-						submitData.Add(field, System.DateTime.Parse(fieldValues["observation_start_minutes"]).Minute.ToString());
+						submitData.Add(field, System.DateTime.Parse(fieldValues["observation_start_hours"]).Minute.ToString());
 					}
 				}
 			}
@@ -472,6 +539,17 @@ public class AdditionalData : MonoBehaviour
 				if (fieldValues.ContainsKey("observation_date"))
 				{
 					submitData.Add(field, System.DateTime.Parse(fieldValues["observation_date"]).Year.ToString());
+				}
+			}
+			
+			if (taivaanVahti.Form.Fields.Find(ff => ff.id == "start_hours") == null)
+			{
+				TaivaanvahtiField field = new TaivaanvahtiField(null);
+				field.id = "start_hours";
+				if (fieldValues.ContainsKey("observation_start_hours"))
+				{
+					Debug.Log("Hour2: " + System.DateTime.Parse(fieldValues["observation_start_hours"]).Hour.ToString());
+					submitData.Add(field, System.DateTime.Parse(fieldValues["observation_start_hours"]).Hour.ToString());
 				}
 			}
 			

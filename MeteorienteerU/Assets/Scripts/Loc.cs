@@ -18,7 +18,7 @@ public class Loc : MonoBehaviour
 				string trstr = "";
 				if (next.Success)
 				{
-					trstr = source.text.Substring(keym.Index + keym.Length, next.Index - (keym.Index + keym.Length)).Trim().Replace("::",":");
+					trstr = source.text.Substring(keym.Index + keym.Length, next.Index - (keym.Index + keym.Length)).Trim().Replace(";;",";");
 				}
 				else
 				{

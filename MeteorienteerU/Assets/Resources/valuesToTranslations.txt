@@ -1,0 +1,55 @@
+﻿- valitse -=>select;
+
+Pohjoinen=>specific_compass_point_1;
+Koillinen=>specific_compass_point_2;
+Itä=>specific_compass_point_3;
+Kaakko=>specific_compass_point_4;
+Etelä=>specific_compass_point_5;
+Lounas=>specific_compass_point_6;
+Länsi=>specific_compass_point_7;
+Luode=>specific_compass_point_8;
+
+Erittäin matalalla horisontin luona=>specific_height_7;
+Melko matalalla lähellä horisonttia=>specific_height_6;
+Noin 1/3:n päässä horisontista kohti taivaanlakea=>specific_height_5;
+Noin puolivälissä taivasta=>specific_height_4;
+Noin 1/3:n päässä taivaanlaesta kohti horisonttia=>specific_height_3;
+Lähes suoraan pääni yläpuolella=>specific_height_2;
+Suoraan pääni yläpuolella=>specific_height_1;
+
+Alle sekunnin=>specific_duration_1;
+1 sekunnin=>specific_duration_2;
+2 sekuntia=>specific_duration_3;
+3 sekuntia=>specific_duration_4;
+4 sekuntia=>specific_duration_5;
+5 sekuntia=>specific_duration_6;
+6 sekuntia=>specific_duration_7;
+7 sekuntia=>specific_duration_8;
+8 sekuntia=>specific_duration_9;
+9 sekuntia=>specific_duration_10;
+10 sekuntia=>specific_duration_11;
+11-15 sekuntia=>specific_duration_12;
+16-20 sekuntia=>specific_duration_13;
+Yli 20 sekuntia=>specific_duration_14;
+
+Katosi esteen (esim. puiden  tai pilven) taakse=>specific_fading_1;
+Sammui yhtäkkiä=>specific_fading_2;
+Sammui hiipumalla=>specific_fading_3;
+Hajosi palasiksi, jotka hiipuivat=>specific_fading_4;
+
+Enintään 1 min heitto mahdollinen=>specific_accuracy_1;
+2 min heitto mahdollinen=>specific_accuracy_2;
+5 min heitto mahdollinen=>specific_accuracy_3;
+15 min heitto mahdollinen=>specific_accuracy_4;
+1-2 tunnin heitto mahdollinen=>specific_accuracy_5;
+1-2 päivän epätarkkuus=>specific_accuracy_6;
+Havaintokuukausi on epävarma=>specific_accuracy_7;
+Havaintovuosi on epävarma=>specific_accuracy_8;
+
+Tulipallo yöllä, Venusta kirkkaampi=>observation_title_night_1;
+Tulipallo yöllä, kuin puolikuu=>observation_title_night_2;
+Tulipallo yöllä, kuin täysikuu=>observation_title_night_3;
+Tulipallo yöllä, täysikuuta kirkkaampi=>observation_title_night_4;
+Tulipallo yöllä, kuin Aurinko=>observation_title_night_5;
+Tulipallo hämärätaivaalla=>observation_title_twilight;
+Tulipallo päivätaivaalla=>observation_title_day;

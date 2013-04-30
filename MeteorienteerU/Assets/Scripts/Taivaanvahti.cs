@@ -126,11 +126,12 @@ public class Taivaanvahti : MonoBehaviour
 	    // end category
 	    outString = doc.InnerXml;
 		
-		//Debug.Log(outString);
+		Debug.Log(outString);
 		
 		WWW www = new WWW(URL, System.Text.Encoding.UTF8.GetBytes(outString), headers);
 		yield return www;
 		sendResponse = www.text;
+		Debug.Log(sendResponse);
 	}
 	
 	public enum SendResult {None, Success, MissingFields, OtherError};

@@ -70,8 +70,8 @@ public class TaivaanvahtiField
 	{
 	    string idString = id;
     	// Workarounds:
-	    if(idString == "observation_start_hours") idString = "start_hours";
-	    if(idString == "observation_end_hours") idString = "end_hours";
+//	    if(idString == "observation_start_hours") idString = "start_hours";
+//	    if(idString == "observation_end_hours") idString = "end_hours";
 	    CreateFieldElement(elem, idString, valuestr, doc);
 	}
     
