@@ -12,6 +12,16 @@ public class CamViewer : MonoBehaviour
 	void Awake()
 	{
 		Current = this;
+		Vector3 newEulers = transform.eulerAngles;
+		if (Application.platform == RuntimePlatform.IPhonePlayer)
+		{
+			newEulers.y = 0;
+		}
+		else
+		{
+			newEulers.y = 180;
+		}
+		transform.eulerAngles = newEulers;
 	}
 	
 	void OnEnable()
