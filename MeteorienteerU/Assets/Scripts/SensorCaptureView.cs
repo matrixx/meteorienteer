@@ -36,22 +36,11 @@ public class SensorCaptureView : MonoBehaviour
 		GUILayout.BeginVertical();
 		
 		// above the menu
-		GUILayout.Box(Loc.Str ("sensorcaptureview_info")); // 1
-		Rect rect = GUILayoutUtility.GetLastRect (); // size of the box
-		if (Input.location.status == LocationServiceStatus.Running)
-		{
-			GUILayout.Space(rect.height); // 2 | 1
-			GUILayout.Space(rect.height); // 3 | 1
-		}
-		else
-		{
-			GUILayout.Space(rect.height); // 3 | 2
-		}
-		GUILayout.Space(rect.height);
-		GUILayout.Space(rect.height);
-		GUILayout.Space(rect.height); // 4 | 3
-		GUILayout.Space(rect.height); // 5 | 4
-		GUILayout.Space(rect.height); // 6 | 5
+		GUILayout.Label(Loc.Str ("sensorcaptureview_info"));
+		GUILayout.Label("");
+		GUILayout.Label("");
+		GUILayout.Label("");
+		GUILayout.Label("");
 		GUILayout.FlexibleSpace();
 		
 		// menu
@@ -76,21 +65,20 @@ public class SensorCaptureView : MonoBehaviour
 		
 		// below the menu
 		GUILayout.FlexibleSpace();
-		GUI.skin = transparentGuiSkin;
+//		GUI.skin = transparentGuiSkin;
 		if (Input.location.status == LocationServiceStatus.Running)
 		{
-			GUILayout.Box("Latitude: " + Input.location.lastData.latitude); // 1 | 0
-			GUILayout.Box("Longitude: " + Input.location.lastData.longitude); // 2 | 0
+			GUILayout.Label("Latitude: " + Input.location.lastData.latitude + ", Longitude: " + Input.location.lastData.longitude);
 		}
 		else
 		{
-			GUILayout.Box("Location services unavailable"); // 2 | 1
+			GUILayout.Label("Location services unavailable"); // 2 | 1
 		}
-		GUILayout.Box("---"); // 3 | 2
-		GUILayout.Box("Heading: " + Mathf.Round(Input.compass.trueHeading)); // 4 | 3
-		GUILayout.Box("---"); // 5 | 4
+		GUILayout.Label("---"); // 3 | 2
+		GUILayout.Label("Heading: " + Mathf.Round(Input.compass.trueHeading)); // 4 | 3
+		GUILayout.Label("---"); // 5 | 4
 		float angle = -Vector3.Angle(Vector3.forward, Input.acceleration) + 90f;
-		GUILayout.Box("Vertical angle: " + Mathf.Round(angle)); // 6 | 5
+		GUILayout.Label("Vertical angle: " + Mathf.Round(angle)); // 6 | 5
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}

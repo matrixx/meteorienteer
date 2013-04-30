@@ -33,7 +33,7 @@ public class SentView : MonoBehaviour
 		GUILayout.FlexibleSpace();
 		GUILayout.EndVertical();
 		GUILayout.FlexibleSpace();
-		GUILayout.Box("Observation successfully sent to server!");
+		GUILayout.Label("Observation successfully sent to server!");
 		GUILayout.FlexibleSpace();
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();

@@ -21,26 +21,16 @@ public class DirectionView : MonoBehaviour
 	void OnGUI()
 	{
 		GUI.matrix = GUIOptions.Singleton.GUIMatrix;
-		GUI.skin = transparentGuiSkin;
+		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginArea(new Rect(0,0,GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
-		GUILayout.Box(Loc.Str ("directionview_info"));
-		if (SensorData.LocationAvailable)
-		{
-			GUILayout.Box("");
-			GUILayout.Box("");
-		}
-		else
-		{
-			GUILayout.Box("");
-		}
-		GUILayout.Box("");
-		GUILayout.Box("");
-		GUILayout.Box("");
-		GUILayout.Box("");
+		GUILayout.Label(Loc.Str ("directionview_info"));
+		GUILayout.Label("");
+		GUILayout.Label("");
+		GUILayout.Label("");
+		GUILayout.Label("");
 		GUILayout.FlexibleSpace();
 		
-		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button(Loc.Str ("directionview_back")))
 		{
@@ -57,22 +47,19 @@ public class DirectionView : MonoBehaviour
 		
 		
 		GUILayout.FlexibleSpace();
-		GUI.skin = transparentGuiSkin;
-		GUILayout.Box("");
 		if (SensorData.LocationAvailable)
 		{
-			GUILayout.Box("Leveysaste: " + SensorData.Latitude);
-			GUILayout.Box("Pituusaste: " + SensorData.Longitude);
+			GUILayout.Label("Leveysaste: " + SensorData.Latitude + ", Pituusaste: " + SensorData.Longitude);
 		}
 		else
 		{
-			GUILayout.Box("Paikannusdataa ei saatavilla");
+			GUILayout.Label("Paikannusdataa ei saatavilla");
 		}
-		GUILayout.Box("---");
-		GUILayout.Box("Ilmansuunta: " + Mathf.Round(SensorData.TrueHeading));
-		GUILayout.Box("---");
+		GUILayout.Label("---");
+		GUILayout.Label("Ilmansuunta: " + Mathf.Round(SensorData.TrueHeading));
+		GUILayout.Label("---");
 		float angle = -Vector3.Angle(Vector3.forward, SensorData.Acceleration) + 90f;
-		GUILayout.Box("Korkeuskulma: " + Mathf.Round(angle));
+		GUILayout.Label("Korkeuskulma: " + Mathf.Round(angle));
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}

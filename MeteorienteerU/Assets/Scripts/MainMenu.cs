@@ -31,6 +31,7 @@ public class MainMenu : MonoBehaviour
 			sensorCaptureView.enabled = true;
 		}
 		GUILayout.FlexibleSpace();
+		GUI.enabled = false;
 		GUILayout.Button(Loc.Str ("mainmenu_info"));
 		GUILayout.FlexibleSpace();
 		GUILayout.Button(Loc.Str ("mainmenu_history"));
