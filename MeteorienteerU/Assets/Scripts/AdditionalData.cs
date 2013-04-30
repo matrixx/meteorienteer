@@ -20,6 +20,10 @@ public class AdditionalData : MonoBehaviour
 	
 	private Vector2 scrollPosition;
 	private bool formWasReady = false;
+	
+	private int currentField = -1;
+	private int firstField = -1;
+	private int lastField = -1;
 
 	void Awake()
 	{
@@ -30,6 +34,9 @@ public class AdditionalData : MonoBehaviour
 	
 	void OnEnable()
 	{
+		currentField = -1;
+		firstField = -1;
+		lastField = -1;
 		sendResult = Taivaanvahti.SendResult.None;
 		Debug.Log("AdditionalData::OnEnable");
 		Debug.Log(fieldValues.Count);
@@ -141,37 +148,61 @@ public class AdditionalData : MonoBehaviour
 		GUILayout.FlexibleSpace();
 		
 		GUILayout.BeginHorizontal();
-		GUILayout.BeginVertical();
-		GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Takaisin"))
-		{
-			this.enabled = false;
-			directionView.enabled = true;
-		}
-		GUILayout.FlexibleSpace();
-		GUILayout.EndVertical();
 		GUILayout.FlexibleSpace();
 		GUI.skin = origSkin;
-		GUIDrawFormOptions();
+		GUIDrawCurrentField();
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUILayout.FlexibleSpace();
-		GUILayout.BeginVertical();
-		GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Lähetä"))
-		{
-			SubmitForm();
-		}
-		GUILayout.FlexibleSpace();
-		GUILayout.EndVertical();
 		GUILayout.EndHorizontal();
 		
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("");
+		
+		GUILayout.BeginHorizontal();
+		if (currentField == firstField)
+		{
+			if (GUILayout.Button("Takaisin"))
+			{
+				this.enabled = false;
+				directionView.enabled = true;
+			}
+		}
+		else
+		{
+			if (GUILayout.Button("Edellinen"))
+			{
+				PrevField();
+			}
+		}
+		
+		GUILayout.FlexibleSpace();
+		
+		if (taivaanVahti && taivaanVahti.FormReady && formWasReady)
+		{
+			if (currentField == lastField)
+			{
+				if (GUILayout.Button("Lähetä"))
+				{
+					SubmitForm();
+				}
+			}
+			else
+			{
+				if (GUILayout.Button("Seuraava"))
+				{
+					NextField();
+				}
+			}
+		}
+		GUILayout.EndHorizontal();
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}
 	
 	private Taivaanvahti.SendResult sendResult;
+	
+	private Dictionary<int, bool> showPopup = new Dictionary<int, bool>();
+	private Dictionary<int, int> listEntry = new Dictionary<int, int>();
+	private Dictionary<string, string> fieldValues = new Dictionary<string, string>();
 	
 	void Update()
 	{
@@ -199,6 +230,15 @@ public class AdditionalData : MonoBehaviour
 					++fieldNumber;
 				}
 				formWasReady = true;
+				NextField();
+				firstField = currentField;
+				for (int i = 0; i < taivaanVahti.Form.Fields.Count; ++i)
+				{
+					if (usedFields.Contains(taivaanVahti.Form.Fields[i].id))
+					{
+						lastField = i;
+					}
+				}
 			}
 			if (taivaanVahti.OngoingSendResult() == Taivaanvahti.SendResult.Success)
 			{
@@ -212,11 +252,7 @@ public class AdditionalData : MonoBehaviour
 			}
 		}
 	}
-	
-	private Dictionary<int, bool> showPopup = new Dictionary<int, bool>();
-	private Dictionary<int, int> listEntry = new Dictionary<int, int>();
-	private Dictionary<string, string> fieldValues = new Dictionary<string, string>();
-	
+		
 	void GUIDrawFormOptions()
 	{
 		scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(menuWidth));
@@ -294,6 +330,78 @@ public class AdditionalData : MonoBehaviour
 			}
 		}
 		GUILayout.EndScrollView();
+	}
+	
+	void NextField()
+	{
+		int prevField = currentField;
+		do
+		{
+			++currentField;
+		}
+		while (currentField < taivaanVahti.Form.Fields.Count && !usedFields.Contains(taivaanVahti.Form.Fields[currentField].id));
+		if (currentField >= taivaanVahti.Form.Fields.Count)
+		{
+			currentField = prevField;
+		}
+	}
+	
+	void PrevField()
+	{
+		int lastField = currentField;
+		do
+		{
+			--currentField;
+		}
+		while (currentField >= 0 && !usedFields.Contains(taivaanVahti.Form.Fields[currentField].id));
+		if (currentField < 0)
+		{
+			currentField = lastField;
+		}
+	}
+	
+	void GUIDrawCurrentField()
+	{
+		if (taivaanVahti && taivaanVahti.FormReady && formWasReady && currentField >= 0 && currentField < taivaanVahti.Form.Fields.Count)
+		{
+			TaivaanvahtiField field =  taivaanVahti.Form.Fields[currentField];
+			
+			GUILayout.BeginVertical();
+			if (field.type == TaivaanvahtiField.FieldType.TYPE_CHECKBOX)
+			{
+				fieldValues[field.id] = GUILayout.Toggle(fieldValues[field.id] != "0", field.label) ? "1" : "0";
+			}
+			if (field.type == TaivaanvahtiField.FieldType.TYPE_SELECTION && field.values != null && field.values.Count > 1)
+			{
+				GUILayout.Label(field.label);
+				GUIContent[] listContent = new GUIContent[field.values.Count];
+				int i = 0;
+				foreach (string str in field.values.Values)
+				{
+					listContent[i] = new GUIContent(str);
+					if (str == fieldValues[field.id])
+					{
+						listEntry[currentField] = i;
+					}
+					++i;
+				}
+				//Rect rc = GUILayoutUtility.GetRect(inputWidth, GUI.skin.box.CalcSize(listContent[listEntry[currentField]]).y);
+//				bool show = showPopup[currentField];
+				int entry = listEntry[currentField];
+//				Popup.List(rc, ref show, ref entry, listContent[listEntry[currentField]],
+//					listContent, GUI.skin.button, dropdownBackgroudStyle, GUI.skin.button);
+				entry = GUILayout.SelectionGrid(entry, listContent, 2);
+//				showPopup[currentField] = show;
+				listEntry[currentField] = entry;
+				fieldValues[field.id] = listContent[entry].text;
+			}
+			else
+			{
+				GUILayout.Label(field.label);
+				fieldValues[field.id] = GUILayout.TextField(fieldValues[field.id], GUILayout.Width(inputWidth));
+			}
+			GUILayout.EndVertical();
+		}
 	}
 	
 	void SubmitForm()
