@@ -10,6 +10,16 @@ sensorcaptureview_back;
 Back
 sensorcaptureview_next;
 Take pic
+sensorcaptureview_latitude;
+Latitude: 
+sensorcaptureview_longitude;
+Longitude: 
+sensorcaptureview_locationunavailable;
+Location services unavailable.
+sensorcaptureview_heading;
+Heading: 
+sensorcaptureview_verticalangle;
+Vertical angle: 
 directionview_info;
 Drag the points of the arrow so that it depicts the flight of the fireball.
 directionview_back;
@@ -17,7 +27,7 @@ Back
 directionview_next;
 Next
 additionaldata_title;
-Input additional data
+Check the data and input additional information.
 additionaldata_missing_fields;
 Error: Some fields are missing data.
 additionaldata_other_error;

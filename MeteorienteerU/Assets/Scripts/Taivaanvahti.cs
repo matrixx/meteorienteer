@@ -158,6 +158,13 @@ public class Taivaanvahti : MonoBehaviour
 			}
 		}
 	}
+	
+	public void Reset()
+	{
+		sendResponse = "";
+		FormReady = false;
+		Form = null;
+	}
 }
 
 

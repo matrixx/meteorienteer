@@ -68,25 +68,27 @@ public class SensorCaptureView : MonoBehaviour
 //		GUI.skin = transparentGuiSkin;
 		if (Input.location.status == LocationServiceStatus.Running)
 		{
-			GUILayout.Label("Latitude: " + Input.location.lastData.latitude + ", Longitude: " + Input.location.lastData.longitude);
+			GUILayout.Label(Loc.Str("sensorcaptureview_latitude") + Input.location.lastData.latitude + ", " +
+				Loc.Str("sensorcaptureview_longitude") + Input.location.lastData.longitude);
 		}
 		else
 		{
-			GUILayout.Label("Location services unavailable"); // 2 | 1
+			GUILayout.Label(Loc.Str("sensorcaptureview_locationunavailable"));
 		}
-		GUILayout.Label("---"); // 3 | 2
-		GUILayout.Label("Heading: " + Mathf.Round(Input.compass.trueHeading)); // 4 | 3
-		GUILayout.Label("---"); // 5 | 4
+		GUILayout.Label("---");
+		GUILayout.Label(Loc.Str("sensorcaptureview_heading") + Mathf.Round(Input.compass.trueHeading));
+		GUILayout.Label("---");
 		float angle = -Vector3.Angle(Vector3.forward, Input.acceleration) + 90f;
-		GUILayout.Label("Vertical angle: " + Mathf.Round(angle)); // 6 | 5
+		GUILayout.Label(Loc.Str("sensorcaptureview_verticalangle") + Mathf.Round(angle));
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}
 	
 	void OnDisable()
 	{
-		if (deviceCamera){
-			deviceCamera.webCamTex.Pause();
+		if (deviceCamera)
+		{
+			deviceCamera.webCamTex.Stop();
 		}
 	}
 }

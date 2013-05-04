@@ -16,6 +16,10 @@ public class DirectionView : MonoBehaviour
 	void OnEnable()
 	{
 		DirectionLine.Singleton.enabled = true;
+//		if (sensorCaptureView.deviceCamera)
+//		{
+//			sensorCaptureView.deviceCamera.gameObject.SetActiveRecursively(true);
+//		}
 	}
 	
 	void OnGUI()
@@ -42,6 +46,10 @@ public class DirectionView : MonoBehaviour
 		{
 			this.enabled = false;
 			additionalData.enabled = true;
+//			if (sensorCaptureView.deviceCamera)
+//			{
+//				sensorCaptureView.deviceCamera.gameObject.SetActiveRecursively(false);
+//			}
 		}
 		GUILayout.EndHorizontal();
 		
@@ -49,17 +57,18 @@ public class DirectionView : MonoBehaviour
 		GUILayout.FlexibleSpace();
 		if (SensorData.LocationAvailable)
 		{
-			GUILayout.Label("Leveysaste: " + SensorData.Latitude + ", Pituusaste: " + SensorData.Longitude);
+			GUILayout.Label(Loc.Str("sensorcaptureview_latitude") + SensorData.Latitude + ", " +
+				Loc.Str("sensorcaptureview_longitude") + SensorData.Longitude);
 		}
 		else
 		{
-			GUILayout.Label("Paikannusdataa ei saatavilla");
+			GUILayout.Label(Loc.Str("sensorcaptureview_locationunavailable"));
 		}
 		GUILayout.Label("---");
-		GUILayout.Label("Ilmansuunta: " + Mathf.Round(SensorData.TrueHeading));
+		GUILayout.Label(Loc.Str("sensorcaptureview_heading") + Mathf.Round(SensorData.TrueHeading));
 		GUILayout.Label("---");
 		float angle = -Vector3.Angle(Vector3.forward, SensorData.Acceleration) + 90f;
-		GUILayout.Label("Korkeuskulma: " + Mathf.Round(angle));
+		GUILayout.Label(Loc.Str("sensorcaptureview_verticalangle") + Mathf.Round(angle));
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}

@@ -566,4 +566,9 @@ public class AdditionalData : MonoBehaviour
 			taivaanVahti.SubmitForm(submitData);
 		}	
 	}
+	
+	void OnDisable()
+	{
+		taivaanVahti.Reset();
+	}
 }

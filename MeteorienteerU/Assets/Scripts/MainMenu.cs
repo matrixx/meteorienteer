@@ -19,6 +19,19 @@ public class MainMenu : MonoBehaviour
 		GUI.matrix = GUIOptions.Singleton.GUIMatrix;
 		GUI.skin = GUIOptions.Singleton.appStyle;
 		GUI.DrawTexture(new Rect(0, 0, GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y), bgImage, ScaleMode.StretchToFill);
+		
+		GUILayout.BeginArea(new Rect(0,0,GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
+		GUILayout.BeginVertical();
+		GUILayout.Space(50);
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Meteorienteer");
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.EndVertical();
+		GUILayout.EndArea();
+		
 		GUILayout.BeginArea(new Rect(0,0,GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();

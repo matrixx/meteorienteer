@@ -10,6 +10,16 @@ sensorcaptureview_back;
 Takaisin
 sensorcaptureview_next;
 Ota kuva
+sensorcaptureview_latitude;
+Latitude: 
+sensorcaptureview_longitude;
+Longitude: 
+sensorcaptureview_locationunavailable;
+Location services unavailable.
+sensorcaptureview_heading;
+Heading: 
+sensorcaptureview_verticalangle;
+Vertical angle: 
 directionview_info;
 Aseta nuoli kuvaamaan tulipallon lentorataa.
 directionview_back;
@@ -17,7 +27,7 @@ Takaisin
 directionview_next;
 Seuraava
 additionaldata_title;
-Syötä lisätiedot
+Tarkista havaintodata ja syötä lisätiedot.
 additionaldata_missing_fields;
 Virhe: Joitakin kenttiä puuttuu.
 additionaldata_other_error;
