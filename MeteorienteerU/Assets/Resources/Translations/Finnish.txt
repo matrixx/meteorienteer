@@ -43,6 +43,16 @@ Lähetä
 additionaldata_connectingtoserver;
 Yhdistetään palvelimelle...
 
+sentview_imagesend_failed;
+Kuvan lähetys epäonnistui,
+muu data lähetetty onnistuneesti!
+sentview_observation_sent;
+Havainto lähetetty onnistuneesti!
+sentview_new_observation;
+Uusi havainto
+sentview_mainmenu;
+Takaisin päävalikkoon
+
 observation_title;
 Havainto
 

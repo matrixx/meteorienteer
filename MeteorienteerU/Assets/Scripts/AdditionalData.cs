@@ -84,7 +84,7 @@ public class AdditionalData : MonoBehaviour
 		currentField = -1;
 		firstField = -1;
 		lastField = -1;
-		sendResult = Taivaanvahti.SendResult.None;
+	//	sendResult = Taivaanvahti.SendResult.None;
 		Debug.Log("AdditionalData::OnEnable");
 		Debug.Log(fieldValues.Count);
 		formWasReady = false;
@@ -128,7 +128,7 @@ public class AdditionalData : MonoBehaviour
 		}
 		fieldValues.Add("specific_ilmansuunta_katoamishetkellä", heading);
 		
-		float angle = Vector3.Angle(Vector3.down, SensorData.Acceleration) - 90f;
+		float angle = -Vector3.Angle(Vector3.forward, SensorData.Acceleration) + 90f;
 		
 		angleDelta = 90f / 7f;
 		
@@ -187,11 +187,11 @@ public class AdditionalData : MonoBehaviour
 		GUILayout.BeginArea(new Rect(0,0, GUIOptions.Singleton.guiResolution.x, GUIOptions.Singleton.guiResolution.y));
 		GUILayout.BeginVertical();
 		GUILayout.Label(Loc.Str("additionaldata_title"));
-		if (sendResult == Taivaanvahti.SendResult.MissingFields)
+		if (taivaanVahti.CurrentSendStatus() == Taivaanvahti.SendStatus.MissingFields)
 		{
 			GUILayout.Label(Loc.Str("additionaldata_missing_fields"));
 		}
-		else if (sendResult == Taivaanvahti.SendResult.OtherError)
+		else if (taivaanVahti.CurrentSendStatus() == Taivaanvahti.SendStatus.OtherError)
 		{
 			GUILayout.Label(Loc.Str("additionaldata_other_error"));
 		}
@@ -212,8 +212,11 @@ public class AdditionalData : MonoBehaviour
 		{
 			if (GUILayout.Button(Loc.Str("additionaldata_back")))
 			{
-				this.enabled = false;
-				directionView.enabled = true;
+				if (taivaanVahti.CurrentSendStatus() != Taivaanvahti.SendStatus.Sending)
+				{
+					this.enabled = false;
+					directionView.enabled = true;
+				}
 			}
 		}
 		else
@@ -232,7 +235,10 @@ public class AdditionalData : MonoBehaviour
 			{
 				if (GUILayout.Button(Loc.Str("additionaldata_send")))
 				{
-					SubmitForm();
+					if (taivaanVahti.CurrentSendStatus() != Taivaanvahti.SendStatus.Sending)
+					{
+						SubmitForm();
+					}
 				}
 			}
 			else
@@ -248,7 +254,7 @@ public class AdditionalData : MonoBehaviour
 		GUILayout.EndArea();
 	}
 	
-	private Taivaanvahti.SendResult sendResult;
+//	private Taivaanvahti.SendStatus sendResult;
 	
 	private Dictionary<int, bool> showPopup = new Dictionary<int, bool>();
 	private Dictionary<int, int> listEntry = new Dictionary<int, int>();
@@ -290,16 +296,16 @@ public class AdditionalData : MonoBehaviour
 					}
 				}
 			}
-			if (taivaanVahti.OngoingSendResult() == Taivaanvahti.SendResult.Success)
+			if (taivaanVahti.CurrentSendStatus() == Taivaanvahti.SendStatus.Success ||
+				taivaanVahti.CurrentSendStatus() == Taivaanvahti.SendStatus.ImageSendFailed)
 			{
 				this.enabled = false;
 				sentView.enabled = true;
-				sendResult = Taivaanvahti.SendResult.None;
 			}
-			else if (taivaanVahti.OngoingSendResult() != Taivaanvahti.SendResult.None)
-			{
-				sendResult = taivaanVahti.OngoingSendResult();
-			}
+//			else if (taivaanVahti.SendStatus() != Taivaanvahti.SendResult.None)
+//			{
+//				sendResult = taivaanVahti.SendStatus();
+//			}
 		}
 	}
 		

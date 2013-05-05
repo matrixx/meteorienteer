@@ -14,6 +14,14 @@ public class MainMenu : MonoBehaviour
 		infoView = GetComponent<InfoView>();
 	}
 	
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
+	}
+	
 	void OnGUI()
 	{
 		GUI.matrix = GUIOptions.Singleton.GUIMatrix;

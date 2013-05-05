@@ -6,11 +6,13 @@ public class SentView : MonoBehaviour
 	public Texture2D bgImage;
 	private MainMenu mainMenu;
 	private SensorCaptureView sensorCaptureView;
+	private Taivaanvahti taivaanVahti;
 	
 	void Awake()
 	{
 		mainMenu = GetComponent<MainMenu>();
 		sensorCaptureView = GetComponent<SensorCaptureView>();
+		taivaanVahti = GetComponent<Taivaanvahti>();
 	}
 	
 	void OnGUI()
@@ -25,7 +27,7 @@ public class SentView : MonoBehaviour
 		GUILayout.BeginHorizontal();
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();
-		if (GUILayout.Button("New observation"))
+		if (GUILayout.Button(Loc.Str("sentview_new_observation")))
 		{
 			this.enabled = false;
 			sensorCaptureView.enabled = true;
@@ -33,11 +35,18 @@ public class SentView : MonoBehaviour
 		GUILayout.FlexibleSpace();
 		GUILayout.EndVertical();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("Observation successfully sent to server!");
+		if (taivaanVahti.CurrentSendStatus() == Taivaanvahti.SendStatus.ImageSendFailed)
+		{
+			GUILayout.Label(Loc.Str("sentview_imagesend_failed"));
+		}
+		else
+		{
+			GUILayout.Label(Loc.Str("sentview_observation_sent"));
+		}
 		GUILayout.FlexibleSpace();
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Main menu"))
+		if (GUILayout.Button(Loc.Str("sentview_mainmenu")))
 		{
 			this.enabled = false;
 			mainMenu.enabled = true;

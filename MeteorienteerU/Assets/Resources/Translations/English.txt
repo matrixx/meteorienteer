@@ -43,6 +43,16 @@ Send
 additionaldata_connectingtoserver;
 Connecting to server...
 
+sentview_imagesend_failed;
+Error sending observation image to server,
+other data successfully sent!
+sentview_observation_sent;
+Observation successfully sent to server!
+sentview_new_observation;
+New observation
+sentview_mainmenu;
+Main menu
+
 observation_title;
 Observation
 

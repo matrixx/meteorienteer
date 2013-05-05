@@ -12,7 +12,6 @@ public class SensorCaptureView : MonoBehaviour
 	{
 		mainMenu = GetComponent<MainMenu>();
 		directionView = GetComponent<DirectionView>();
-		
 	}
 	
 	void OnEnable()
@@ -25,6 +24,8 @@ public class SensorCaptureView : MonoBehaviour
 				deviceCamera.webCamTex.Play();
 			}
 		}
+		Input.location.Start();
+		Input.compass.enabled = true;
 	}
 	
 	void OnGUI()
@@ -90,5 +91,7 @@ public class SensorCaptureView : MonoBehaviour
 		{
 			deviceCamera.webCamTex.Stop();
 		}
+		Input.location.Stop();
+		Input.compass.enabled = false;
 	}
 }

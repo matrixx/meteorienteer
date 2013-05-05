@@ -13,9 +13,9 @@ public class Taivaanvahti : MonoBehaviour
 	
 	public TaivaanvahtiForm Form {get; private set;}
 	public bool FormReady {get; private set;}
-	public enum SendResult {None, Success, MissingFields, OtherError};
+	public enum SendStatus {Idle, Sending, Success, MissingFields, ImageSendFailed, OtherError};
 	
-	private SendResult sendResult = SendResult.None;
+	private SendStatus sendStatus = SendStatus.Idle;
 	
 	private Dictionary<TaivaanvahtiField, string> sendForm;
 	
@@ -32,7 +32,7 @@ public class Taivaanvahti : MonoBehaviour
 	
 	public void SubmitForm(Dictionary<TaivaanvahtiField, string> sendForm, Texture2D sendImage)
 	{
-		sendResult = SendResult.None;
+		sendStatus = SendStatus.Sending;
 		this.sendForm = sendForm;
 		this.sendImage = sendImage;
 		StartCoroutine("SubmitFormCR");
@@ -142,7 +142,7 @@ public class Taivaanvahti : MonoBehaviour
 		XmlDocument xmlDoc = new XmlDocument();
 		xmlDoc.LoadXml(www.text);
 		XmlElement responseElement = xmlDoc.DocumentElement;
-		sendResult = SendResult.OtherError;
+		sendStatus = SendStatus.OtherError;
 		if (responseElement.Name == "response")
 		{
 			string response_type = responseElement["response_type"].InnerText;
@@ -206,7 +206,7 @@ public class Taivaanvahti : MonoBehaviour
 				string imageOutString = imageSendDoc.InnerXml;
 				Debug.Log(imageOutString);
 				
-				sendResult = SendResult.None;
+				sendStatus = SendStatus.Sending;
 				
 				www = new WWW(URL, System.Text.Encoding.UTF8.GetBytes(imageOutString), headers);
 				yield return www;
@@ -214,13 +214,13 @@ public class Taivaanvahti : MonoBehaviour
 				xmlDoc = new XmlDocument();
 				xmlDoc.LoadXml(www.text);
 				responseElement = xmlDoc.DocumentElement;
-				sendResult = SendResult.OtherError;
+				sendStatus = SendStatus.ImageSendFailed;
 				if (responseElement.Name == "response")
 				{
 					response_type = responseElement["response_type"].InnerText;
 					if (response_type == "Success")
 					{
-						sendResult = SendResult.Success;
+						sendStatus = SendStatus.Success;
 					}	
 				}
 			}
@@ -228,7 +228,7 @@ public class Taivaanvahti : MonoBehaviour
 			{
 				if (responseElement["field_id"] != null)
 				{
-					sendResult = SendResult.MissingFields;
+					sendStatus = SendStatus.MissingFields;
 				}
 			}
 		}
@@ -247,7 +247,7 @@ public class Taivaanvahti : MonoBehaviour
 //		}
 	}
 	
-	public SendResult OngoingSendResult()
+	public SendStatus CurrentSendStatus()
 	{
 		/*if (sendResponse == "")
 		{
@@ -268,12 +268,12 @@ public class Taivaanvahti : MonoBehaviour
 				return SendResult.OtherError;
 			}
 		}*/
-		return sendResult;
+		return sendStatus;
 	}
 	
 	public void Reset()
 	{
-		sendResult = SendResult.None;
+		sendStatus = SendStatus.Idle;
 		FormReady = false;
 		Form = null;
 	}
