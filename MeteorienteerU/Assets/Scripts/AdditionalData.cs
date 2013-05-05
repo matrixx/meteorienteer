@@ -563,7 +563,7 @@ public class AdditionalData : MonoBehaviour
 				}
 			}
 			
-			taivaanVahti.SubmitForm(submitData);
+			taivaanVahti.SubmitForm(submitData, SensorData.image);
 		}	
 	}
 	
