@@ -427,6 +427,7 @@ public class AdditionalData : MonoBehaviour
 				{
 					GUILayout.Label(Loc.Str(field.id));
 					GUIContent[] listContent = new GUIContent[field.values.Count];
+					string[] values = new string[field.values.Count];
 					int i = 0;
 					foreach (string str in field.values.Values)
 					{
@@ -440,12 +441,13 @@ public class AdditionalData : MonoBehaviour
 						{
 							listEntry[currentField] = i;
 						}
+						values[i] = str;
 						++i;
 					}
 					int entry = listEntry[currentField];
 					entry = GUILayout.SelectionGrid(entry, listContent, 2);
 					listEntry[currentField] = entry;
-					fieldValues[field.id] = listContent[entry].text;
+					fieldValues[field.id] = values[entry];
 				}
 				else
 				{

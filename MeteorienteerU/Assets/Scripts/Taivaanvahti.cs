@@ -206,6 +206,8 @@ public class Taivaanvahti : MonoBehaviour
 				string imageOutString = imageSendDoc.InnerXml;
 				Debug.Log(imageOutString);
 				
+				sendResult = SendResult.None;
+				
 				www = new WWW(URL, System.Text.Encoding.UTF8.GetBytes(imageOutString), headers);
 				yield return www;
 				Debug.Log(www.text);

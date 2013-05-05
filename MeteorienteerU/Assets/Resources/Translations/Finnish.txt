@@ -152,6 +152,8 @@ Yli 20 sekuntia
 specific_sammumistapa;
 Miten tulipallo sammui?
 
+specific_fading_0;
+En nähnyt sammumista
 specific_fading_1;
 Katosi esteen (esim. puiden  tai pilven) taakse
 specific_fading_2;

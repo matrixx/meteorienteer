@@ -152,6 +152,8 @@ More than 20 seconds
 specific_sammumistapa;
 How did your fireball fade away?
 
+specific_fading_0;
+I did not see it fading
 specific_fading_1;
 It disappeared behind an object (perhaps a tree or clouds)
 specific_fading_2;

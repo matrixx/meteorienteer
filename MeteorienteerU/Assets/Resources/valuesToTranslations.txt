@@ -32,6 +32,7 @@ Alle sekunnin=>specific_duration_1;
 16-20 sekuntia=>specific_duration_13;
 Yli 20 sekuntia=>specific_duration_14;
 
+En nähnyt sammumista=>specific_fading_0;
 Katosi esteen (esim. puiden  tai pilven) taakse=>specific_fading_1;
 Sammui yhtäkkiä=>specific_fading_2;
 Sammui hiipumalla=>specific_fading_3;
